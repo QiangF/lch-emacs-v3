@@ -1,0 +1,135 @@
+;;; Font
+;; You can get text properties of any char by typing `C-u C-x ='
+
+;; Under Windows, you can get the current font string by typing
+;; `(insert (format "\n%S" (w32-select-font)))' followed by `C-x C-e'
+
+;; You can find the current font by typing
+;; `M-x ielm RET (frame-parameters) RET'
+;; see the line `font'
+
+;; To check if some font is available in Emacs do following:
+;;    1.   Switch to the `*scratch*' buffer.
+;;    2.   Type `(prin1-to-string (x-list-fonts "font-you-want-to-check or
+;;         pattern"))'.
+;;    3.   Place the cursor after the last closing paren and hit
+;;         `C-j'. List of the names of available fonts matching given
+;;         pattern will appear in the current buffer (`*scratch*').
+;;    4.   For listing of all available fonts, use
+;;         `(prin1-to-string (x-list-fonts "*"))' or
+;;         `(dolist (i (x-list-fonts "*")) (princ i) (terpri))'
+;;         for a better output.
+
+;; Format: "-a-b-c-d-e-f-g-h-i-j-k-l-"
+;; where
+;;
+;; a = foundry
+;;
+;; b = font family <<<
+;;
+;; c = weight
+;;     Valid options: `bold', `demibold', `light', `medium', `normal'.
+;;
+;; d = slant
+;;     Valid options: `i' for italic and `r' for roman.
+;;
+;; e = set width
+;;     Ignored by NT-Emacs.
+;;
+;; f = pixels
+;;     Nominal font height in pixels. (Eg. 13 pixels roughly corresponds to
+;;     10 points (a point is 1/72 of an inch) on a 96dpi monitor, so the
+;;     font spec above is selecting a 10 point bold Courier font)
+;;
+;; g = points in tenths of a point
+;;     10 point is 100
+;;
+;; h = horiz resolution in dpi
+;;     I think these numbers represent the "design resolution" of the font -
+;;     on X, fonts are typically designed for 75dpi or 100dpi screens (under
+;;     Windows,most monitors are assumed to be 96dpi I believe). NT-Emacs
+;;     ignores these values.
+;;
+;; i = vertical resolution in dpi
+;;     I think these numbers represent the "design resolution" of the font -
+;;     on X, fonts are typically designed for 75dpi or 100dpi screens (under
+;;     Windows,most monitors are assumed to be 96dpi I believe). NT-Emacs
+;;     ignores these values.
+;;
+;; j = spacing
+;;     Spacing as in mono-spaced or proportionally spaced.
+;;     Values are `c' (constant) or `m' (monospace) to mean fixed-width or
+;;     `p' for proportionally spaced.
+;;
+;; k = average width in tenths of a pixel
+;;
+;; l = character set
+;;     NT-Emacs understands: ansi, oem, symbol to refer to the standard
+;;     Windows character sets (the first two, at least, are locale
+;;     dependant). "iso8859" and "iso8859-1" are accepted as synonyms for
+;;     ansi.
+
+;; Use `xfontsel' utility (or the command-line `xlsfonts') to try out
+;; different fonts. After choosing a font, click the select button in
+;; `xfontsel' window. This will copy font name you choose to copy & paste
+;; buffer.
+;; Edit your `~/.Xresources' file to have a line with "Emacs.font".
+;; Then do a `xrdb -merge ~/.Xresources' or restart your X11 to validate the
+;; modification. I let emacs do this for me:
+
+
+;;; Auto Select Fonts
+(defun qiang-font-existsp (font)
+  (if (null (x-list-fonts font))
+      nil t))
+
+(defvar font-list '("Microsoft Yahei" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体"))
+(eval-when-compile (require 'cl)) ;; find-if is in common list package
+(find-if #'qiang-font-existsp font-list)
+
+(defun qiang-make-font-string (font-name font-size)
+  (if (and (stringp font-size)
+           (equal ":" (string (elt font-size 0))))
+      (format "%s%s" font-name font-size)
+    (format "%s %s" font-name font-size)))
+
+(defun qiang-set-font (english-fonts
+                       english-font-size
+                       chinese-fonts
+                       &optional chinese-font-size)
+  "english-font-size could be set to \":pixelsize=18\" or a integer.
+If set/leave chinese-font-size to nil, it will follow english-font-size"
+  (eval-when-compile (require 'cl)) ; for find if
+  (let ((en-font (qiang-make-font-string
+                  (find-if #'qiang-font-existsp english-fonts)
+                  english-font-size))
+        (zh-font (font-spec :family (find-if #'qiang-font-existsp chinese-fonts)
+                            :size chinese-font-size)))
+
+    ;; Set the default English font
+    ;;
+    ;; The following 2 method cannot make the font settig work in new frames.
+    ;; (set-default-font "Consolas:pixelsize=18")
+    ;; (add-to-list 'default-frame-alist '(font . "Consolas:pixelsize=18"))
+    ;; We have to use set-face-attribute
+    (message "Set English Font to %s" en-font)
+    (set-face-attribute
+     'default nil :font en-font)
+
+    ;; Set Chinese font
+    ;; Do not use 'unicode charset, it will cause the english font setting invalid
+    (message "Set Chinese Font to %s" zh-font)
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font)
+                        charset
+                        zh-font))))
+(if (not lch-mac-p)
+    (qiang-set-font
+     '("Lucida Console" "Monaco" "Consolas" "DejaVu Sans Mono" "Monospace" "Courier New") ":pixelsize=21"
+     '("Microsoft Yahei" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体")))
+
+
+;;; Theme
+;; (add-to-list 'load-path (concat emacs-dir "/site-lisp/color-theme"))
+;; (require 'color-theme)
+;; (color-theme-arjen)

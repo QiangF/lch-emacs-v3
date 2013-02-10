@@ -1,0 +1,458 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Sun Feb 10 14:25:14 2013
+;; Desktop file format version 206
+;; Emacs version 23.3.1
+
+;; Global section:
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '("web" "lch-toggle" "emms" "evaled" "eval" "f10" "util" "conf" "undo" "ido" "global" "undo-tree" "globa" "xwl" "local" "goto-line"))
+(setq regexp-search-ring '("web" "bind" "one-key" "and" "ch-inde" "let" "kbd" "util" "my-ho" "bi" "cod" "dired" "them" "swit" "one-" "f4"))
+(setq register-alist (list (list 97 "Unprintable entity" (let ((mk (make-marker))) (add-hook 'desktop-delay-hook (list 'lambda '() (list 'set-marker mk nil (get-buffer " *temp*")))) mk))))
+(setq file-name-history '("~/Dropbox/.emacs.d/var/.bm-repository" "~/Dropbox/.emacs.d/rc/lch-emms.el" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-util.el" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-emms.el_archive" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-binding.el_archive" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-ui.el" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-binding.el_bak" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-binding.el" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-conf.el_archive" "~/Dropbox/.emacs.d/rc/lch-startup.el" "~/Dropbox/.emacs.d/rc/lch-erc.el" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-erc.el_archive" "~/Dropbox/.emacs.d/rc/lch-org-export.el" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-org.el_archive" "~/Dropbox/.emacs.d/rc/lch-org.el" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-tex.el_archive" "~/Dropbox/.emacs.d/rc/lch-tex.el" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-bmk.el_archive" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-bmk.el" "~/Dropbox/.emacs.d/rc/lch-bmk.el" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-shell.el_archive" "~/Dropbox/.emacs.d/rc/lch-shell.el" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-calendar.el_archive" "~/Dropbox/.emacs.d/rc/lch-calendar.el" "~/Dropbox/.emacs.d/rc/lch-dired.el_achive" "~/Dropbox/.emacs.d/rc/lch-dired.el" "/Users/LooChao/Dropbox/.emacs.d/rc/lch-web.el"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-web.el"
+  "lch-web.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1722
+  '(1839 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-binding.el_archive"
+  "lch-binding.el_archive"
+  'lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode flyspell-mode)
+  2541
+  '(3438 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-binding.el"
+  "lch-binding.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode hi-lock-mode outline-minor-mode flyspell-mode)
+  4052
+  '(6026 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-util.el"
+  "lch-util.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1512
+  '(2173 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-util.el_archive"
+  "lch-util.el_archive"
+  'lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  44
+  '(28346 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-web.el_archive"
+  "lch-web.el_archive"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1
+  '(18749 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+
+(desktop-create-buffer 206
+  nil
+  "rc"
+  'dired-mode
+  '(global-auto-revert-mode yas-minor-mode)
+  6339
+  '(1 nil)
+  t
+  '("/Users/LooChao/Dropbox/.emacs.d/rc/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-emms.el"
+  "lch-emms.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  3810
+  '(1 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-elisp.el"
+  "lch-elisp.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  32586
+  '(14877 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-one-key.el_archive"
+  "lch-one-key.el_archive"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode view-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  19349
+  '(2018 nil)
+  t
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-one-key.el"
+  "lch-one-key.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  2943
+  '(1035 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-conf.el"
+  "lch-conf.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1876
+  '(824 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode) (truncate-lines)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-conf.el_archive"
+  "lch-conf.el_archive"
+  'fundamental-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode)
+  1
+  '(1 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-startup.el"
+  "lch-startup.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  792
+  '(1 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-erc.el"
+  "lch-erc.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1073
+  '(1089 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-org-export.el"
+  "lch-org-export.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  6697
+  '(nil nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-org.el"
+  "lch-org.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  13418
+  '(14394 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-org.el_archive"
+  "lch-org.el_archive"
+  'fundamental-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode)
+  3812
+  '(2093 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-tex.el"
+  "lch-tex.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  42
+  '(1148 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-tex.el_archive"
+  "lch-tex.el_archive"
+  'fundamental-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode)
+  599
+  '(562 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-bmk.el"
+  "lch-bmk.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1671
+  '(1671 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-bmk.el_archive"
+  "lch-bmk.el_archive"
+  'fundamental-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode)
+  1
+  '(1 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-shell.el_archive"
+  "lch-shell.el_archive"
+  'lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode flyspell-mode)
+  6984
+  '(3515 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-shell.el"
+  "lch-shell.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1087
+  '(1088 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-calendar.el"
+  "lch-calendar.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1148
+  '(1318 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-calendar.el_archive"
+  "lch-calendar.el_archive"
+  'fundamental-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode)
+  905
+  '(24 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-dired.el"
+  "lch-dired.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1712
+  '(1713 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-dired.el_achive"
+  "lch-dired.el_achive"
+  'fundamental-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode)
+  28
+  '(10676 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-auto-mode.el"
+  "lch-auto-mode.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1402
+  '(1204 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-var.el"
+  "lch-var.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1917
+  '(nil nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-dict.el"
+  "lch-dict.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1193
+  '(1174 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-dict.el_archive"
+  "lch-dict.el_archive"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1
+  '(3471 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-lang.el"
+  "lch-lang.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  4405
+  '(3171 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-alias.el"
+  "lch-alias.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  3098
+  '(nil nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-skeleton.el"
+  "lch-skeleton.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1935
+  '(2085 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-outline.el"
+  "lch-outline.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  4931
+  '(3255 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-outline.el_archive"
+  "lch-outline.el_archive"
+  'fundamental-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode)
+  1473
+  '(1 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-coding.el"
+  "lch-coding.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  349
+  '(3247 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-ui-theme.el"
+  "lch-ui-theme.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  2255
+  '(nil nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-color-theme.el"
+  "lch-color-theme.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode undo-tree-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
+  1
+  '(1 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix) (overwrite-mode)))
+

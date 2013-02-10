@@ -1,0 +1,52 @@
+;;; One-key-map
+(defvar one-key-menu-emms-alist nil
+  "`One-Key' menu list for EMMS.")
+
+(setq one-key-menu-emms-alist
+      '(
+        (("g" . "Playlist Go") . emms-playlist-mode-go)
+        (("d" . "Play Directory Tree") . emms-play-directory-tree)
+        (("f" . "Play File") . emms-play-file)
+        (("i" . "Play Playlist") . emms-play-playlist)
+        (("t" . "Add Directory Tree") . emms-add-directory-tree)
+        (("c" . "Toggle Repeat Track") . emms-toggle-repeat-track)
+        (("w" . "Toggle Repeat Playlist") . emms-toggle-repeat-playlist)
+        (("u" . "Play Now") . emms-play-now)
+        (("z" . "Show") . emms-show)
+        (("s" . "Emms Streams") . emms-streams)
+        (("b" . "Emms Browser") . emms-browser)))
+
+(defun one-key-menu-emms ()
+  "`One-Key' menu for EMMS."
+  (interactive)
+  (one-key-menu "emms" one-key-menu-emms-alist t))
+
+(define-key global-map (kbd "<f12> <f11>") 'one-key-menu-emms)
+(define-key global-map (kbd "<f5> e") 'one-key-menu-emms)
+
+;;; Lyric
+;; (ad-activate 'emms-lyrics-find-lyric)                
+;; (setq emms-lyrics-dir (concat emms-dir "lyrics/"))   
+;; (setq emms-lyrics-display-format "%s")               
+;; (setq emms-lyrics-scroll-timer-interval 1.0)         
+;; (setq emms-lyrics-display-on-minibuffer nil)
+;; (setq emms-lyrics-display-on-modeline nil)
+
+(define-key global-map (kbd "C-<f12>") 'emms-smart-browse)
+(define-key global-map (kbd "S-<f12>") 'emms-playlist-mode-go)
+
+;; FIXME: Don't know how to play fm
+(define-key global-map (kbd "<f12> f") 'emms-stream-popup)                      ;; f: FM
+
+;;; Stream
+(setq emms-stream-info-format-string "NS: %s"
+      emms-stream-default-action "play"
+      emms-stream-popup-default-height 120)
+(add-to-list 'emms-info-functions 'kid-emms-info-simple)
+
+;;; Browser
+(setq emms-browser-info-genre-format "%i● %n"
+      emms-browser-info-artist-format "%i● %n"
+      emms-browser-info-album-format "%i◎ %n"
+      emms-browser-info-title-format "%i♪ %n")
+

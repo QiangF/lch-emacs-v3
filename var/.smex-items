@@ -1,0 +1,31 @@
+
+;; ----- smex-history -----
+(
+ eval-buffer
+ comment-region
+ yas-minor-mode
+ byte-compile-file
+ yas-exit-all-snippets
+ print-buffer
+ lisp-mode
+)
+
+;; ----- smex-data -----
+(
+ (one-key-menu-emms . 3)
+ (one-key-menu-cycle-buffer . 3)
+ (text-mode . 1)
+ (lisp-mode . 1)
+ (one-key-menu-directory . 3)
+ (print-buffer . 2)
+ (byte-compile-file . 3)
+ (yas-exit-all-snippets . 1)
+ (yas-minor-mode . 2)
+ (count-buffer . 1)
+ (one-key-menu-erc . 2)
+ (comment-region . 8)
+ (eval-buffer . 3)
+ (org-info . 1)
+ (gf . 1)
+ (lch-toggle-archive . 5)
+)

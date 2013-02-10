@@ -1,0 +1,4 @@
+;;(eval-after-load 'dired '(progn (require 'lch-dired)))
+
+;(require 'lch-hl-line)
+;(require 'xwl-shell)
