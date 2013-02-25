@@ -287,7 +287,7 @@
 ;; Turn on auto-fill mode for all major modes
 ;; (setq-default auto-fill-function 'do-auto-fill)
 ;; Lines should be 80 characters wide, not 72
-(setq fill-column 80)
+(setq-default fill-column 80)
 ;; Automatically turn on auto-fill-mode when editing text files
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'tex-mode-hook 'turn-on-auto-fill)

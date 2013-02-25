@@ -2,14 +2,19 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("lch-elisp.el"
+(("lch-pgm"
+ (filename . "~/Dropbox/Github/lch-pgm/")
+ (front-context-string)
+ (rear-context-string . "68 Feb 16 16:22 ")
+ (position . 241))
+("lch-elisp.el"
  (filename . "~/Dropbox/.emacs.d/rc/lch-elisp.el")
  (front-context-string . ";; (require 'e2w")
  (rear-context-string . "ems to be buggy\n")
  (position . 1164))
 ("org-capture-last-stored"
  (filename . "~/Dropbox/Org/org/iPrv.org")
- (front-context-string . "*** ACTIVE VGA C")
+ (front-context-string . "*** ACTIVE Emacs")
  (rear-context-string . "ND:\n** TODO-#B-\n")
- (position . 1499))
+ (position . 1613))
 )

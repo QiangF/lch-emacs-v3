@@ -36,14 +36,15 @@
 (defvar emacs-theme-dir (concat emacs-lib-dir "/themes"))
 (add-to-list 'load-path emacs-theme-dir)
 (require 'color-theme)
+;; (color-theme-initialize)
 
 ;;; Arjen
-(require 'color-theme-arjen)
-(define-key global-map (kbd "<f11> <f11>") (lambda() (interactive) (color-theme-arjen) (lch-modeline-font) (message "color theme arjen selected")))
+;; (require 'color-theme-arjen)
+;; (define-key global-map (kbd "<f11> <f11>") (lambda() (interactive) (color-theme-arjen) (lch-modeline-font) (message "color theme arjen selected")))
 
 ;;; Cyberpunk
-(require 'color-theme-cyberpunk)
-(define-key global-map (kbd "<f11> <f1>") (lambda() (interactive) (color-theme-cyberpunk) (lch-modeline) (message "color theme cyberpunk selected")))
+;; (require 'color-theme-cyberpunk)
+;; (define-key global-map (kbd "<f11> <f1>") (lambda() (interactive) (color-theme-cyberpunk) (lch-modeline) (message "color theme cyberpunk selected")))
 
 ;;; Modeline
 (defun lch-modeline-font ()
@@ -64,12 +65,12 @@
 (define-key global-map (kbd "<f11> =") 'lch-modeline)
 
 ;;; Theme load
-(require 'color-theme-arjen)
+;; (require 'color-theme-arjen)
 
 (require 'color-theme-loochao)
 ;; FIXME: cyberpunk does not work well with modeline fontsize
+;; (color-theme-arjen)
 ;; (color-theme-cyberpunk)
-(color-theme-arjen)
 (color-theme-loochao)
 (lch-modeline)
 

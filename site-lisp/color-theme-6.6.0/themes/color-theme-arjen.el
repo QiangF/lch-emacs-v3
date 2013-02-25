@@ -240,6 +240,7 @@
      (primary-selection ((t (:background "blue"))))
      (red ((t (:foreground "red"))))
      (region ((t (:background "#454545"))))
+     (region ((t (:background "#7F073F"))))     
      (right-margin ((t (nil))))
      (secondary-selection ((t (:background "darkslateblue"))))
      (show-paren-match-face ((t (:background "Aquamarine" :foreground "SlateBlue"))))

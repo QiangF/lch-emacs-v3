@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- eval-buffer
- comment-region
- yas-minor-mode
- byte-compile-file
- yas-exit-all-snippets
- print-buffer
+ shell
+ ansi-term
+ term
  lisp-mode
+ color-theme-loochao
+ rainbow-mode
+ occur
 )
 
 ;; ----- smex-data -----
@@ -15,7 +15,7 @@
  (one-key-menu-emms . 3)
  (one-key-menu-cycle-buffer . 3)
  (text-mode . 1)
- (lisp-mode . 1)
+ (lisp-mode . 3)
  (one-key-menu-directory . 3)
  (print-buffer . 2)
  (byte-compile-file . 3)
@@ -28,4 +28,14 @@
  (org-info . 1)
  (gf . 1)
  (lch-toggle-archive . 5)
+ (flyspell-mode . 1)
+ (flyspell-buffer . 1)
+ (occur . 2)
+ (rainbow-mode . 6)
+ (color-theme-loochao . 18)
+ (color-theme-cyberpunk . 1)
+ (color-theme-arjen . 1)
+ (term . 2)
+ (ansi-term . 1)
+ (shell . 1)
 )

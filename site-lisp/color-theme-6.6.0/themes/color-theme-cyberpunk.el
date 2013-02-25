@@ -27,7 +27,6 @@
      (border-glyph ((t (nil))))
      (buffers-tab ((t (:background "#0C1021" :foreground "#F8F8F8"))))
 
-
      (font-lock-builtin-face ((t (:foreground "#FF6400"))))
      (font-lock-comment-face ((t (:italic t :foreground "#8B8989"))))
      (font-lock-constant-face ((t (:foreground "#4c83ff"))))
@@ -47,8 +46,8 @@
      (gui-element ((t (:background "#333333" :foreground "#96CBFE"))))
      ;; (region ((t (:foreground "black" :background "#7F073F"))))
      (region ((t ( :background "#7F073F"))))
-     (mode-line ((t (:background "gray10" :foreground "#4c83ff"))))
-     (mode-line-inactive ((t (:background "gray10" :foreground "gray30"))))
+     ;; (mode-line ((t (:background "gray10" :foreground "#4c83ff"))))
+     ;; (mode-line-inactive ((t (:background "gray10" :foreground "gray30"))))
 
      (highlight ((t (:background "DarkOrange"))))
      (isearch ((t (:background "deep pink" :foreground "black"))))

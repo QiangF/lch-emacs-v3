@@ -1,8 +1,8 @@
 ;;-*- coding:utf-8; mode:emacs-lisp; -*-
-
+;; -*- mode: emacs-lisp -*-
 ;;; DIRED.EL
 ;;
-;; Copyright (c) 2006 2007 2008 2009 2010 2011 Chao LU
+;; Copyright (c) 2006-2013 Chao LU
 ;;
 ;; Author: Chao LU <loochao@gmail.com>
 ;; URL: http://www.princeton.edu/~chaol
@@ -58,6 +58,125 @@
 (require 'dircolors)
 (ignore-errors (require 'emms-player-mplayer))
 ;; (require 'dired-sort-menu)
+
+
+;; Allows recursive deletes
+;; (setq dired-recursive-deletes 'top)
+(setq dired-recursive-deletes 'always)
+
+;; Reload dired after creating a directory
+(defadvice dired-create-directory (after revert-buffer-after-create activate)
+  (revert-buffer))
+
+;; Reload dired after quitting wdired
+(defadvice wdired-abort-changes (after revert-buffer-after-abort activate)
+  (revert-buffer))
+
+(setq dired-recursive-copies 'always)
+(define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
+(define-key dired-mode-map (kbd "* f") 'find-name-dired)
+(define-key dired-mode-map (kbd "* g") 'grep-find)
+(define-key dired-mode-map (kbd "w")
+  (lambda () (interactive) (dired-copy-filename-as-kill 0)))
+
+
+;;; Util
+;; Open current directory in Finder, Explorer, etc.
+(define-key dired-mode-map (kbd "f")
+  '(lambda ()
+     (interactive)
+     (let ((d (dired-current-directory)))
+       (case window-system
+         ((w32)
+          (w32-shell-execute "open" d))
+         ((ns mac)
+          (xwl-shell-command-asynchronously (format "open -a Finder %s" d)))
+         ((x)
+          (xwl-shell-command-asynchronously (concat "nautilus --browser " d)))))))
+
+;; Open current directory in a console/terminal
+(define-key dired-mode-map (kbd "c")
+  '(lambda ()
+     (interactive)
+     (let ((d (dired-current-directory)))
+       (case window-system
+         ((w32)
+          (xwl-shell-command-asynchronously "start cmd.exe"))
+         ((ns mac)
+          (do-applescript (format "
+tell application \"Terminal\"
+  activate
+  do script \"cd '%s'; bash\"
+end tell" d)))
+         ((x)
+          (xwl-shell-command-asynchronously "gnome-terminal"))))))
+
+;;; Sort
+(setq dired-listing-switches "-lh")
+
+;; Sort methods that affect future sessions
+(defun dired-sort-by-default ()
+  (interactive)
+  (setq dired-listing-switches "-lh")
+  (dired-sort-other dired-listing-switches))
+
+(defun dired-sort-by-ctime ()
+  "Dired sort by create time."
+  (interactive)
+  (dired-sort-other (concat dired-listing-switches "ct")))
+
+(defun dired-sort-by-utime ()
+  "Dired sort by access time."
+  (interactive)
+  (dired-sort-other (concat dired-listing-switches "ut")))
+
+(defun dired-sort-by-time ()
+  "Dired sort by time."
+  (interactive)
+  (dired-sort-other (concat dired-listing-switches "t")))
+
+(defun dired-sort-by-name ()
+  "Dired sort by name."
+  (interactive)
+  (dired-sort-other (concat dired-listing-switches "")))
+
+(defun dired-sort-by-show-all ()
+  (interactive)
+  (setq dired-listing-switches "-lhA")
+  (dired-sort-other dired-listing-switches))
+
+;; Sort methods that affect current session only
+(defun dired-sort-by-date ()
+  (interactive)
+  (dired-sort-other
+   (concat dired-listing-switches "t")))
+
+;; FIXME: fix this for mac. like: ls | rev | sort | rev
+(defun dired-sort-by-extenstion ()
+  (interactive)
+  (dired-sort-other
+   (concat dired-listing-switches "X")))
+
+;; FIXME
+(defun dired-sort-by-invisible-only ()
+  (interactive)
+  (dired-sort-other
+   (concat dired-listing-switches "d .*")))
+
+(defun dired-sort-by-size ()
+  (interactive)
+  (dired-sort-other
+   (concat dired-listing-switches "S")))
+
+(define-key dired-mode-map (kbd "s") nil)
+(define-key dired-mode-map (kbd "s RET") 'dired-sort-by-default)
+(define-key dired-mode-map (kbd "s a") 'dired-sort-by-show-all)
+(define-key dired-mode-map (kbd "s t") 'dired-sort-by-date)
+(define-key dired-mode-map (kbd "s x") 'dired-sort-by-extenstion)
+(define-key dired-mode-map (kbd "s .") 'dired-sort-by-invisible-only)
+(define-key dired-mode-map (kbd "s s") 'dired-sort-by-size)
+
+(define-key dired-mode-map (kbd "<SPC>") 'dired-count-sizes)
 
 
 (provide 'lch-dired)

@@ -845,11 +845,12 @@
 (define-key ac-completing-map (kbd "M-n") 'ac-next)
 (define-key ac-completing-map (kbd "M-p") 'ac-previous)
 
-(global-auto-complete-mode t)           ;enable global-mode
-(setq ac-auto-start t)                  ;automatically start
-(setq ac-dwim t)                        ;Do what i mean
-(setq ac-override-local-map nil)        ;don't override local map
+(global-auto-complete-mode t)           ;; enable global-mode
+(setq ac-auto-start t)                  ;; automatically start
+(setq ac-dwim t)                        ;; Do what i mean
+(setq ac-override-local-map nil)        ;; don't override local map
 (setq ac-auto-show-menu t)
+(setq ac-menu-height 20)                ;; 20 lines
 (setq ac-use-menu-map t)
 (setq ac-quick-help-delay 1)
 (setq ac-quick-help-height 60)
@@ -884,6 +885,9 @@
 ;;        (lambda ()
 ;;          (add-to-list 'ac-sources 'ac-source-company-elisp)))
 
+;; User defined dictionary
+(setq ac-user-dictionary '("loochao" "loochao@gmail.com"))
+(setq ac-user-dictionary-files (concat emacs-var-dir "ac-user-dict"))
 
 ;;; Vimpulse
 ;; (require 'vimpulse)

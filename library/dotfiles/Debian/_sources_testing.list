@@ -1,0 +1,12 @@
+# 
+
+# deb cdrom:[Debian GNU/Linux testing _Wheezy_ - Official Snapshot i386 CD Binary-1 20121126-03:42]/ wheezy main
+
+#deb cdrom:[Debian GNU/Linux testing _Wheezy_ - Official Snapshot i386 CD Binary-1 20121126-03:42]/ wheezy main
+
+deb http://ftp.us.debian.org/debian testing main contrib non-free
+deb http://security.debian.org/ wheezy/updates main
+deb-src http://security.debian.org/ wheezy/updates main
+
+deb http://emacs.naquadah.org/ unstable/
+deb-src http://emacs.naquadah.org/ unstable/

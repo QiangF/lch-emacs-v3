@@ -312,8 +312,9 @@
 
 ;;; F10 (conf-file-map)
 (define-key global-map (kbd "<f10> 1") (lambda() (interactive) (dired (concat emacs-dir "/rc"))))
-(define-key global-map (kbd "<f10> 2") (lambda() (interactive) (find-file "/ssh:chaol@nobel.princeton.edu:/u/chaol")))
-(define-key global-map (kbd "<f10> 3") (lambda() (interactive) (find-file "/sudo::/Users/LooChao")))
+(define-key global-map (kbd "<f10> 2") (lambda() (interactive) (dired dropbox-path)))
+(define-key global-map (kbd "<f10> 9") (lambda() (interactive) (find-file "/sudo::/Users/LooChao")))
+(define-key global-map (kbd "<f10> 0") (lambda() (interactive) (find-file "/ssh:chaol@nobel.princeton.edu:/u/chaol")))
 (define-key global-map (kbd "<f10> b") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-binding.el"))))
 (define-key global-map (kbd "<f10> e") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-elisp.el"))))
 (define-key global-map (kbd "<f10> u") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-util.el"))))
@@ -326,8 +327,9 @@
 (setq one-key-menu-conf-alist
       '(
         (("1" . "emacs-conf") . (lambda() (interactive) (dired (concat emacs-dir "/rc"))))
-        (("2" . "remote-nobel") . (lambda() (interactive) (find-file "/ssh:chaol@nobel.princeton.edu:/u/chaol")))
-        (("3" . "local-sudo") . (lambda() (interactive) (find-file "/sudo::/Users/LooChao")))
+        (("2" . "dropbox") . (lambda() (interactive) (dired dropbox-path)))            
+        (("9" . "remote-nobel") . (lambda() (interactive) (find-file "/ssh:chaol@nobel.princeton.edu:/u/chaol")))
+        (("0" . "local-sudo") . (lambda() (interactive) (find-file "/sudo::/Users/LooChao")))
         ))
 
 (defun one-key-menu-conf ()

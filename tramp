@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <13/02/10 13:03:08 /Users/LooChao/Dropbox/.emacs.d/tramp>
+;; -*- emacs-lisp -*-
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
@@ -151,4 +151,26 @@
   ("perl-cwd-realpath" t)
   ("perl" "\\perl")
   ("id" "/usr/bin/id")
-  ("gid-integer" 0)))
+  ("gid-integer" 0))
+ (["scpc" "chaol" "chili.princeton.edu" nil]
+  ("uname" "Linux 3.2.0-37-generic")
+  ("test" "test")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/usr/sbin" "/usr/local/bin"))
+  ("remote-shell" "/bin/sh")
+  ("stat" "\\stat")
+  ("file-exists" "test -e")
+  ("id" "/usr/bin/id")
+  ("gid-integer" 1001)
+  ("perl-file-spec" t)
+  ("perl-cwd-realpath" t)
+  ("perl" "\\perl")
+  ("~" "/home/chaol")
+  ("ls" "/bin/ls --color=never")
+  ("ls-dired" t)
+  ("readlink" "\\readlink")
+  ("local-encoding" base64-encode-region)
+  ("local-decoding" base64-decode-region)
+  ("remote-encoding" "base64")
+  ("remote-decoding" "base64 -d -i")
+  ("uid-integer" 1001)))
