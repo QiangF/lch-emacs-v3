@@ -11,7 +11,6 @@
 
 ;;; Commentary:
 
-
 ;; keybinding
 ;; c: terminal;
 ;; f: finder;

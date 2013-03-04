@@ -43,7 +43,12 @@
   (when (y-or-n-p "Do you want to start IRC? ")
     (erc :server "irc.freenode.net" :port 6667 :nick erc-nick)))
 (define-key global-map (kbd "<f2> E") 'start-irc)
-(define-key global-map (kbd "<f3> e") 'start-irc)
+(define-key global-map (kbd "<f5> e") 'start-irc)
+
+(defun lch-erc-emacs ()
+  (interactive)
+  (switch-to-buffer "#emacs"))
+(define-key global-map (kbd "C-z e") 'lch-erc-emacs)
 
 ;; Instead of #c, use ##c.
 (setq erc-autojoin-channels-alist

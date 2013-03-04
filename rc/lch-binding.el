@@ -104,21 +104,36 @@
 (define-key global-map (kbd "C-c e") 'lch-eval-buffer)
 
 (define-key global-map (kbd "C-c g") 'grep-find)
+(define-key global-map (kbd "C-c l") 'goto-line)
+(defun lch-occur ()
+  (interactive)
+  (call-interactively 'occur)
+  (other-window 1))
+(global-set-key (kbd "C-c o") 'lch-occur)
+
+(define-key global-map (kbd "C-c p") 'print-buffer)
 (define-key global-map (kbd "C-c u") 'uncomment-region)
+(define-key global-map (kbd "C-c 4") 'toggle-truncate-lines)                   ;; Shift+4 == $
 
 ;; One-key-menu-ctrl-c
 (defvar one-key-menu-ctrl-c-alist nil "")
 (setq one-key-menu-ctrl-c-alist
       '(
         (("." . "repeat-complex-command") . repeat-complex-command)             ;; => lch-binding.el
+        (("4" . "toggle-truncate-lines") . toggle-truncate-lines)               ;; => lch-binding.el
         (("a" . "lch-toggle-archive") . lch-toggle-archive)                     ;; => lch-util.el
         (("c" . "comment-region") . comment-region)                             ;; => lch-binding.el
         (("e" . "eval-buffer") . lch-eval-buffer)                               ;; => lch-binding.el
         (("g" . "grep-find") . grep-find)                                       ;; => lch-binding.el
+        (("l" . "goto-line") . goto-line)                                       ;; => lch-binding.el
         (("n" . "nuke-buffer") . nuke-some-buffers)                             ;; => lch-util.el
+        (("o" . "lch-occur") . lch-occur)                                       ;; => lch-binding.el
+        (("p" . "print-buffer") . print-buffer)                                 ;; => lch-binding.el
         (("s" . "switch-to-scratch") . lch-create-switch-scratch)               ;; => lch-util.el        
         (("u" . "uncomment-region") . uncomment-region)                         ;; => lch-binding.el
         (("v" . "view-mode") . view-mode)                                       ;; => lch-elisp.el
+        (("w" . "w3m") . lch-switch-to-w3m)                                     ;; => lch-web.el
+        (("C-b" . "list-bookmarks") . list-bookmarks)                           ;; => lch-bmk.el
         ))
 
 (defun one-key-menu-ctrl-c ()
@@ -128,6 +143,21 @@
 (define-key global-map (kbd "C-c m") 'one-key-menu-ctrl-c)
 
 ;;; C-z (command-map)
+;; One-key-menu-ctrl-z
+(defvar one-key-menu-ctrl-z-alist nil "")
+(setq one-key-menu-ctrl-z-alist
+      '(
+        (("e" . "erc") . lch-erc-emacs)                                         ;; => lch-erc.el
+        (("g" . "google") . lch-google)                                         ;; => lch-web.el
+        (("p" . "process") . process)                                           ;; => lch-util.el
+        ))
+
+(defun one-key-menu-ctrl-z ()
+  "The `one-key' menu for CTRL-Z."
+  (interactive)
+  (one-key-menu "CTRL-Z" one-key-menu-ctrl-z-alist t))
+(define-key global-map (kbd "C-z m") 'one-key-menu-ctrl-z)
+
 ;;; Fn:  (command-map)
 (defvar one-key-menu-fn-alist nil "")
 (setq one-key-menu-fn-alist
@@ -173,7 +203,6 @@
         (("i" . "lch-indent-region-or-buffer") . lch-indent-region-or-buffer)   ;; => lch-util.el
         (("C-m" . "dictionary-match-words") . dictionary-match-words)           ;; => lch-elisp.el
         (("p" . "list-package") . list-package)                                 ;; => lch-binding.el
-        (("s" . "lch-search-w3m-google") . lch-search-w3m-google)               ;; => lch-web.el
         (("w" . "ywb-favorite-window-config") . ywb-favorite-window-config)     ;; => lch-util.el
         ))
 
@@ -220,18 +249,38 @@
 (define-key global-map (kbd "<f2> m") 'one-key-menu-mode)
 (define-key global-map (kbd "M-<f2>") 'one-key-menu-mode)
 
-;;; F5: (bookmark-map)
+;;; F3; (local-map)
+;; evoke local applications
+;; One-key-menu-local
+(defvar one-key-menu-local-alist nil
+  "The `one-key' menu alist for LOCAL.")
+
+(setq one-key-menu-local-alist
+      '(
+        (("<f3>" . "lch-start-file-browser") . lch-start-file-browser)          ;; => lch-util.el        
+        ))
+
+(defun one-key-menu-local ()
+  "The `one-key' menu for LOCAL."
+  (interactive)
+  (one-key-menu "LOCAL" one-key-menu-local-alist t))
+(define-key global-map (kbd "M-<f3>") 'one-key-menu-local)
+(define-key global-map (kbd "<f3> m") 'one-key-menu-local)
+;;; F4: (xxx-map)
+;;; F5: (web-map)
 ;; One-key-menu-bookmark
 (defvar one-key-menu-bookmark-alist nil
   "The `one-key' menu alist for BOOKMARK.")
 
 (setq one-key-menu-bookmark-alist
       '(
-        (("<f4>" . "bm-previous") . bm-previous)                                ;; => lch-elisp.el
-        (("<f5>" . "bm-toggle") . bm-toggle)                                    ;; => lch-elisp.el
-        (("<f6>" . "bm-next") . bm-next)                                        ;; => lch-elisp.el
+        (("," . "bm-previous") . bm-previous)                                   ;; => lch-elisp.el
+        (("." . "bm-next") . bm-next)                                           ;; => lch-elisp.el        
+        (("/" . "bm-toggle") . bm-toggle)                                       ;; => lch-elisp.el
+        (("<f5>" . "Switch-to-w3m") . lch-switch-to-w3m-goto-url)               ;; => lch-web.el        
         (("a" . "bookmark-set (a:add)") . bookmark-set)                         ;; => lch-bmk.el
         (("b" . "list-bookmarks") . list-bookmarks)                             ;; => lch-bmk.el
+        (("e" . "start-irc") . start-irc)                                       ;; => lch-web.el
         (("j" . "switch-to-bookmark (j:jump)") . switch-to-bookmark)            ;; => lch-bmk.el
         ))
 
@@ -327,8 +376,9 @@
 (setq one-key-menu-conf-alist
       '(
         (("1" . "emacs-conf") . (lambda() (interactive) (dired (concat emacs-dir "/rc"))))
-        (("2" . "dropbox") . (lambda() (interactive) (dired dropbox-path)))            
-        (("9" . "remote-nobel") . (lambda() (interactive) (find-file "/ssh:chaol@nobel.princeton.edu:/u/chaol")))
+        (("2" . "dropbox") . (lambda() (interactive) (dired dropbox-path)))
+        (("8" . "remote-chili") . (lambda() (interactive) (dired "/scpc:chaol@chili.princeton.edu:/home/chaol/Research")))        
+        (("9" . "remote-nobel") . (lambda() (interactive) (dired "/scpc:chaol@nobel.princeton.edu:/u/chaol")))
         (("0" . "local-sudo") . (lambda() (interactive) (find-file "/sudo::/Users/LooChao")))
         ))
 

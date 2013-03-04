@@ -116,7 +116,7 @@
 (define-key global-map (kbd "<f12> c")   'emms-start)
 (define-key global-map (kbd "<f12> x")   'emms-stop)
 
-(define-key global-map (kbd "<f12> <f10>") 'lch-add-dir)
+(define-key global-map (kbd "<f12> <f10>") 'lch-emms-add-dir)
 
 (define-key global-map (kbd "<f12> n")   'emms-next)
 (define-key global-map (kbd "<f12> p")   'emms-previous)
@@ -144,35 +144,6 @@
 ;; mode: outline-minor
 ;; outline-regexp: ";;;;* "
 ;; End:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

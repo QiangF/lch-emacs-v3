@@ -67,7 +67,7 @@
 ;;; Theme load
 ;; (require 'color-theme-arjen)
 
-(require 'color-theme-loochao)
+(require 'color-theme-loochao "lch-color-theme.el")
 ;; FIXME: cyberpunk does not work well with modeline fontsize
 ;; (color-theme-arjen)
 ;; (color-theme-cyberpunk)

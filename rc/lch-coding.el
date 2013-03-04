@@ -92,6 +92,28 @@
     (revert-buffer-with-coding-system 'gb18030)
     (message "buffer reverted with gb18030")))
 
+;;; Highlight fixme todo
+(defvar lch-keyword-highlight-modes "")
+(defvar lch-highlight-special-keywords "")
+(setq lch-keyword-highlight-modes
+      '(php-mode java-mode c-mode c++-mode emacs-lisp-mode scheme-mode
+                 text-mode outline-mode org-mode))
+
+(make-face 'font-lock-fixme-face)
+(make-face 'font-lock-todo-face)
+
+(modify-face 'font-lock-fixme-face "black" "yellow" nil t nil t nil nil)
+(modify-face 'font-lock-todo-face  "black" "yellow" nil t nil nil nil nil)
+
+(defun lch-highlight-special-keywords ()
+  (mapc (lambda (mode)
+	  (font-lock-add-keywords
+	   mode
+	   '(("\\<\\(FIXME\\)" 1 'font-lock-fixme-face t)
+	     ("\\<\\(TODO\\)"  1 'font-lock-todo-face  t))))
+	lch-keyword-highlight-modes))
+
+(lch-highlight-special-keywords)
 ;;; Python
 ;; (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
 ;; (setq interpreter-mode-alist (cons '("python" . python-mode)

@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- shell
- ansi-term
- term
- lisp-mode
  color-theme-loochao
+ customize-face
  rainbow-mode
- occur
+ list-processes
+ print-buffer
+ find-grep-dired
+ comment-region
 )
 
 ;; ----- smex-data -----
@@ -17,7 +17,7 @@
  (text-mode . 1)
  (lisp-mode . 3)
  (one-key-menu-directory . 3)
- (print-buffer . 2)
+ (print-buffer . 3)
  (byte-compile-file . 3)
  (yas-exit-all-snippets . 1)
  (yas-minor-mode . 2)
@@ -26,16 +26,24 @@
  (comment-region . 8)
  (eval-buffer . 3)
  (org-info . 1)
- (gf . 1)
+ (gf . 2)
  (lch-toggle-archive . 5)
  (flyspell-mode . 1)
  (flyspell-buffer . 1)
  (occur . 2)
- (rainbow-mode . 6)
- (color-theme-loochao . 18)
+ (rainbow-mode . 8)
+ (color-theme-loochao . 28)
  (color-theme-cyberpunk . 1)
  (color-theme-arjen . 1)
  (term . 2)
  (ansi-term . 1)
  (shell . 1)
+ (recover-this-file . 1)
+ (find-name-dired . 1)
+ (find-grep-dired . 1)
+ (list-processes . 1)
+ (pastebin . 1)
+ (emacswiki-recent-changes . 1)
+ (my-digital-clock . 1)
+ (customize-face . 9)
 )

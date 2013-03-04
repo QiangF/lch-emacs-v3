@@ -22,7 +22,6 @@
 (setq-default dired-details-hidden-string "--- ")
 (dired-details-install)
 
-
 ;; Set Face
 (eval-after-load 'dired '(progn (require 'dired-filetype-face)))
 

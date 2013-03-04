@@ -59,6 +59,23 @@
                  (switch-to-buffer (get-buffer-create archive-buffer)))))))
 (define-key global-map (kbd "C-c a") 'lch-toggle-archive)
 
+
+;;; Process
+(define-key global-map (kbd "C-z p")
+  (lambda () (interactive)
+    (let* ((n "*top*")
+           (b (get-buffer n)))
+      (if b (switch-to-buffer b)
+        ;; (if (eq system-type 'windows-nt)
+        ;;     (progn
+        ;;       (proced)
+        ;;       (proced-toggle-tree 1))
+          (ansi-term "top"))
+        (rename-buffer n)
+        (local-set-key "q" '(lambda () (interactive) (kill-buffer (current-buffer))))
+        ;; (hl-line-mode 1)
+        )))
+
 ;;; Start file browser
 (defun lch-start-file-browser ()
   "Open current pwd with file browser.

@@ -1,4 +1,24 @@
-((("list-colors-display" .
+((("keys" .
+   [1 0 0 0])
+  ("iTunes" .
+   [1 0 0 0 0 0])
+  ("i" .
+   [1])
+  ("lch-alist" .
+   [2 0 0 0 0 0 0 0 0])
+  ("setq" .
+   [1 0 0 0])
+  ("defvar" .
+   [1 0 0 0 0 0])
+  ("format" .
+   [1 0 0 0 0 0])
+  ("shell-command" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1])
+  ("Combination" .
+   [1 0 0 0 0 0 0 0 0 0 0])
+  ("***" .
+   [1 0 0])
+  ("list-colors-display" .
    [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
   ("one-key-menu-command" .
    [2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
@@ -145,7 +165,7 @@
   ("list-bookmarks" .
    [1 0 0 0 0 0 0 0 0 0 0 0 0 0])
   ("." .
-   [6])
+   [8])
   ("switch-to-bookmark" .
    [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
   ("lch-search-w3m-google" .
@@ -157,4 +177,6 @@
   ("w3m-search" .
    [1 0 0 0 0 0 0 0 0 0])
   ("loo" .
-   [1 0 0])))
+   [1 0 0])
+  ("browse-url" .
+   [1 0 0 0 0 0 0 0 0 0])))

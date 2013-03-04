@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("lch-pgm"
+(("Menuscript"
+ (filename . "~/Dropbox/Research/Menuscript/")
+ (front-context-string . "ster.Thesis(to.C")
+ (rear-context-string . "n 10 17:22 PU.Ma")
+ (position . 329))
+("lch-pgm"
  (filename . "~/Dropbox/Github/lch-pgm/")
  (front-context-string)
  (rear-context-string . "68 Feb 16 16:22 ")

@@ -430,9 +430,9 @@
 ;; (set-face-attribute 'bm-persistent-face nil :background "SlateBlue")
 ;; ;(setq bm-highlight-style 'bm-highlight-line-and-fringe)
 
-;; (define-key global-map (kbd "<f5> <f5>") 'bm-toggle)
-;; (define-key global-map (kbd "<f5> <f6>") 'bm-next)
-;; (define-key global-map (kbd "<f5> <f4>") 'bm-previous)
+;; (define-key global-map (kbd "<f5> /") 'bm-toggle)
+;; (define-key global-map (kbd "<f5> .") 'bm-next)
+;; (define-key global-map (kbd "<f5> ,") 'bm-previous)
 ;; (define-key global-map (kbd "M-<f5>") 'bm-previous)
 ;; (define-key global-map (kbd "C-<f5>") 'bm-next)
 ;; ;; make bookmarks persistent as default
@@ -576,7 +576,7 @@
 ;; (setq highlight-beyond-fill-column-in-modes
 ;;       '("emacs-lisp-mode"))
 
-;;; Less
+;; Less
 ;; (require 'less)
 ;; (eval-after-load 'less
 ;;   '(progn
@@ -593,6 +593,7 @@
 ;;                    '(proced-mode dired-mode)))
 ;;      ))
 ;; (global-less-minor-mode 1)
+;; (global-set-key (kbd "C-c v") 'less-minor-mode)
 
 ;;; Uniquify
 ;; Use file path to ensure buffer name uniqueness
@@ -844,6 +845,7 @@
 (setq ac-comphist-file  (concat emacs-var-dir "/ac-comphist.dat"))
 (define-key ac-completing-map (kbd "M-n") 'ac-next)
 (define-key ac-completing-map (kbd "M-p") 'ac-previous)
+(setq popup-use-optimized-column-computation nil)
 
 (global-auto-complete-mode t)           ;; enable global-mode
 (setq ac-auto-start t)                  ;; automatically start

@@ -54,6 +54,8 @@
 
                 (".ssh/config\\'"                      . ssh-config-mode)
                 ("sshd?_config\\'"                     . ssh-config-mode)
+                
+                ("\\.ctl$"                             . emacs-lisp-mode)
                 ) auto-mode-alist))
 
 (message "~~ lch-auto-mode: done.")
