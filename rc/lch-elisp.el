@@ -1244,41 +1244,6 @@
 ;; (setq ispell-personal-dictionary (concat emacs-var-dir "/personal-dictionary"))
 ;; (setq ispell-silently-savep t)
 
-;;; BM
-(setq bm-restore-repository-on-load t)
-(setq bm-repository-file (concat emacs-var-dir "/.bm-repository"))
-(setq bm-repository-size nil)      ;; nil == unlimited
-(require 'bm)
-
-(set-face-attribute 'bm-persistent-face nil :background "SlateBlue")
-;; (setq bm-highlight-style 'bm-highlight-line-and-fringe)
-
-(define-key global-map (kbd "<f5> <f5>") 'bm-toggle)
-(define-key global-map (kbd "<f5> <f6>") 'bm-next)
-(define-key global-map (kbd "<f5> <f4>") 'bm-previous)
-;; make bookmarks persistent as default
-(setq-default bm-buffer-persistence t)
-
-;; Loading the repository from file when on start up.
-(add-hook' after-init-hook 'bm-repository-load)
-
-;; Restoring bookmarks when on file find.
-(add-hook 'find-file-hooks 'bm-buffer-restore)
-
-;; Saving bookmark data on killing a buffer
-(add-hook 'kill-buffer-hook 'bm-buffer-save)
-
-;; Saving the repository to file when on exit.
-;; kill-buffer-hook is not called when emacs is killed, so we
-;; must save all bookmarks first.
-(add-hook 'kill-emacs-hook '(lambda nil
-                              (bm-buffer-save-all)
-                              (bm-repository-save)))
-
-(add-hook 'after-save-hook 'bm-buffer-save)
-(add-hook 'after-revert-hook 'bm-buffer-restore)
-(setq bm-wrap-search t)
-(setq bm-wrap-immediately nil)
 
 ;;; Evernote mode
 ;; (require 'evernote-mode)

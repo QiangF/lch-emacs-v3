@@ -157,7 +157,14 @@
 (defvar lch-disable-zone nil)
 (if (not lch-disable-zone)
     (add-hook 'term-setup-hook 'zone))
-
+(setq zone-programs [zone-pgm-random-life zone-pgm-putz-with-case
+                                          zone-pgm-dissolve zone-pgm-drip
+                                          zone-pgm-drip-fretfully
+                                          zone-pgm-five-oclock-swan-dive
+                                          zone-pgm-martini-swan-dive
+                                          zone-pgm-stress
+                                          zone-pgm-stress-destress])
+;; 
 ;; CONF From Others
 ;(require 'lch-other-conf)
 

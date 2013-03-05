@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ zone
+ auto-fill-mode
+ revert-buffer-with-coding-system
+ indent-region
  color-theme-loochao
  customize-face
  rainbow-mode
- list-processes
- print-buffer
- find-grep-dired
- comment-region
 )
 
 ;; ----- smex-data -----
@@ -32,7 +32,7 @@
  (flyspell-buffer . 1)
  (occur . 2)
  (rainbow-mode . 8)
- (color-theme-loochao . 28)
+ (color-theme-loochao . 29)
  (color-theme-cyberpunk . 1)
  (color-theme-arjen . 1)
  (term . 2)
@@ -46,4 +46,8 @@
  (emacswiki-recent-changes . 1)
  (my-digital-clock . 1)
  (customize-face . 9)
+ (indent-region . 1)
+ (revert-buffer-with-coding-system . 2)
+ (zone . 22)
+ (auto-fill-mode . 1)
 )
