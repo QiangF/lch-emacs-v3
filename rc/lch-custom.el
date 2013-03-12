@@ -14,4 +14,5 @@
  '(tabbar-default-face ((t (:inherit variable-pitch :background "gray80" :foreground "firebrick" :height 0.8))))
  '(tabbar-selected-face ((t (:inherit tabbar-default-face :foreground "firebrick" :box (:line-width 2 :color "white" :style pressed-button)))))
  '(tabbar-unselected-face ((t (:inherit tabbar-default-face :foreground "black" :box (:line-width 2 :color "white" :style released-button)))))
- '(w3m-tab-background ((((type x w32 mac ns) (class color)) (:background "grey" :foreground "black")))))
+ 
+ )

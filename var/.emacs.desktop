@@ -2,7 +2,7 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Tue Mar  5 03:18:56 2013
+;; Created Tue Mar 12 01:07:51 2013
 ;; Desktop file format version 206
 ;; Emacs version 23.3.1
 
@@ -10,30 +10,140 @@
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
-(setq search-ring '("bm" "pearl" "web" "comp" "face" "f4" "pastebin" "erc" "auto-complete" "key" "google" "search" "requ" "match" "paren" "color-"))
+(setq search-ring '("beg" "tab" "tabb" "find-file-root" "exit" "one-key-menu-ui" "rename" "omit" "lch-dir" "file" "dired" "color" "go" "init" "emms" "play"))
 (setq regexp-search-ring '("web" "bind" "one-key" "and" "ch-inde" "let" "kbd" "util" "my-ho" "bi" "cod" "dired" "them" "swit" "one-" "f4"))
-(setq register-alist (list (list 97 "Unprintable entity" (let ((mk (make-marker))) (add-hook 'desktop-delay-hook (list 'lambda '() (list 'set-marker mk nil (get-buffer " *temp*")))) mk))))
-(setq file-name-history '("~/Dropbox/.emacs.d/rc/lch-elisp.el" "~/Dropbox/.emacs.d/rc/dotEmacs" "/Volumes/DATA/Repository/git/deepin-emacs/repos.sh" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Document/library-list.txt" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Image/mail1.jpeg" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Image/NewMail.png" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Image/Irc.png" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatStartup.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatRedefine.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatKeystoke.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatInit.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatDepend.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatCustomize.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-w3m.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-shell.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-newsticker.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-mldonkey.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-maxima.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-auto-complete.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-anything.el" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/File-Journal/file-journal" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/Emms/history" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/Emms/cache" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/Emacs-W3M/W3m-cookie" "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/Bbdb/database" "/Volumes/DATA/Repository/git/deepin-emacs/README" "~/Dropbox/Org/org/Pearl.org" "/Users/LooChao/Downloads/test.html" "~/Dropbox/.emacs.d/library/package/sdvc-mode.el" "~/Dropbox/.emacs.d/library/package/stardict.el" "~/Dropbox/.emacs.d/rc/lch-web.el_archive" "~/Dropbox/.emacs.d/rc/lch-web.el" "~/Dropbox/.emacs.d/rc/color-theme-loochao.el" "~/Dropbox/.emacs.d/site-lisp/color-theme-6.6.0/themes/color-theme-cyberpunk.el" "~/Dropbox/.emacs.d/site-lisp/color-theme-6.6.0/themes/color-theme-arjen.el" "~/.wine/dosdevices/z:/Users/LooChao/Downloads/dea-1.4/my-lisps/dired-lis-settings.el" "~/.wine/dosdevices/z:/Users/LooChao/Downloads/dea-1.4/my-lisps/auto-complete+.el" "~/.wine/dosdevices/z:/Users/LooChao/Downloads/dea-1.4/my-lisps/auto-complete-settings.el" "~/.wine/dosdevices/z:/Users/LooChao/Downloads/dea-1.4/configure.ac" "~/.wine/dosdevices/z:/Users/LooChao/Downloads/dea-1.4/bootstrap" "/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Downloads/dea-1.4/info/forms" "~/Dropbox/.emacs.d/rc/lch-util.el_archive" "~/Dropbox/.emacs.d/rc/lch-util.el_archive.elc" "/Users/LooChao/Dropbox/.emacs.d/site-lisp/pastebin.el" "/Users/LooChao/Dropbox/.emacs.d/site-lisp/paste-bin.el" "~/Dropbox/.emacs.d/rc/lch-binding.el" "~/Dropbox/.emacs.d/rc/lch-erc.el_archive" "~/Dropbox/.emacs.d/rc/lch-erc.el" "~/Dropbox/.emacs.d/site-lisp/mic-paren.el" "~/Dropbox/.emacs.d/site-lisp/" "~/.wine/dosdevices/z:/Users/LooChao/Downloads/emacs-live/packs/dev/clojure-pack/lib/mic-paren.el" "~/.wine/dosdevices/z:/Users/LooChao/Downloads/emacs-live/packs/dev/clojure-pack/config/auto-complete-conf.el" "~/.wine/dosdevices/z:/Users/LooChao/Downloads/emacs-live/packs/dev/clojure-pack/config/mic-paren-conf.el" "/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Downloads/emacs-live/manifest.el" "~/Dropbox/.emacs.d/var/.bm-repository"))
+(setq register-alist (list '(6 file-query "/Users/LooChao/Dropbox/.emacs.d/rc/lch-web.el" 7245) (list 97 "Unprintable entity" (let ((mk (make-marker))) (add-hook 'desktop-delay-hook (list 'lambda '() (list 'set-marker mk nil (get-buffer " *temp*")))) mk))))
+(setq file-name-history '("/Users/LooChao/Dropbox/.emacs.d/rc/lch-calendar.el" "~/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Packages/LazyCatCollect/tabbar.el" "/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Configure/Init/init-newsticker.el" "~/Dropbox/.emacs.d/rc/lch-tabbar.el" "~/Dropbox/.emacs.d/rc/lch-elisp.el" "~/Dropbox/.emacs.d/rc/lch-calendar.el" "~/Dropbox/.emacs.d/rc/lch-binding.el" "/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/.emacs.d/site-lisp/lazycat/lazycat-toolkit.el" "~/Dropbox/.emacs.d/rc/lch-dired.el" "/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Configure/LazyCatKeystoke.el" "~/Dropbox/.emacs.d/rc/lch-binding.el_archive" "~/Dropbox/.emacs.d/rc/lch-dired.el_achive.elc" "~/Documents/" "~/Dropbox/.emacs.d/site-lisp/dired-elisps/dired-view.el" "~/Dropbox/.emacs.d/rc/lch-dired.el_archive" "~/Dropbox/.emacs.d/rc/color-theme-loochao.el_archive" "~/Dropbox/.emacs.d/site-lisp/dired-elisps/dired-details+.el" "~/Dropbox/.emacs.d/rc/color-theme-loochao.el" "~/Dropbox/.emacs.d/site-lisp/lazycat/buffer-extension.el" "~/Dropbox/.emacs.d/rc/lch-util.el_archive" "~/Dropbox/.emacs.d/site-lisp/lazycat/lazycat-toolkit.el" "~/Dropbox/.emacs.d/rc/lch-shell.el" "~/Dropbox/.emacs.d/rc/lch-shell.el_archive" "/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Configure/LazyCatDepend.el" "~/Dropbox/.emacs.d/site-lisp/emms-plugins/emms-x.el" "/Users/LooChao/Dropbox/.emacs.d/site-lisp/emms-plugins/emms-extension.el" "~/Dropbox/Music" "~/Dropbox/.emacs.d/rc/lch-emms.el_archive" "~/Dropbox/MUSIC/" "~/Dropbox/MUSIC/Star5/"))
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-calendar.el"
+  "lch-calendar.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode yas-minor-mode auto-complete-mode flyspell-mode linum-mode outline-minor-mode)
+  1103
+  '(2602 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-tabbar.el"
+  "lch-tabbar.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode yas-minor-mode auto-complete-mode flyspell-mode linum-mode outline-minor-mode)
+  1895
+  '(1779 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  nil
+  "LazyCatCollect"
+  'dired-mode
+  '(global-auto-revert-mode yas-minor-mode)
+  34924
+  '(375 nil)
+  t
+  '("/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Packages/LazyCatCollect/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Configure/Init/init-newsticker.el"
+  "init-newsticker.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode yas-minor-mode auto-complete-mode flyspell-mode linum-mode outline-minor-mode)
+  1
+  '(nil nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
 (desktop-create-buffer 206
   "/Users/LooChao/Dropbox/.emacs.d/rc/lch-elisp.el"
   "lch-elisp.el"
   'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  15827
-  '(1 nil)
+  '(global-auto-revert-mode yas-minor-mode auto-complete-mode flyspell-mode linum-mode outline-minor-mode)
+  42486
+  '(2907 nil)
   nil
   nil
   '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
 
 (desktop-create-buffer 206
-  "/Users/LooChao/Dropbox/.emacs.d/rc/dotEmacs"
-  "dotEmacs"
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-binding.el"
+  "lch-binding.el"
   'emacs-lisp-mode
-  '(auto-fill-mode global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  6753
-  '(5675 nil)
+  '(global-auto-revert-mode yas-minor-mode auto-complete-mode flyspell-mode linum-mode outline-minor-mode)
+  2566
+  '(2288 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Packages/LazyCatCollect/tabbar.el"
+  "tabbar.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode yas-minor-mode auto-complete-mode flyspell-mode linum-mode outline-minor-mode)
+  18830
+  '(1 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  nil
+  "Packages"
+  'dired-mode
+  '(global-auto-revert-mode yas-minor-mode)
+  413
+  '(nil nil)
+  t
+  '("/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Packages/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "Site-Lisp"
+  'dired-mode
+  '(global-auto-revert-mode yas-minor-mode)
+  346
+  '(nil nil)
+  t
+  '("/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "Configure"
+  'dired-mode
+  '(global-auto-revert-mode yas-minor-mode)
+  295
+  '(nil nil)
+  t
+  '("/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Configure/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "Init"
+  'dired-mode
+  '(global-auto-revert-mode yas-minor-mode)
+  3153
+  '(nil nil)
+  t
+  '("/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Configure/Init/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Configure/LazyCatKeystoke.el"
+  "LazyCatKeystoke.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode yas-minor-mode auto-complete-mode flyspell-mode linum-mode outline-minor-mode)
+  3211
+  '(49313 nil)
   nil
   nil
   '((buffer-file-coding-system . utf-8-unix)))
@@ -43,153 +153,54 @@
   "rc"
   'dired-mode
   '(global-auto-revert-mode yas-minor-mode)
-  7631
-  '(1 nil)
+  1867
+  '(nil nil)
   t
   '("/Users/LooChao/Dropbox/.emacs.d/rc/")
   nil)
 
 (desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/README"
-  "README"
-  'org-mode
-  '(auto-fill-mode global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  2425
-  '(nil nil)
+  "/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/.emacs.d/site-lisp/lazycat/lazycat-toolkit.el"
+  "lazycat-toolkit.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode yas-minor-mode auto-complete-mode flyspell-mode linum-mode outline-minor-mode)
+  22731
+  '(5813 nil)
   nil
   nil
-  '((buffer-file-coding-system . utf-8-unix) (fill-column . 80) (truncate-lines)))
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
+
+(desktop-create-buffer 206
+  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-dired.el"
+  "lch-dired.el"
+  'emacs-lisp-mode
+  '(global-auto-revert-mode yas-minor-mode auto-complete-mode flyspell-mode linum-mode outline-minor-mode)
+  1845
+  '(676 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
 
 (desktop-create-buffer 206
   nil
-  "deepin-emacs"
+  "site-lisp"
   'dired-mode
   '(global-auto-revert-mode yas-minor-mode)
-  222
+  256
   '(nil nil)
   t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/")
+  '("/Users/LooChao/Dropbox/.emacs.d/site-lisp/")
   nil)
 
 (desktop-create-buffer 206
   nil
-  "emacs-24.0.94.1_xwidget"
+  ".emacs.d"
   'dired-mode
   '(global-auto-revert-mode yas-minor-mode)
-  173
+  710
   '(nil nil)
   t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/emacs-24.0.94.1_xwidget/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/repos.sh"
-  "repos.sh"
-  'sh-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode)
-  1966
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  nil
-  "lazycat-lisp"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  225
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "Document"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  168
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Document/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Document/library-list.txt"
-  "library-list.txt"
-  'org-mode
-  '(auto-fill-mode global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  2670
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix) (fill-column . 80) (truncate-lines)))
-
-(desktop-create-buffer 206
-  nil
-  "Image"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  286
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Image/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Image/mail1.jpeg"
-  "mail1.jpeg"
-  'image-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . no-conversion) (truncate-lines . t)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Image/NewMail.png"
-  "NewMail.png"
-  'image-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . no-conversion) (truncate-lines . t)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Image/Irc.png"
-  "Irc.png"
-  'image-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . no-conversion) (truncate-lines . t)))
-
-(desktop-create-buffer 206
-  nil
-  "Site-Lisp"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  230
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "Packages"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  305
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Packages/")
+  '("/Users/LooChao/Dropbox/.emacs.d/")
   nil)
 
 (desktop-create-buffer 206
@@ -197,372 +208,20 @@
   "LazyCatSelf"
   'dired-mode
   '(global-auto-revert-mode yas-minor-mode)
-  191
+  307
   '(nil nil)
   t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Packages/LazyCatSelf/")
+  '("/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/Site-Lisp/Packages/LazyCatSelf/")
   nil)
 
 (desktop-create-buffer 206
   nil
-  "LazyCatCollect"
+  "Lazycat"
   'dired-mode
   '(global-auto-revert-mode yas-minor-mode)
-  5372
+  273
   '(nil nil)
   t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Packages/LazyCatCollect/")
+  '("/Users/LooChao/.wine/dosdevices/z:/Users/LooChao/Dropbox/Lazycat/")
   nil)
-
-(desktop-create-buffer 206
-  nil
-  "Configure"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  1214
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatStartup.el"
-  "LazyCatStartup.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatRedefine.el"
-  "LazyCatRedefine.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatKeystoke.el"
-  "LazyCatKeystoke.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode view-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  61665
-  '(nil nil)
-  t
-  nil
-  '((buffer-file-coding-system . chinese-gbk-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatInit.el"
-  "LazyCatInit.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  1213
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatDepend.el"
-  "LazyCatDepend.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  8817
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . chinese-gbk-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/LazyCatCustomize.el"
-  "LazyCatCustomize.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  2701
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  nil
-  "Init"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  4792
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-w3m.el"
-  "init-w3m.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  2805
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-shell.el"
-  "init-shell.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  2002
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-newsticker.el"
-  "init-newsticker.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  3024
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-mldonkey.el"
-  "init-mldonkey.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  1732
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-maxima.el"
-  "init-maxima.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-auto-complete.el"
-  "init-auto-complete.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  4267
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Site-Lisp/Configure/Init/init-anything.el"
-  "init-anything.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  nil
-  "Configure-File"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  407
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "File-Journal"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  185
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/File-Journal/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/File-Journal/file-journal"
-  "file-journal"
-  'fundamental-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8)))
-
-(desktop-create-buffer 206
-  nil
-  "Emms"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  236
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/Emms/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/Emms/history"
-  "history"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/Emms/cache"
-  "cache"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  nil
-  "Emacs-W3M"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  182
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/Emacs-W3M/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/Emacs-W3M/W3m-cookie"
-  "W3m-cookie"
-  'fundamental-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8)))
-
-(desktop-create-buffer 206
-  nil
-  "Bbdb"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  177
-  '(nil nil)
-  t
-  '("/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/Bbdb/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Volumes/DATA/Repository/git/deepin-emacs/lazycat-lisp/Configure-File/Bbdb/database"
-  "database"
-  'fundamental-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8)))
-
-(desktop-create-buffer 206
-  "/Users/LooChao/Dropbox/Org/org/Pearl.org"
-  "Pearl.org"
-  'org-mode
-  '(auto-fill-mode global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  344
-  '(288 nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix) (fill-column . 80) (truncate-lines)))
-
-(desktop-create-buffer 206
-  nil
-  "org"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  2614
-  '(1 nil)
-  t
-  '("/Users/LooChao/Dropbox/Org/org/")
-  nil)
-
-(desktop-create-buffer 206
-  nil
-  "package"
-  'dired-mode
-  '(global-auto-revert-mode yas-minor-mode)
-  429
-  '(nil nil)
-  t
-  '("/Users/LooChao/Dropbox/.emacs.d/library/package/")
-  nil)
-
-(desktop-create-buffer 206
-  "/Users/LooChao/Dropbox/.emacs.d/library/package/stardict.el"
-  "stardict.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  1
-  '(1340 nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix)))
-
-(desktop-create-buffer 206
-  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-web.el_archive"
-  "lch-web.el_archive"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  235
-  '(14841 nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
-
-(desktop-create-buffer 206
-  "/Users/LooChao/Dropbox/.emacs.d/rc/lch-web.el"
-  "lch-web.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  4326
-  '(1 nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
-
-(desktop-create-buffer 206
-  "/Users/LooChao/Dropbox/.emacs.d/rc/color-theme-loochao.el"
-  "color-theme-loochao.el"
-  'emacs-lisp-mode
-  '(global-auto-revert-mode rainbow-mode yas-minor-mode auto-complete-mode outline-minor-mode flyspell-mode)
-  1643
-  '(1958 nil)
-  nil
-  nil
-  '((buffer-file-coding-system . utf-8-unix) (overwrite-mode)))
 

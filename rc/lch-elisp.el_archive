@@ -92,3 +92,8 @@
 ;;                 (setq desktop-file-modtime (nth 5 (file-attributes (desktop-full-file-name))))))
 ;;     )
 ;;   )
+
+
+;;; Flyspell
+;; Resolve conflict between ispell and aspell
+(setq-default ispell-extra-args '("--reverse")) 

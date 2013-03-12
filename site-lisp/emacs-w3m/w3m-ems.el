@@ -1,6 +1,6 @@
 ;;; w3m-ems.el --- GNU Emacs stuff for emacs-w3m
 
-;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008
 ;; TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 
 ;; Authors: Yuuichi Teranishi  <teranisi@gohome.org>,
@@ -34,7 +34,7 @@
 ;;    http://emacs-w3m.namazu.org/
 ;;
 ;; We can use w3m-static- switches to make the byte code differ between
-;; Emacs 2[12] and 2[34], if anything, it is impossible to share the byte
+;; Emacs 2[12] and 23, if anything, it is impossible to share the byte
 ;; code with those versions of Emacsen.
 
 ;;; Code:
@@ -222,6 +222,14 @@ This function is an interface to `make-coding-system'."
 (defun w3m-ucs-to-char (codepoint)
   (or (decode-char 'ucs codepoint) ?~))
 
+(defun w3m-add-local-hook (hook function &optional append)
+  "Add to the buffer-local value of HOOK the function FUNCTION."
+  (add-hook hook function append t))
+
+(defun w3m-remove-local-hook (hook function)
+  "Remove to the buffer-local value of HOOK the function FUNCTION."
+  (remove-hook hook function t))
+
 ;; Function which returns non-nil when the current display device can
 ;; show images inline.
 (defalias 'w3m-display-graphic-p 'display-images-p)
@@ -230,11 +238,6 @@ This function is an interface to `make-coding-system'."
   "Returns non-nil when images can be displayed under the present
 circumstances."
   (and w3m-display-inline-images (display-images-p)))
-
-(eval-and-compile
-  (defalias 'w3m-ems-create-image (if (fboundp 'create-animated-image)
-				      'create-animated-image
-				    'create-image)))
 
 (defun w3m-create-image (url &optional no-cache referer size handler)
   "Retrieve data from URL and create an image object.
@@ -262,10 +265,9 @@ and its cdr element is used as height."
 				    ((match-beginning 2) 'jpeg)
 				    (t 'png)))
 			 (w3m-image-type type))))
-	  (setq image (w3m-ems-create-image
-		       (buffer-string) type t
-		       :ascent 'center
-		       :background w3m-image-default-background))
+	  (setq image (create-image (buffer-string) type t
+				    :ascent 'center
+				    :background w3m-image-default-background))
 	  (if (and w3m-resize-images set-size)
 	      (progn
 		(set-buffer-multibyte t)
@@ -364,7 +366,7 @@ Buffer string between BEG and END are replaced with IMAGE."
 
 ;;; Form buttons
 (defface w3m-form-button
-  '((((type x w32 mac ns) (class color))
+  '((((type x w32 mac) (class color))
      :background "lightgrey" :foreground "black"
      :box (:line-width 2 :style released-button))
     (((class color) (background light)) (:foreground "cyan" :underline t))
@@ -376,7 +378,7 @@ Buffer string between BEG and END are replaced with IMAGE."
 (put 'w3m-form-button-face 'face-alias 'w3m-form-button)
 
 (defface w3m-form-button-mouse
-  '((((type x w32 mac ns) (class color))
+  '((((type x w32 mac) (class color))
      :background "DarkSeaGreen1" :foreground "black"
      :box (:line-width 2 :style released-button))
     (((class color) (background light)) (:foreground "cyan" :underline t))
@@ -388,7 +390,7 @@ Buffer string between BEG and END are replaced with IMAGE."
 (put 'w3m-form-button-mouse-face 'face-alias 'w3m-form-button-mouse)
 
 (defface w3m-form-button-pressed
-  '((((type x w32 mac ns) (class color))
+  '((((type x w32 mac) (class color))
      :background "lightgrey" :foreground "black"
      :box (:line-width 2 :style pressed-button))
     (((class color) (background light)) (:foreground "cyan" :underline t))
@@ -669,7 +671,7 @@ otherwise works in all the emacs-w3m buffers."
   :type '(integer :size 0))
 
 (defface w3m-tab-unselected
-  '((((type x w32 mac ns) (class color))
+  '((((type x w32 mac) (class color))
      :background "Gray70" :foreground "Gray20"
      :box (:line-width -1 :style released-button))
     (((class color))
@@ -680,7 +682,7 @@ otherwise works in all the emacs-w3m buffers."
 (put 'w3m-tab-unselected-face 'face-alias 'w3m-tab-unselected)
 
 (defface w3m-tab-unselected-retrieving
-  '((((type x w32 mac ns) (class color))
+  '((((type x w32 mac) (class color))
      :background "Gray70" :foreground "OrangeRed"
      :box (:line-width -1 :style released-button))
     (((class color))
@@ -692,7 +694,7 @@ otherwise works in all the emacs-w3m buffers."
      'face-alias 'w3m-tab-unselected-retrieving)
 
 (defface w3m-tab-unselected-unseen
-  '((((type x w32 mac ns) (class color))
+  '((((type x w32 mac) (class color))
      :background "Gray70" :foreground "Gray20"
      :box (:line-width -1 :style released-button))
     (((class color))
@@ -703,7 +705,7 @@ otherwise works in all the emacs-w3m buffers."
 (put 'w3m-tab-unselected-unseen-face 'face-alias 'w3m-tab-unselected-unseen)
 
 (defface w3m-tab-selected
-  '((((type x w32 mac ns) (class color))
+  '((((type x w32 mac) (class color))
      :background "Gray90" :foreground "black"
      :box (:line-width -1 :style released-button))
     (((class color))
@@ -715,7 +717,7 @@ otherwise works in all the emacs-w3m buffers."
 (put 'w3m-tab-selected-face 'face-alias 'w3m-tab-selected)
 
 (defface w3m-tab-selected-retrieving
-  '((((type x w32 mac ns) (class color))
+  '((((type x w32 mac) (class color))
      :background "Gray90" :foreground "red"
      :box (:line-width -1 :style released-button))
     (((class color))
@@ -728,7 +730,7 @@ otherwise works in all the emacs-w3m buffers."
      'face-alias 'w3m-tab-selected-retrieving)
 
 (defface w3m-tab-background
-  '((((type x w32 mac ns) (class color))
+  '((((type x w32 mac) (class color))
      :background "LightSteelBlue" :foreground "black")
     (((class color))
      (:background "white" :foreground "black")))
@@ -738,7 +740,7 @@ otherwise works in all the emacs-w3m buffers."
 (put 'w3m-tab-background-face 'face-alias 'w3m-tab-background)
 
 (defface w3m-tab-selected-background
-  '((((type x w32 mac ns) (class color))
+  '((((type x w32 mac) (class color))
      :background "LightSteelBlue" :foreground "black")
     (((class color))
      (:background "white" :foreground "black")))
@@ -749,7 +751,7 @@ otherwise works in all the emacs-w3m buffers."
      'face-alias 'w3m-tab-selected-background)
 
 (defface w3m-tab-mouse
-  '((((type x w32 mac ns) (class color))
+  '((((type x w32 mac) (class color))
      :background "Gray75" :foreground "white"
      :box (:line-width -1 :style released-button)))
   "*Face used to highlight tabs under the mouse."
@@ -985,7 +987,7 @@ is non-nil means not to respond to too fast operation of mouse wheel."
   "Turn N pages of emacs-w3m buffers behind."
   (interactive (list (prefix-numeric-value current-prefix-arg)
 		     last-command-event))
-  (w3m-tab-next-buffer (- (or n 1)) event))
+  (w3m-tab-next-buffer (- n) event))
 
 (defun w3m-tab-move-right (&optional n event)
   "Move this tab N times to the right (to the left if N is negative)."

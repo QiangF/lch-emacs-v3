@@ -1,6 +1,6 @@
 ;;; w3m-hist.el --- the history management system for emacs-w3m
 
-;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2008, 2009, 2010
+;; Copyright (C) 2001, 2002, 2003, 2004, 2005
 ;; TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 
 ;; Author: Katsumi Yamaoka <yamaoka@jpl.org>
@@ -190,14 +190,14 @@ buffer-local properties using the functions `w3m-history-plist-get',
   "Extract a history element associated with URL from `w3m-history-flat'."
   (assoc url w3m-history-flat))
 
-;; Functions for internal use.
-(defun w3m-history-set-current (position)
+(defsubst w3m-history-set-current (position)
   "Modify `w3m-history' so that POSITION might be the current position.
 What is called the current position is the `cadar' of `w3m-history'.
 The previous position and the next position will be computed
 automatically."
   (setcar w3m-history (w3m-history-regenerate-pointers position)))
 
+;; Functions for internal use.
 (defun w3m-history-element (position &optional flat)
   "Return a history element located in the POSITION of the history.
 If FLAT is nil, the value will be extracted from `w3m-history' and
@@ -523,12 +523,12 @@ are replaced with NEWPROPS."
 This function keeps corresponding elements identical Lisp objects
 between buffers while copying the frameworks of `w3m-history' and
 `w3m-history-flat'.  Exceptionally, buffer-local properties contained
-in `w3m-history-flat' will not be copied except for the positions.  If
+in `w3m-history-flat' will not be copied.  If
 `w3m-history-minimize-in-new-session' is non-nil, the copied history
 structure will be shrunk so that it may contain only the current
 history element."
   (let ((current (current-buffer))
-	position flat element props window-start rest)
+	position flat element rest)
     (set-buffer buffer)
     (when w3m-history
       (setq position (copy-sequence (cadar w3m-history))
@@ -542,19 +542,11 @@ history element."
 	    (setcdr (cdr element) nil)
 	    (setq w3m-history (list (list nil (list 0) nil) element)
 		  w3m-history-flat (list (append element (list (list 0))))))
-	;; Remove buffer-local properties, except for the positions,
-	;; from the new `w3m-history-flat'.
+	;; Remove buffer-local properties from the new `w3m-history-flat'.
 	(while flat
 	  (setq element (copy-sequence (car flat))
-		flat (cdr flat)
-		props (cdddr element)
-		window-start (plist-get props :window-start))
-	  (if window-start
-	      (setcdr (cddr element)
-		      (list :window-start window-start
-			    :position (plist-get props :position)
-			    :window-hscroll (plist-get props :window-hscroll)))
-	    (setcdr (cddr element) nil))
+		flat (cdr flat))
+	  (setcdr (cddr element) nil)
 	  (push element rest))
 	(setq w3m-history-flat (nreverse rest))
 	(w3m-history-tree position)))))
@@ -606,7 +598,7 @@ Warning: the history database in this session seems corrupted.")
 Return new properties.  If NOT-BUFFER-LOCAL is nil, KEYWORD and VALUE
 will be put into the buffer-local properties.  Otherwise, KEYWORD and
 VALUE will be put into the global properties instead."
-  (w3m-history-add-properties (list keyword value) not-buffer-local))
+  (inline (w3m-history-add-properties (list keyword value) not-buffer-local)))
 
 (defun w3m-history-remove-properties (properties &optional not-buffer-local)
   "Remove PROPERTIES from the current history element.
@@ -618,7 +610,7 @@ Otherwise, the global properties will be modified instead."
     (while properties
       (setq rest (cons nil (cons (car properties) rest))
 	    properties (cddr properties)))
-    (w3m-history-add-properties (nreverse rest) not-buffer-local)))
+    (inline (w3m-history-add-properties (nreverse rest) not-buffer-local))))
 
 (defun w3m-history-store-position ()
   "Store the current cursor position into the current history element.
@@ -626,11 +618,8 @@ Data consist of the position where the window starts and the cursor
 position.  Naturally, those should be treated as buffer-local."
   (interactive)
   (when (cadar w3m-history)
-    (w3m-history-add-properties
-     (list :window-start (window-start)
-	   :position (cons (count-lines (point-min) (point-at-bol))
-			   (current-column))
-	   :window-hscroll (window-hscroll)))
+    (w3m-history-add-properties (list :window-start (window-start)
+				      :position (point)))
     (when (interactive-p)
       (message "The current cursor position saved"))))
 
@@ -647,12 +636,8 @@ it works although it may not be perfect."
 	     (when (<= start (point-max))
 	       (setq window (get-buffer-window (current-buffer) 'all-frames))
 	       (when window
-		 (set-window-start window start)
-		 (set-window-hscroll
-		  window (or (w3m-history-plist-get :window-hscroll) 0)))
-	       (goto-char (point-min))
-	       (forward-line (car position))
-	       (move-to-column (cdr position))
+		 (set-window-start window start))
+	       (goto-char (min position (point-max)))
 	       (let ((deactivate-mark nil))
 		 (run-hooks 'w3m-after-cursor-move-hook))))
 	    ((interactive-p)

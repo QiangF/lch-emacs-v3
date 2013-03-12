@@ -1,13 +1,6 @@
 ;; -*- mode: emacs-lisp -*-
 (require 'term)
 
-(defcustom eshell-directory-name
-  (let* ((dir (concat emacs-var-dir "/eshell")))
-    (make-directory dir t)
-    dir)
-  "The directory where Eshell control files should be kept."
-  :type 'directory
-  :group 'eshell)
 
 ;; kill buffer when terminal process is killed
 (defadvice term-sentinel (around my-advice-term-sentinel (proc msg))
@@ -123,9 +116,8 @@ o(defun live-ansi-terminal-buffer-names ()
 (setq shell-prompt-pattern (concat "^" (system-name) " [^ ]+ \\[[0-9]+\\] "))
 
 ;; translate ANSI escape sequences into faces
-;; (require 'ansi-color)
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
 
 ;;; Popup shell
 ;; (defvar th-shell-popup-buffer nil)
@@ -148,17 +140,6 @@ o(defun live-ansi-terminal-buffer-names ()
 ;;       (comint-send-string nil (concat "cd " dir "\n")))))
 ;; ;(global-set-key (kbd "<f1> ") 'th-shell-popup)
 ;; 
-;;; Multi-term
-(require 'multi-term)
-(setq multi-term-program "/bin/bash")
-;;; Shell-pop
-(require 'shell-pop)
-(shell-pop-set-internal-mode "ansi-term")
-(shell-pop-set-internal-mode-shell "/bin/bash")
-(shell-pop-set-window-height 60) ;the number for the percentage of the selected window. if 100, shell-pop use the whole of selected window, not spliting.
-(shell-pop-set-window-position "bottom") ;shell-pop-up position. You can choose "top" or "bottom".
-(define-key global-map (kbd "<f1> <f2>") 'shell-pop)
-
 
 ;; NEWSMTH
 ;; Not so good, keep here as an example.

@@ -1,6 +1,6 @@
 ;;; w3m-search.el --- functions convenient to access web search engines
 
-;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008
 ;; TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 
 ;; Authors: Keisuke Nishida    <kxn30@po.cwru.edu>,
@@ -128,10 +128,10 @@
 	     "http://news.google.com/news?hl=en&q=%s")))
 	 (utf-8
 	  '(("google news"
-	     "http://news.google.com/news?ie=utf-8&q=%s&oe=utf-8"
+	     "http://news.google.co.jp/news?hl=ja&ie=utf-8&q=%s&oe=utf-8"
 	     utf-8)
 	    ("google news-en"
-	     "http://news.google.com/news?hl=en&ie=utf-8&q=%s&oe=utf-8")))
+	     "http://news.google.com/news?hl=en&q=%s")))
 	 (t
 	  '(("google news"
 	     "http://news.google.com/news?q=%s")
@@ -266,9 +266,6 @@ as an initial string."
 (defvar w3m-search-engine-history nil
   "History variable used by `w3m-search' for prompting a search engine.")
 
-(defvar w3m-search-thing-at-point-arg 'word
-  "Argument for `thing-at-point' used in `w3m-search-read-query'")
-
 (defun w3m-search-escape-query-string (str &optional coding)
   (mapconcat
    (lambda (s)
@@ -287,7 +284,7 @@ PROMPT-WITH-DEFAULT instead of string PROMPT."
 			 (listp (get-text-property (point-at-bol) 'face))
 			 (memq 'w3m-header-line-location-title
 			       (get-text-property (point-at-bol) 'face)))
-	      (thing-at-point w3m-search-thing-at-point-arg))))
+	      (thing-at-point 'word))))
 	initial)
     (when default
       (set-text-properties 0 (length default) nil default)

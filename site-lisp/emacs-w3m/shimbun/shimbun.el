@@ -1,6 +1,6 @@
 ;;; shimbun.el --- interfacing with web newspapers -*- coding: iso-2022-7bit; -*-
 
-;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009
 ;; Yuuichi Teranishi <teranisi@gohome.org>
 
 ;; Author: TSUCHIYA Masatoshi <tsuchiya@namazu.org>,
@@ -299,15 +299,16 @@ slot of SHIMBUN to encode URL."
     (setq coding (or (shimbun-url-coding-system-internal shimbun) coding))
     (save-restriction
       (narrow-to-region (point) (point))
-      (or (shimbun-retrieve-url url no-cache no-decode referer coding)
+      (or (inline (shimbun-retrieve-url url no-cache no-decode referer coding))
 	  (and retry
 	       (let (retval)
 		 (shimbun-message
 		  shimbun "shimbun: Retrying to fetch contents...")
 		 (while (and (> retry 0) (not retval))
 		   (delete-region (point-min) (point-max))
-		   (setq retval (shimbun-retrieve-url
-				 url no-cache no-decode referer coding)
+		   (setq retval (inline
+				  (shimbun-retrieve-url
+				   url no-cache no-decode referer coding))
 			 retry (1- retry)))
 		 (shimbun-message shimbun
 				  "shimbun: Retrying to fetch contents...%s"
@@ -318,11 +319,9 @@ slot of SHIMBUN to encode URL."
   "Return a real URL."
   (w3m-real-url url no-cache))
 
-(defalias 'shimbun-beginning-of-tag 'w3m-beginning-of-tag)
 (defalias 'shimbun-decode-anchor-string 'w3m-decode-anchor-string)
 (defalias 'shimbun-decode-entities 'w3m-decode-entities)
 (defalias 'shimbun-decode-entities-string 'w3m-decode-entities-string)
-(defalias 'shimbun-end-of-tag 'w3m-end-of-tag)
 (defalias 'shimbun-expand-url 'w3m-expand-url)
 (defalias 'shimbun-find-coding-system 'w3m-find-coding-system)
 (defalias 'shimbun-replace-in-string 'w3m-replace-in-string)
@@ -347,7 +346,7 @@ slot of SHIMBUN to encode URL."
     (shimbun-mime-encode-string
      (shimbun-header-subject-internal header))))
 
-(defun shimbun-header-normalize (string &optional keep-angle-brackets)
+(defsubst shimbun-header-normalize (string &optional keep-angle-brackets)
   (when string
     (save-match-data
       ;; This is a trick to keep backward compatibility for
@@ -457,15 +456,16 @@ following operations are unnecessary:
 If optional 11th argument ASIS is non-nil, normalization of header
 values is suppressed."
   (let ((new (luna-make-entity 'shimbun-header :number number)))
-    (shimbun-header-set-subject new subject asis)
-    (shimbun-header-set-from new from asis)
-    (shimbun-header-set-date new date asis)
-    (shimbun-header-set-id new id asis)
-    (shimbun-header-set-references new references asis)
-    (shimbun-header-set-chars new chars)
-    (shimbun-header-set-lines new lines)
-    (shimbun-header-set-xref new xref)
-    (shimbun-header-set-extra new extra)
+    (inline
+      (shimbun-header-set-subject new subject asis)
+      (shimbun-header-set-from new from asis)
+      (shimbun-header-set-date new date asis)
+      (shimbun-header-set-id new id asis)
+      (shimbun-header-set-references new references asis)
+      (shimbun-header-set-chars new chars)
+      (shimbun-header-set-lines new lines)
+      (shimbun-header-set-xref new xref)
+      (shimbun-header-set-extra new extra))
     new))
 
 (defun shimbun-make-header (&optional number subject from date id
@@ -479,8 +479,8 @@ instead of this function."
 			 (and from (eword-decode-string from))
 			 date id references chars lines xref extra t))
 
-;; Functions for the internal use.
-(defun shimbun-article-base-url (shimbun header)
+;; Inline functions for the internal use.
+(defsubst shimbun-article-base-url (shimbun header)
   "Return URL which points the original page specified by HEADER for SHIMBUN."
   (let ((xref (shimbun-header-xref header)))
     (if (and xref (eq (aref xref 0) ?/))
@@ -594,33 +594,16 @@ Generated article have a multipart/related content-type."
   "Return MIME charset of ENTITY.")
 (luna-define-method shimbun-text-entity-charset ((entity shimbun-text-entity)
 						 &optional begin end)
-  (let (cur tmp)
-    (unless (and begin end)
-      (setq cur (current-buffer))
-      (set-buffer (generate-new-buffer " *temp*"))
-      (insert (shimbun-entity-data-internal entity))
-      (setq begin (point-min)
-	    end (point-max)
-	    tmp (current-buffer)))
-    (prog1
-	;; Prefer meta charset.
-	(or (let ((charset (progn
-			     (goto-char begin)
-			     (and (re-search-forward "\
-<meta\\s-+http-equiv=[\"']?content-type[\"']?\\s-+content=[\"']\
-text/\\sw+\\(?:\;\\s-*charset=\\(.+\\)\\)?[\"'][^>]*>" end t)
-				  (match-string 1)))))
-	      (when (and charset
-			 (w3m-find-coding-system (intern (downcase charset))))
-		(shimbun-text-entity-set-charset-internal entity
-							  (upcase charset))))
-	    (shimbun-text-entity-charset-internal entity)
-	    (shimbun-text-entity-set-charset-internal
-	     entity (upcase (symbol-name
-			     (detect-mime-charset-region begin end)))))
-      (when cur
-	(set-buffer cur)
-	(kill-buffer tmp)))))
+  (or (shimbun-text-entity-charset-internal entity)
+      (shimbun-text-entity-set-charset-internal
+       entity
+       (upcase
+	(symbol-name
+	 (if (and begin end)
+	     (detect-mime-charset-region begin end)
+	   (with-temp-buffer
+	     (insert (shimbun-entity-data-internal entity))
+	     (detect-mime-charset-region (point-min) (point-max)))))))))
 
 (luna-define-method shimbun-entity-type ((entity shimbun-text-entity))
   (concat (shimbun-entity-type-internal entity)
@@ -703,9 +686,7 @@ image parts, and returns an alist of URLs and image entities."
 		      (substring url 0 (match-beginning 0))
 		    url))
 		 base-url))
-      (unless (or (setq img (assoc url images))
-		  (and w3m-ignored-image-url-regexp
-		       (string-match w3m-ignored-image-url-regexp url)))
+      (unless (setq img (assoc url images))
 	(with-temp-buffer
 	  (set-buffer-multibyte nil)
 	  (setq case-fold-search nil
@@ -781,14 +762,13 @@ you want to use no database."
   (let ((from (shimbun-header-from header))
 	(refs (shimbun-header-references header))
 	(reply-to (shimbun-reply-to shimbun))
-	x-face)
+	x-face
+	;; Make sure the temp buffer's multibyteness is true.  It is
+	;; needed to make `encode-mime-charset-string' (which is
+	;; employed by `eword-encode-string') encode non-ascii text.
+	(default-enable-multibyte-characters t))
     (insert
      (with-temp-buffer
-       ;; Make sure the temp buffer's multibyteness is true.  It is
-       ;; needed to make `encode-mime-charset-string' (which is
-       ;; employed by `eword-encode-string') encode non-ascii text.
-       (static-unless (featurep 'xemacs)
-	 (set-buffer-multibyte t))
        (insert "Subject: " (or (eword-encode-string
 				(shimbun-header-subject header t))
 			       "(none)")
@@ -1055,7 +1035,7 @@ Bind it to nil per shimbun if the refresh brings unwanted page.")
 Return nil when articles are not expired."
   (shimbun-expiration-days-internal shimbun))
 
-(defun shimbun-content-start (shimbun)
+(defsubst shimbun-content-start (shimbun)
   "Return the `content-start' value according to SHIMBUN."
   (if (shimbun-prefer-text-plain-internal shimbun)
       (or (shimbun-text-content-start-internal shimbun)
@@ -1063,7 +1043,7 @@ Return nil when articles are not expired."
     (or (shimbun-content-start-internal shimbun)
 	(shimbun-text-content-start-internal shimbun))))
 
-(defun shimbun-content-end (shimbun)
+(defsubst shimbun-content-end (shimbun)
   "Return the `content-end' value according to SHIMBUN."
   (if (shimbun-prefer-text-plain-internal shimbun)
       (or (shimbun-text-content-end-internal shimbun)
@@ -1130,15 +1110,9 @@ HEADER is a header structure obtained via `shimbun-headers'.")
 
 (defun shimbun-insert-footer (shimbun header &optional html &rest args)
   "Insert the footer and ARGS."
-  ;; Remove <p> and </p> from the last paragraph in order to prevent
-  ;; an empty line from being inserted at the end.
-  (goto-char (point-min))
-  (when (re-search-forward "[\t\n ]*<p>[\t\n ]*\\([^<]+\\)</p>[\t\n ]*\
-\\(?:<\\(?:![^>]+\\|/?div\\|/?p\\)>[\t\n ]*\\)*\\'" nil t)
-    (replace-match "\n\\1"))
   (goto-char (point-min))
   (when (re-search-forward
-	 "[\t\n ]*\\(?:<\\(?:![^>]+\\|br\\|div\\)>[\t\n ]*\\)*\\'"
+	 "[\t\n ]*\\(?:<\\(?:![^>]+\\|br\\|/?div\\|/?p\\)>[\t\n ]*\\)*\\'"
 	 nil 'move)
     (delete-region (match-beginning 0) (point-max)))
   (apply 'insert "\n" (shimbun-footer shimbun header html) args))
@@ -1287,17 +1261,16 @@ that the content type is text/html, otherwise text/plain."
 (defun shimbun-mime-encode-string (string)
   (condition-case nil
       (save-match-data
-	(with-temp-buffer
-	  ;; Make sure the temp buffer's multibyteness is true.  It is
-	  ;; needed to make `encode-mime-charset-string' (which is
-	  ;; employed by `eword-encode-string') encode non-ascii text.
-	  (static-unless (featurep 'xemacs)
-	    (set-buffer-multibyte t))
-	  (mapconcat
-	   #'identity
-	   (split-string (or (eword-encode-string
-			      (shimbun-decode-entities-string string)) ""))
-	   " ")))
+	;; Make sure the temp buffer's multibyteness is true.  It is
+	;; needed to make `encode-mime-charset-string' (which is
+	;; employed by `eword-encode-string') encode non-ascii text.
+	(let ((default-enable-multibyte-characters t))
+	  (with-temp-buffer
+	    (mapconcat
+	     #'identity
+	     (split-string (or (eword-encode-string
+				(shimbun-decode-entities-string string)) ""))
+	     " "))))
     (error string)))
 
 (defun shimbun-make-date-string (year month day &optional time timezone)
@@ -1367,64 +1340,110 @@ the following form returns the present time of Japan, wherever you are.
 		   (< (cadr a) (cadr b)))))))
 
 (defun shimbun-remove-tags (begin-tag &optional end-tag)
-  "Remove all occurrences of regions surrounded by BEGIN-TAG and END-TAG.
-
-If END-TAG is neither nil nor a string, it works strictly for open and
-close tags (i.e. <tag>...</tag>).  In that case, BEGIN-TAG should be a
-regexp matching text within an open tag \"<...>\", and buffer's text that
-matches the first non-shy sub-expression surrounded by parens \"\\\\(...\\\\)\"
-in BEGIN-TAG is regarded as a name of an open tag; if there is no paren
-in BEGIN-TAG, the whole text that matches BEGIN-TAG is regarded as a tag
-name."
+  "Remove all occurrences of regions surrounded by BEGIN-TAG and END-TAG."
   (let ((case-fold-search t))
     (goto-char (point-min))
-    (cond ((stringp end-tag)
-	   (let (pos)
-	     (while (and (re-search-forward begin-tag nil t)
-			 (setq pos (match-beginning 0))
-			 (re-search-forward end-tag nil t))
-	       (delete-region pos (point)))))
-	  ((null end-tag)
-	   (while (re-search-forward begin-tag nil t)
-	     (delete-region (match-beginning 0) (match-end 0))))
-	  (t
-	   (setq begin-tag
-		 (if (string-match "\\\\([^?]" begin-tag)
-		     (concat "<[\t\n\r ]*" begin-tag)
-		   (concat "<[\t\n\r ]*\\(" begin-tag "\\)[\t\n\r >]")))
-	   (while (re-search-forward begin-tag nil t)
-	     (when (or (not (eq (match-end 0) (match-end 1)))
-		       (memq (char-after) '(?\t ?\n ?\r ?  ?>)))
-	       (goto-char (match-beginning 0))
-	       (if (shimbun-end-of-tag (match-string 1) t)
-		   (replace-match "\n")
-		 (goto-char (match-end 0)))))))))
+    (if end-tag
+	(let (pos)
+	  (while (and (re-search-forward begin-tag nil t)
+		      (setq pos (match-beginning 0))
+		      (re-search-forward end-tag nil t))
+	    (delete-region pos (point))))
+      (while (re-search-forward begin-tag nil t)
+	(delete-region (match-beginning 0) (match-end 0))))))
 
-(defun shimbun-remove-orphaned-tag-strips (string)
-  "Remove orphaned tag strips that match STRING.
-STRING is like the inside of a \"\\\\(...\\\\)\" in a regular expression."
-  (let (regexp st nd)
-    (setq regexp (concat "<[\t\n\r ]*/[\t\n\r ]*\\(" string
-			 "\\)\\(?:[\t\n\r ][^>]+\\)?[\t\n\r ]*>[\t ]*"))
-    (goto-char (point-max))
-    (while (re-search-backward regexp nil t)
-      (setq st (match-beginning 0)
-	    nd (goto-char (match-end 0)))
-      (unless (prog1
-		  (shimbun-beginning-of-tag (match-string 1))
-		(goto-char st))
-	(skip-chars-backward "\t\n\r ")
-	(delete-region (point) nd)))
-    (setq regexp (concat "[\t\n\r ]*<[\t\n\r ]*\\(" string
-			 "\\)\\(?:[\t\n\r ][^>]+\\)?[\t\n\r ]*>[\t ]*"))
-    (goto-char (point-min))
-    (while (re-search-forward regexp nil t)
-      (setq st (goto-char (match-beginning 0))
-	    nd (match-end 0))
-      (unless (prog1
-		  (shimbun-end-of-tag (match-string 1))
-		(goto-char nd))
-	(delete-region st nd)))))
+(defun shimbun-end-of-tag (&optional tag include-whitespace)
+  "Move point to the end of tag.  Inner nested tags are skipped.
+If TAG, which is a name of the tag, is given, this function moves point
+from the open-tag <TAG ...> (point should exist in front of or within
+it initially) to the end-point of the closing-tag </TAG>.  For example,
+in the following two situations, point moves from the leftmost tag to
+the end-point of the rightmost tag:
+
+<TAG ...>...<TAG ...>...<TAG ...>...</TAG>...</TAG>...</TAG>
+<TAG ...>...<TAG ...>...</TAG>...<TAG ...>...</TAG>...</TAG>
+
+If TAG is omitted or nil, this function moves point to the end-point of
+the tag in which point exists.  In this case, point should initially
+exist within the start position of the tag and the next tag as follows:
+
+<!-- foo <bar ...<baz ...>...> -->
+ ^^^^^^^^
+If INCLUDE-WHITESPACE is non-nil, include leading and trailing
+whitespace.  Return the end-point and set the match-data #0, #1, #2,
+and #3 as follows (\"___\" shows whitespace):
+
+The case where TAG is spefified:
+___<TAG ...>___...___</TAG>___
+   0        1  2  2  1     0     INCLUDE-WHITESPACE=nil
+0  1        2  3  3  2     1  0  INCLUDE-WHITESPACE=non-nil
+
+The case where TAG is nil:
+___<TAG ...>___
+   0        0     INCLUDE-WHITESPACE=nil
+0  1        1  0  INCLUDE-WHITESPACE=non-nil"
+  (let ((init (point))
+	(num 1)
+	(md (match-data))
+	(case-fold-search t)
+	regexp st1 st2 st3 nd1 nd2 nd3 nd0 st0)
+    (condition-case nil
+	(progn
+	  (if tag
+	      (progn
+		(setq tag (regexp-quote tag))
+		(if (looking-at (concat "\
+\[\t\n\r ]*\\(<[\t\n\r ]*" tag "\\(?:[\t\n\r ]*\\|[\t\n\r ]+[^>]+\\)>\\)\
+\[\t\n\r ]*"))
+		    (setq st1 (nth 2 (match-data)) ;; (match-beginning 1)
+			  st2 (nth 3 (match-data)) ;; (match-end 1)
+			  st3 (nth 1 (match-data))) ;; (match-end 0)
+		  (search-backward "<")
+		  (if (looking-at (concat "\
+\\(<[\t\n\r ]*" tag "\\(?:[\t\n\r ]*\\|[\t\n\r ]+[^>]+\\)>\\)[\t\n\r ]*"))
+		      (setq st1 (car (match-data)) ;; (match-beginning 0)
+			    st2 (nth 3 (match-data)) ;; (match-end 1))
+			    st3 (nth 1 (match-data))) ;; (match-end 0)
+		    (error "")))
+		(goto-char (1+ st1))
+		(setq regexp (concat "\
+\[\t\n\r ]*\\(<\\(/\\)?" tag "\\(?:[\t\n\r ]*\\|[\t\n\r ]+[^>]+\\)>\\)"))
+		(while (and (> num 0)
+			    (re-search-forward regexp))
+		  (setq num (if (match-beginning 2)
+				(1- num)
+			      (1+ num))))
+		(setq nd1 (nth 3 (match-data)) ;; (match-end 1)
+		      nd2 (nth 2 (match-data)) ;; (match-beginning 1)
+		      nd3 (car (match-data)))) ;; (match-beginning 0)
+	    (search-backward "<")
+	    (setq st1 (car (match-data))) ;; (match-beginning 0)
+	    (goto-char init)
+	    (while (and (> num 0)
+			(re-search-forward "\\(>\\)\\|<"))
+	      (setq num (if (match-beginning 1)
+			    (1- num)
+			  (1+ num))))
+	    (setq nd1 (nth 3 (match-data)))) ;; (match-end 1)
+	  (if include-whitespace
+	      (progn
+		(skip-chars-forward "\t\n\r ")
+		(setq nd0 (point-marker))
+		(goto-char st1)
+		(skip-chars-backward "\t\n\r ")
+		(setq st0 (point-marker))
+		(goto-char nd0)
+		(set-match-data (if tag
+				    (list st0 nd0 st1 nd1 st2 nd2 st3 nd3)
+				  (list st0 nd0 st1 nd1))))
+	    (set-match-data (if tag
+				(list st1 nd1 st2 nd2 st3 nd3)
+			      (list st1 nd1))))
+	  (point))
+      (error
+       (set-match-data md)
+       (goto-char init)
+       nil))))
 
 (defun shimbun-remove-markup ()
   "Remove all HTML markup, leaving just plain text."
@@ -1438,7 +1457,7 @@ STRING is like the inside of a \"\\\\(...\\\\)\" in a regular expression."
     (while (re-search-forward "<[^>]+>" nil t)
       (replace-match "" t t))))
 
-(defun shimbun-strip-cr ()
+(defsubst shimbun-strip-cr ()
   "Strip ^M from the end of all lines."
   (goto-char (point-max))
   (while (search-backward "\r\n" nil t)
@@ -1474,10 +1493,9 @@ Use ## to put a single # into the output.  If `shimbun-verbose' is nil,
 it will run silently.  The `shimbun-message-enable-logging' variable
 controls whether this function should preserve a message in the
 *Messages* buffer."
-  (let (specifier)
+  (let ((default-enable-multibyte-characters t)
+	specifier)
     (with-temp-buffer
-      (static-unless (featurep 'xemacs)
-	(set-buffer-multibyte t))
       (insert fmt)
       (goto-char (point-min))
       (while (search-forward "#" nil t)

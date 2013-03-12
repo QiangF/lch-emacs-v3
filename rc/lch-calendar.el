@@ -32,6 +32,7 @@
 
 ;;; Code
 (message "=> lch-calendar: loading...")
+(require 'calendar)
 (setq calendar-latitude 40.34)
 (setq calendar-longitude -74.65)
 (setq calendar-location-name "Princeton, NJ")
@@ -41,6 +42,35 @@
 
 ;; mark dates of holidays in the calendar
 (setq calendar-mark-holidays-flag t)
+
+;;; Binding
+(lazy-unset-key
+ '("a")
+ calendar-mode-map)                     ;卸载按键
+(lazy-set-key
+ '(
+   ("j" . calendar-forward-week)              ;下一个星期
+   ("k" . calendar-backward-week)             ;上一个星期
+   ("l" . calendar-forward-day)               ;下一天
+   ("h" . calendar-backward-day)              ;上一天
+   ("L" . calendar-forward-month)             ;下一月
+   ("H" . calendar-backward-month)            ;上一月
+   ("J" . calendar-forward-year)              ;下一年
+   ("K" . calendar-backward-year)             ;上一年
+   ("aw" . calendar-beginning-of-week)        ;一星期的第一天
+   ("ew" . calendar-end-of-week)              ;一星期的最后一天
+   ("am" . calendar-beginning-of-month)       ;一月的第一天
+   ("em" . calendar-end-of-month)             ;一月的最后一天
+   ("ay" . calendar-beginning-of-year)        ;一年的第一天
+   ("ey" . calendar-end-of-year)              ;一年的最后一天
+   (";" . calendar-goto-today)                ;跳到今天
+   ("," . calendar-scroll-left)               ;向左滚动一月
+   ("." . calendar-scroll-right)              ;向右滚动一月
+   ("<" . calendar-scroll-left-three-months)  ;向左滚动三月
+   (">" . calendar-scroll-right-three-months) ;向右滚动三月
+   ("q" . calendar-exit)                      ;退出
+   )
+ calendar-mode-map)
 
 (message "~~ lch-calendar: done.")
 (provide 'lch-calendar)

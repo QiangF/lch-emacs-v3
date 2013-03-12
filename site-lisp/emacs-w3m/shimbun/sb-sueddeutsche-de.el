@@ -1,6 +1,6 @@
 ;;; sb-sueddeutsche-de.el --- sueddeutsche.de shimbun backend
 
-;; Copyright (C) 2008, 2009, 2010 David Engster
+;; Copyright (C) 2008 David Engster
 
 ;; Author: David Engster <dengste@eml.cc>
 ;; Keywords: news
@@ -30,46 +30,40 @@
 (defvar shimbun-sueddeutsche-de-group-url
   '(("alles"
      "http://www.sueddeutsche.de/app/service/rss/alles/rss.xml")
-    ("topthemen"
-     "http://www.sueddeutsche.de/app/service/rss/topthemen/topthemen.xml")
+    ("nachrichten"
+     "http://www.sueddeutsche.de/app/service/rss/nachrichten/rss.xml")
     ("politik"
-     "http://rss.sueddeutsche.de/rss/Politik")
+     "http://www.sueddeutsche.de/app/service/rss/ressort/politik/rss.xml")
     ("wirtschaft"
-     "http://rss.sueddeutsche.de/rss/Wirtschaft")
+     "http://www.sueddeutsche.de/app/service/rss/ressort/wirtschaft/rss.xml")
     ("finanzen"
-     "http://rss.sueddeutsche.de/rss/Geld")
+     "http://www.sueddeutsche.de/app/service/rss/ressort/finanzen/rss.xml")
     ("kultur"
-     "http://rss.sueddeutsche.de/rss/Kultur")
+     "http://www.sueddeutsche.de/app/service/rss/ressort/kultur/rss.xml")
     ("sport"
-     "http://rss.sueddeutsche.de/rss/Sport")
-    ("bayern"
-     "http://rss.sueddeutsche.de/rss/Bayern")
+     "http://www.sueddeutsche.de/app/service/rss/ressort/sport/rss.xml")
     ("muenchen"
-     "http://rss.sueddeutsche.de/rss/M%C3%BCnchen")
+     "http://sueddeutsche.de/app/service/rss/ressort/muenchen/rss.xml")
     ("panorama"
-     "http://rss.sueddeutsche.de/rss/Panorama")
+     "http://sueddeutsche.de/app/service/rss/ressort/panorama/rss.xml")
     ("leben"
-     "http://rss.sueddeutsche.de/rss/Leben%20&%20Stil")
+     "http://sueddeutsche.de/app/service/rss/ressort/leben/rss.xml")
     ("gesundheit"
-     "http://rss.sueddeutsche.de/rss/Gesundheit")
+     "http://sueddeutsche.de/app/service/rss/ressort/gesundheit/rss.xml")
     ("computer"
-     "http://rss.sueddeutsche.de/rss/Computer")
-    ("immobilien"
-     "http://rss.sueddeutsche.de/rss/Immobilien")
-    ("wissen"
-     "http://rss.sueddeutsche.de/rss/Wissen")
-    ("jobs"
-     "http://rss.sueddeutsche.de/rss/Job%20&%20Karriere")
-    ("reise"
-     "http://rss.sueddeutsche.de/rss/Reise")))
+     "http://sueddeutsche.de/app/service/rss/ressort/computerwissen/rss.xml")))
 
 (defvar shimbun-sueddeutsche-de-groups
   (mapcar 'car shimbun-sueddeutsche-de-group-url))
 (defvar shimbun-sueddeutsche-de-from-address "invalid@sueddeutsche.de")
 (defvar shimbun-sueddeutsche-de-content-start
-  "<!--.*?[Bb]egin.*?[cC]ontent.*?-->\\|class=\"artikelBox\"")
+  (concat "<!-- beginn content -->[^\0]*?alt=\"Trennlinie\">"
+	  ;; kino
+	  "\\|<div class=\"artikelImageBlockLeft\">"))
 (defvar shimbun-sueddeutsche-de-content-end
-  "<!--.*?[eE]nde.*?[cC]ontent.*?-->")
+  (concat "<!-- ende content -->"
+	  ;; kino
+	  "\\|<!--NP-DROPEND-->"))
 
 (defvar shimbun-sueddeutsche-de-x-face-alist
   '(("default" . "\
@@ -81,13 +75,27 @@ Face: iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEXLyspMSkr///9+fX1
   (let ((group (shimbun-current-group-internal shimbun)))
     (cadr (assoc group shimbun-sueddeutsche-de-group-url))))
 
+(luna-define-method shimbun-get-headers :around ((shimbun
+						  shimbun-sueddeutsche-de)
+						 &optional range)
+  (let ((headers (luna-call-next-method))
+	url)
+    (mapcar
+     (lambda (header)
+       (setq url (shimbun-header-xref header))
+       (when (string-match "ns_url=\\(http://www.sueddeutsche.de/.*\\)/" url)
+	 (setq url (concat (match-string 1 url) "/print.html"))
+	 (shimbun-header-set-xref header url))
+       header)
+     headers)))
+
 (luna-define-method shimbun-rss-build-message-id ((shimbun
 						   shimbun-sueddeutsche-de)
 						  url date)
   (let ((group (shimbun-current-group-internal shimbun))
 	id)
     (cond ((string-match
-	    ".*sueddeutsche\\.de.*/\\(.+\\)/\\(.+\\)/?" url)
+	    "ns_url=.*sueddeutsche.de.*/\\([0-9]+\\)/\\([0-9]+\\)/" url)
 	   (concat "<" (match-string 1 url) "." (match-string 2 url) "." group
 		   "@sueddeutsche.de>"))
 	  (t
@@ -97,29 +105,10 @@ Face: iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEXLyspMSkr///9+fX1
 						     shimbun-sueddeutsche-de)
 						    header)
   (shimbun-remove-tags "<!-- Stoerer //-->" "<!-- END Stoerer //-->")
-  (shimbun-remove-tags "\\(span\\) class=\"hidePrint\">" t)
-  (shimbun-remove-tags
-   "\\(table\\)\\(?:[\t\n\r ]+[^\t\n\r >]+\\)[\t\n\r ]+class=\"stoerBS\"" t)
-  (shimbun-remove-tags "\\(:a\\|span\\)[\t\n\r ][^>]*bildstrecke" t)
-  (shimbun-remove-tags "<td class=\"artikelDruckenRight\" align=\"right\">"
-		       "class=\"artikelDachzeile\"")
-  (shimbun-remove-tags "<div class=\"bannerOben\">" "<div class=\"bannerUnten\">"))
-
-(luna-define-method shimbun-article-url ((shimbun shimbun-sueddeutsche-de)
-					 header)
-  ;; retrieve real URL and choose print-version
-  (let ((url (shimbun-header-xref header)))
-    (when (string-match "html?$" url)
-      (setq url
-	    (car (last
-		  (w3m-process-with-wait-handler
-		    (w3m-w3m-attributes url nil handler))))))
-    (cond
-     ((string-match "\\(.*jetzt.*sueddeutsche.*de.*\\)texte/anzeigen/\\(.+\\)" url)
-      (setq url (concat (match-string 1 url) "drucken/text/" (match-string 2 url))))
-     ((string-match "text/$" url)
-      (setq url (concat url "print.html"))))
-    url))
+  (shimbun-remove-tags "<span class=\"hidePrint\">" "</span>")
+  (shimbun-remove-tags "<table.*?class=\"stoerBS\".*?>" "</table>")
+  (shimbun-remove-tags "<\\(?:a\\|span\\) .*?bildstrecke.*?>"
+		       "</\\(?:a\\|span\\)>"))
 
 (provide 'sb-sueddeutsche-de)
 

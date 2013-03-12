@@ -1,6 +1,6 @@
 ;;; w3m-form.el --- Stuffs to handle <form> tag
 
-;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008
 ;; TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 
 ;; Authors: TSUCHIYA Masatoshi <tsuchiya@namazu.org>,
@@ -175,7 +175,7 @@ It is useful to bind this variable with `let', but do not set it globally.")
 
 ;;; w3m-form structure:
 
-(defun w3m-form-normalize-action (action url)
+(defsubst w3m-form-normalize-action (action url)
   "Normalize the ACTION using URL as a current URL."
   ;; "!CURRENT_URL!" is magic string of w3m.
   (if (and action (not (string= action "!CURRENT_URL!")))
@@ -196,13 +196,13 @@ It is useful to bind this variable with `let', but do not set it globally.")
 	  (or enctype 'application/x-www-form-urlencoded)
 	  nil))
 
-(defun w3m-form-p (obj)
+(defsubst w3m-form-p (obj)
   "Return t if OBJ is a form object."
   (and (vectorp obj)
        (symbolp (aref 0 obj))
        (eq (aref 0 obj) 'w3m-form-object)))
 
-(defun w3m-form-set-method (form method)
+(defsubst w3m-form-set-method (form method)
   (aset form 1 (if (stringp method)
 		   (intern method)
 		 method)))
@@ -218,7 +218,7 @@ It is useful to bind this variable with `let', but do not set it globally.")
   `(aref ,form 4))
 (defmacro w3m-form-plist (form)
   `(aref ,form 5))
-(defun w3m-form-put-property (form name property value)
+(defsubst w3m-form-put-property (form name property value)
   (aset form 5
 	(plist-put (w3m-form-plist form)
 		   (setq name (if (stringp name) (intern name) name))
@@ -540,9 +540,8 @@ fid=\\([^/]+\\)/type=\\([^/]+\\)/name=\\([^/]*\\)/id=\\(.*\\)$"
   (when w3m-form-treat-textarea-size
     (save-excursion
       (goto-char (point-min))
-      (let ((inhibit-read-only t)
-	    form fid start end type name rows start-column end-column
-	    hseq abs-hseq text id filename readonly)
+      (let (form fid start end type name rows start-column end-column
+		 hseq abs-hseq buffer-read-only text id filename readonly)
 	(while (w3m-form-goto-next-field)
 	  (setq fid (get-text-property (point) 'w3m-form-field-id))
 	  (setq filename (get-text-property (point) 'w3m-form-file-name))
@@ -914,15 +913,17 @@ If optional REUSE-FORMS is non-nil, reuse it as `w3m-current-form'."
 	      (when textareainfo
 		(setq start (point))
 		(skip-chars-forward "^<")
-		(setq text (buffer-substring-no-properties start (point)))
-		(w3m-form-put
-		 (nth 0 textareainfo) (nth 1 textareainfo) (nth 2 textareainfo)
-		 (with-temp-buffer
-		   (insert text)
-		   (w3m-decode-entities)
-		   (goto-char (point-min))
-		   (while (search-forward "\r\n" nil t) (replace-match "\n"))
-		   (buffer-string)))))))))
+		(setq end (point))
+		(with-temp-buffer
+		  (insert-buffer-substring buffer start end)
+		  (w3m-decode-entities)
+		  (goto-char (point-min))
+		  (while (search-forward "\r\n" nil t) (replace-match "\n"))
+		  (setq text (buffer-string)))
+		(w3m-form-put (nth 0 textareainfo)
+			      (nth 1 textareainfo)
+			      (nth 2 textareainfo)
+			      text)))))))
       (when (search-forward "</internal>" nil t)
 	(delete-region internal-start (match-end 0))))
     (setq w3m-current-forms (if (eq w3m-type 'w3mmee)
@@ -941,7 +942,7 @@ If optional REUSE-FORMS is non-nil, reuse it as `w3m-current-form'."
 		  (next-single-property-change start 'w3m-action))))
 	 (prop (text-properties-at start))
 	 (p (point))
-	 (inhibit-read-only t))
+	 (buffer-read-only))
     (goto-char start)
     (insert (setq string
 		  (if invisible
@@ -996,7 +997,7 @@ If optional REUSE-FORMS is non-nil, reuse it as `w3m-current-form'."
       (w3m-form-put form id name (cons value fvalue))
       (w3m-form-replace "*"))))
 
-(defun w3m-form-field-parse (fid)
+(defsubst w3m-form-field-parse (fid)
   (when (and fid
 	     (string-match
 	      "fid=\\([^/]+\\)/type=\\([^/]+\\)/name=\\([^/]*\\)/id=\\(.*\\)$"
@@ -1874,7 +1875,7 @@ selected rather than \(as usual\) some other window.  See
 			  (let (print-level print-length)
 			    (prin1-to-string (w3m-form-method form)))))))))
 
-(defun w3m-form-real-reset (form sexp)
+(defsubst w3m-form-real-reset (form sexp)
   (and (eq 'w3m-form-input (car sexp))
        (eq form (nth 1 sexp))
        (w3m-form-put form (nth 2 sexp) (nth 3 sexp) (nth 7 sexp))

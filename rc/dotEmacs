@@ -67,7 +67,7 @@
 ;; uptimes
 (setq emacs-load-start-time (current-time))
 
-;;; GLOBAL CONST
+;;; GLOBAL-CONST
 (defconst lch-win32-p (eq system-type 'windows-nt) "Are we on Windows?")
 (defconst lch-linux-p (eq system-type 'gnu/linux) "Are we on Linux?")
 (defconst lch-mac-p (eq system-type 'darwin) "Are we on Mac")
@@ -119,6 +119,36 @@
 ;;        (when (boundp 'aquamacs-version) aquamacs-version)))
 
 
+;;; Quick-start
+;; The configurations in this section are included in other
+;; conf files, but they are gathered here for a feeling to
+;; quickly get into my setting.
+(tool-bar-mode -1)                      
+(scroll-bar-mode -1)
+
+(custom-set-faces
+ '(default
+    ((t (:background "black" :foreground "#137D11"))))
+ 
+ '(mode-line
+   ((t (:foreground "White" :background "DarkRed"
+        :box (:line-width -1 :style released-button)))))
+ 
+ '(mode-line-inactive
+   ((default (:inherit mode-line))
+    (((class color) (min-colors 88) (background dark))
+     (:background "#454545" :foreground "white" :weight light
+      :box (:line-width -1 :color "#013500" :sytle released-button)))))
+
+ '(mode-line-highlight
+   ((((class color) (min-colors 88))
+     (:box (:line-width 1 :color "Green4" :style released-button))))) )
+
+;; Compile conf directory to speed up startup of next time.
+;; (setq font-lock-verbose nil)
+;; (setq byte-compile-verbose nil)
+;; (byte-recompile-directory (concat emacs-dir "/rc"))
+
 ;;; Configurations
 
 (load (concat emacs-dir "/rc/lch-env.el"))

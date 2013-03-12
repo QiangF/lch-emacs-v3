@@ -1,6 +1,6 @@
 ;;; sb-debugmagazin-de.el --- de-bug.de shimbun backend
 
-;; Copyright (C) 2008, 2009 David Engster
+;; Copyright (C) 2008 David Engster
 
 ;; Author: David Engster <dengste@eml.cc>
 ;; Keywords: news
@@ -30,15 +30,15 @@
 (defvar shimbun-debugmagazin-de-group-url-regexp
   '(("frontpage" "http://feeds.feedburner.com/DebugAllInOne"
      ".*/\\(.*\\)\\.html")
-    ("musik" "http://feeds.feedburner.com/DebugMusik"
+    ("musik" "http://www.de-bug.de/musik/news.xml"
      "musik/\\(.*\\)\\.html")
-    ("reviews" "http://feeds.feedburner.com/DebugReviews"
+    ("reviews" "http://www.de-bug.de/reviews/reviews.xml"
      "reviews/\\(.*\\)\\.html")
-    ("magazin" "http://feeds.feedburner.com/DebugMagazin"
-     ".*/\\(.*\\)\\.html")
+    ("magazin" "http://www.de-bug.de/mag/texte.xml"
+     "mag/\\(.*\\)\\.html")
     ("medien" "http://feeds.feedburner.com/DebugMedien"
      ".*/\\(.*\\)\\.html")
-    ("podcast" "http://de-bug.de/pod/feed"
+    ("podcast" "http://feeds.feedburner.com/DebugPod"
      ".*/\\(.*\\)\\.html")
     ("musiktechnik" "http://feeds.feedburner.com/de-bug/SSgQ"
      ".*/\\(.*\\)\\.html")
@@ -59,7 +59,7 @@
   "<div class=\"post\"\\( id=\"post-[0-9]+\"\\)?>")
 
 (defvar shimbun-debugmagazin-de-content-end
-  "\\(?:<!-- Comment Loop -->\\|<!-- Comment Form -->\\|<div id=\"respond\">\\)")
+  "\\(?:You can start editing here\\|<h3 id=\"comments\">\\|DIE MASSE MEINT\\)")
 
 (defvar shimbun-debugmagazin-de-x-face-alist
   '(("default" . "\

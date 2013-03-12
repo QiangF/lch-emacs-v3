@@ -42,11 +42,16 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code
+;;; Require
 (if lch-win32-p (add-to-list 'exec-path (concat emacs-dir "/bin/w3m")))
-;; (setq w3-default-stylesheet "~/.default.css")
 (require 'w3m)
 (require 'w3m-lnum)
+(require 'w3m-search)
+(require 'wget-extension)
+(require 'w3m-extension)
 
+;;; Var
+;; (setq w3-default-stylesheet "~/.default.css")
 (defvar w3m-buffer-name-prefix "*w3m" "Name prefix of w3m buffer")
 (defvar w3m-buffer-name (concat w3m-buffer-name-prefix "*") "Name of w3m buffer")
 (defvar w3m-bookmark-buffer-name (concat w3m-buffer-name-prefix "-bookmark*") "Name of w3m buffer")
@@ -130,41 +135,106 @@
 (define-key global-map (kbd "C-z g") 'lch-google)
 
 ;;; Bindings
-(defun lch-w3m-mode-hook ()
-  (define-key w3m-mode-map (kbd "b") '(lambda() (interactive) (w3m-new-tab) (w3m-bookmark-view)))
-  (define-key w3m-mode-map (kbd "d") 'w3m-delete-buffer)
-  (define-key w3m-mode-map (kbd "g") 'lch-google)
-  (define-key w3m-mode-map (kbd "H") 'w3m-history)
-  (define-key w3m-mode-map (kbd "M-h") 'w3m-db-history)
-  (define-key w3m-mode-map (kbd "t") '(lambda() (interactive) (w3m-new-tab) (lch-w3m-goto-url)))
-  (define-key w3m-mode-map (kbd "C-t") 'w3m-new-tab)
-  (define-key w3m-mode-map (kbd "[") 'w3m-view-previous-page)
-  (define-key w3m-mode-map (kbd "]") 'w3m-view-next-page)
-  (define-key w3m-mode-map (kbd "p") 'w3m-previous-buffer)
-  (define-key w3m-mode-map (kbd "n") 'w3m-next-buffer)
-  (define-key w3m-mode-map (kbd ",") 'w3m-previous-buffer)
-  (define-key w3m-mode-map (kbd ".") 'w3m-next-buffer)
-  (define-key w3m-mode-map (kbd "^") 'w3m-view-parent-pag)e
-  (define-key w3m-mode-map (kbd "C-6") 'w3m-view-parent-page)
-  (define-key w3m-mode-map (kbd "o") 'lch-w3m-goto-url)
-  (define-key w3m-mode-map (kbd "O") 'w3m-goto-url-new-session)
-  (define-key w3m-mode-map (kbd "s") 'w3m-search)
-  (define-key w3m-mode-map (kbd "<up>") 'previous-line)
-  (define-key w3m-mode-map (kbd "<down>") 'next-line)
-  (define-key w3m-mode-map (kbd "<left>") 'backward-char)
-  (define-key w3m-mode-map (kbd "<right>") 'forward-char)
-  (define-key w3m-mode-map (kbd "<tab>") 'w3m-next-anchor)
-  (define-key w3m-mode-map (kbd "}") 'w3m-next-image)
-  (define-key w3m-mode-map (kbd "{") 'w3m-previous-image)
-  (define-key w3m-mode-map (kbd ">") 'scroll-left)
-  (define-key w3m-mode-map (kbd "<") 'scroll-right)
-  (define-key w3m-mode-map (kbd "\\") 'w3m-view-source)
-  (define-key w3m-mode-map (kbd "=") 'w3m-view-header)
-  (define-key w3m-mode-map (kbd "C-<return>") 'w3m-view-this-url-new-session)
-  ;; FIXME(define-key w3m-mode-map (kbd "<C-mouse-1>") 'w3m-view-this-url-new-session)
-  (setq truncate-lines nil))
-(add-hook 'w3m-mode-hook 'lch-w3m-mode-hook)
+(lazy-set-key
+ '(
+   ;; ("b" . (lambda() (interactive) (w3m-new-tab) (w3m-bookmark-view)))
+   ("d" . w3m-delete-buffer)
+   ("g" . lch-google)
+   ("H" . w3m-history)
+   ("M-h" . w3m-db-history)
+   ;; ("t" . (lambda() (interactive) (w3m-new-tab) (lch-w3m-goto-url)))
+   ("C-t" . w3m-new-tab)
+   ("[" . w3m-view-previous-page)
+   ("]" . w3m-view-next-page)
+   ("p" . w3m-previous-buffer)
+   ("n" . w3m-next-buffer)
+   ("," . w3m-previous-buffer)
+   ("." . w3m-next-buffer)
+   ("^" . w3m-view-parent-pag)
+   ("C-6" . w3m-view-parent-page)
+   ("o" . lch-w3m-goto-url)
+   ("O" . w3m-goto-url-new-session)
+   ("s" . w3m-search)
+   ("<up>" . previous-line)
+   ("<down>" . next-line)
+   ("<left>" . backward-char)
+   ("<right>" . forward-char)
+   ("<tab>" . w3m-next-anchor)
+   ("}" . w3m-next-image)
+   ("{" . w3m-previous-image)
+   (">" . scroll-left)
+   ("<" . scroll-right)
+   ("\\" . w3m-view-source)
+   ("=" . w3m-view-header)
+   ("C-<return>" . w3m-view-this-url-new-session)
+   ("1" . emms-play-online)                             ;在线听音乐
+   ("2" . kill-google-define-windows)                   ;关闭Google定义窗口
+   ("3" . google-define)                                ;查找输入单词的Google定义
+   ("4" . google-define-pointer)                        ;查找当前光标处的Google定义
+   ("5" . w3m-open-rcirc-window)                        ;打开RCIRC窗口
+   ("6" . w3m-session-save)                             ;保存浏览纪录
+   ("7" . w3m-session-select)                           ;加载退出前的浏览器纪录
+   ("8" . w3m-emacswiki-view-other-version)             ;查看当前wiki页面的其他版本
+   ("9" . w3m-auto-install-elisp)                       ;自动安装elisp文件
+   ("0" . w3m-gmail-toggle-mark)                        ;切换标记选项框
+   ("(" . w3m-gmail-mark-all)                           ;标记选项框
+   (")" . w3m-gmail-unmark-all)                         ;取消标记选项框
+   ("c" . w3m-delete-buffer-and-select-right)           ;关闭当前标签并选择右边的标签
+   ("/" . w3m-next-form)                                ;下一个表格处
+   ("e" . w3m-scroll-down-or-previous-url)              ;向上翻页
+   ("b" . w3m-edit-current-url)                         ;编辑当前页面
+   ("z" . w3m-zoom-in-image)                            ;放大图片
+   ("x" . w3m-zoom-out-image)                           ;缩小图片
+   ("O" . w3m-goto-linknum)                             ;数字连接快速跳转
+   ("f" . w3m-view-this-url)                            ;在当前标签打开
+   ("o" . w3m-view-this-url-new-session)                ;在后台标签打开
+   ("M" . w3m-open-link-in-chromium)                    ;Open link in chromium browser
+   ("M-o" . w3m-open-link-file-under-current-directory) ;open link file under current directory
+   ("m" . tabbar-forward-tab)                           ;切换到右边的标签
+   ("n" . tabbar-backward-tab)                          ;切换到左边的标签
+   ("'" . w3m-open-dead-link-with-external-browser)     ;打开死的连接
+   ("s-j" . w3m-visual-scroll-up)                       ;可视化向上滚动
+   ("s-k" . w3m-visual-scroll-down)                     ;可视化向下滚动
+   ("b" . w3m-history)                                  ;历史
+   ("D" . w3m-dtree)                                    ;显示本地目录树
+   ("B" . w3m-view-previous-page)                       ;后退
+   ("F" . w3m-view-next-page)                           ;前进
+   ("S" . w3m-google-desktop-url-open)                  ;Google桌面打开连接
+   ("L" . w3m-submit-form)                              ;提交form中的内容
+   ("C" . w3m-delete-other-buffers)                     ;关闭后台标签
+   ("d" . w3m-download-with-wget-current-position)      ;用Wget异步下载当前地连接
+   ("Y" . wget-web-page)                                ;网页下载
+   ("-" . org-w3m-copy-for-org-mode)                    ;转换网页成 `org-mode' 的链接格式
+   ("_" . w3m-copy-link-in-region)                      ;拷贝w3m buffer 的所有链接
+   ("&" . yaoddmuse-w3m-edit-emacswiki-page)            ;编辑 emacswiki 页面
+   ("*" . w3m-emacswiki-view-diff)                      ;查看当前wiki页面的不同
+   ("\"" . w3m-emacswiki-recent-changes)                ;最近的修改
+   ("C-u s" . w3m-db-history)                           ;历史数据库
+   ("<up>" . emms-volume-mode-plus)                     ;增加音量
+   ("<down>" . emms-volume-mode-minus)                  ;减少音量
+   ("<left>" . emms-seek-backward)                      ;后退
+   ("<right>" . emms-seek-forward)                      ;前进
+   ("<" . w3m-shift-left)                               ;向左滚动屏幕一像素
+   (">" . w3m-shift-right)                              ;向右滚动屏幕一像素
+   ("." . go-to-char-forward-word)                      ;向后查找某一个字符, 以单词为单位前进
+   ("," . go-to-char-backward-word)                     ;向前查找某一个字符, 以单词为单位后退
+   ("M-s" . lazy-search-menu)                           ;懒惰搜索
+   ("C-M-7" . w3m-tab-move-left)                        ;移动当前标签到左边
+   ("C-M-8" . w3m-tab-move-right)                       ;移动当前标签到右边
+   ("C-S-7" . w3m-delete-left-tabs)                     ;删除左边的标签
+   ("C-S-8" . w3m-delete-right-tabs)                    ;删除右边的标签
+   )
+ w3m-mode-map
+ )
 
+(lazy-set-key
+ '(
+   ("C-z C-z" . w3m)                          ;启动W3M
+   ("C-z z" . w3m-startup-background)         ;启动W3M, 后台
+   ("C-z C-x" . toggle-w3m-with-other-buffer) ;在W3M和buffer间切换
+   ("C-x C-z" . toggle-w3m-with-other-buffer) ;在W3M和buffer间切换   
+   ("<f5> s" . one-key-menu-w3m-search)       ;w3m 搜索菜单
+   ))
 
 (provide 'lch-web)
 ;;; Local Vars.

@@ -1,6 +1,6 @@
 ;;; sb-itmedia.el --- shimbun backend for ITmedia -*- coding: iso-2022-7bit -*-
 
-;; Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010
+;; Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009
 ;; Yuuichi Teranishi <teranisi@gohome.org>
 
 ;; Author: TSUCHIYA Masatoshi <tsuchiya@namazu.org>,
@@ -57,21 +57,14 @@
 	 "vodafone" "shopping"))
     ,@(mapcar
        (lambda (def)
-	 (nconc (list (concat "+D.lifestyle.column." (car def)) nil) def))
-       '(("asakura" "麻倉怜士"
-	  "http://www.itmedia.co.jp/keywords/emma.html")
-	 ("honda" "本田雅一")
-	 ("kobayashi" "こばやしゆたか")
-	 ("kodera" "小寺信良"
-	  "http://www.itmedia.co.jp/keywords/kodera_nobuyoshi.html")
-	 ("nishi" "西正")
-	 ("ogikubo" "荻窪圭"
-	  "http://plusd.itmedia.co.jp/lifestyle/features/satuei/")
-	 ("tachibana" "橘十徳"
-	  "http://plusd.itmedia.co.jp/lifestyle/features/jibara/")
-	 ("takemura" "竹村譲")
-	 ("unakami" "海上忍"
-	  "http://plusd.itmedia.co.jp/lifestyle/features/keyword/")))))
+	 (list (concat "+D.lifestyle.column." (car def))
+	       nil (car def) (cdr def)))
+       '(("asakura" . "麻倉怜士")
+	 ("takemura" . "竹村譲")
+	 ("kodera" . "小寺信良")
+	 ("honda" . "本田雅一")
+	 ("nishi" . "西正")
+	 ("kobayashi" . "こばやしゆたか")))))
 
 (defvar shimbun-itmedia-x-face-alist
   '(("\\+D" . "X-Face: #Ur~tK`JhZFFHPEVGKEi`MS{55^~&^0KUuZ;]-@WQ[8\
@@ -101,13 +94,12 @@ R[TQ[*i0d##D=I3|g`2yr@sc<pK1SB
 	    (or (nth 3 (assoc group shimbun-itmedia-group-alist)) group))))
 
 (luna-define-method shimbun-index-url ((shimbun shimbun-itmedia))
-  (let ((def (assoc (shimbun-current-group-internal shimbun)
-		    shimbun-itmedia-group-alist)))
-    (or (nth 4 def)
-	(if (nth 1 def)
-	    (format "http://rss.itmedia.co.jp/rss/2.0/%s.xml" (nth 1 def))
-	  (format "http://plusd.itmedia.co.jp/lifestyle/column/%s.html"
-		  (nth 2 def))))))
+  (let* ((group (shimbun-current-group-internal shimbun))
+	 (name (nth 1 (assoc group shimbun-itmedia-group-alist))))
+    (if name
+	(format "http://rss.itmedia.co.jp/rss/2.0/%s.xml" name)
+      (format "http://plusd.itmedia.co.jp/lifestyle/column/%s.html"
+	      (nth 2 (assoc group shimbun-itmedia-group-alist))))))
 
 (luna-define-method shimbun-headers :around ((shimbun shimbun-itmedia)
 					     &optional range)
@@ -123,43 +115,28 @@ R[TQ[*i0d##D=I3|g`2yr@sc<pK1SB
 						 &optional range)
   (if (string-match "\\.xml\\'" (shimbun-index-url shimbun))
       (luna-call-next-method)
-    (let ((case-fold-search t)
-	  (group (nth 2 (assoc (shimbun-current-group-internal shimbun)
+    (let ((group (nth 2 (assoc (shimbun-current-group-internal shimbun)
 			       shimbun-itmedia-group-alist)))
 	  (from (shimbun-from-address shimbun))
 	  headers)
       (goto-char (point-min))
-      (let ((regexp "\
-<!-+[\t\n ]*cms[\t\n /]+index\\(?:[\t\n ]+[^\t\n >-]+\\)?[\t\n ]*-+>[\t\n ]*"))
-	(when (re-search-forward regexp nil t)
-	  (delete-region (point-min) (match-end 0)))
-	(goto-char (point-max))
-	(when (re-search-backward regexp nil t)
-	  (delete-region (match-beginning 0) (point-max)))
-	(goto-char (point-min))
-	(setq regexp (if (string-equal group "kodera")
-			 "<a[\t\n ]+href=\"\
-\\(http://plusd\\.itmedia\\.co\\.jp/[^\"]+/articles/\
-\\([0-9][0-9]\\)\\([01][0-9]\\)/\\([0-3][0-9]\\)/news\\([0-9]+\\)\\.html\\)\
-\"[\t\n ]*>\\(?:[\t\n ]*\\|[\t\n ]*<strong>[\t\n ]*\\)\\([^<]+\\)"
-		       "<a[\t\n ]+href=\"\
-\\(\\(?:[^\"]+\\)?/\\(?:lifestyle\\|pcupdate\\)/articles/\
-\\([0-9][0-9]\\)\\([01][0-9]\\)/\\([0-3][0-9]\\)/news\\([0-9]+\\)\\.html\\)\
-\"[\t\n ]*>\\(?:[\t\n ]*\\|[\t\n ]*<strong>[\t\n ]*\\)\\([^<]+\\)"))
-	(while (re-search-forward regexp nil t)
-	  (push (shimbun-create-header
-		 0 (match-string 6) from
-		 (shimbun-make-date-string
-		  (+ (string-to-number (match-string 2)) 2000)
-		  (string-to-number (match-string 3))
-		  (string-to-number (match-string 4)))
-		 (concat
-		  "<20" (match-string 2) (match-string 3) (match-string 4)
-		  "." (match-string 5) "." group
-		  ".column.lifestyle@itmedia.shimbun.namazu.org>")
-		 "" 0 0
-		 (match-string 1))
-		headers)))
+      (while (re-search-forward "<a[\t\n ]+href=\"\
+\\(?:[^\"]+\\)?\\(/lifestyle/articles/\\([0-9][0-9]\\)\\([01][0-9]\\)/\
+\\([0-3][0-9]\\)/news\\([0-9]+\\)\\.html\\)\"[\t\n ]*>[\t\n ]*\\([^<]+\\)"
+				nil t)
+	(push (shimbun-create-header
+	       0 (match-string 6) from
+	       (shimbun-make-date-string
+		(+ (string-to-number (match-string 2)) 2000)
+		(string-to-number (match-string 3))
+		(string-to-number (match-string 4)))
+	       (concat
+		"<20" (match-string 2) (match-string 3) (match-string 4)
+		"." (match-string 5) "." group
+		".column.lifestyle@itmedia.shimbun.namazu.org>")
+	       "" 0 0
+	       (concat "http://plusd.itmedia.co.jp" (match-string 1)))
+	      headers))
       headers)))
 
 (luna-define-method shimbun-multi-next-url ((shimbun shimbun-itmedia)

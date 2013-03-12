@@ -33,9 +33,42 @@
 ;;; Code
 (message "=> lch-shell: loading...")
 
-(provide 'lch-shell)
-(message "~~ lch-shell: done.")
+;; Convert color sequence in shell to face
+(require 'ansi-color)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+(setq comint-prompt-read-only t)
 
+(defcustom eshell-directory-name
+  (let* ((dir (concat emacs-var-dir "/eshell")))
+    (make-directory dir t)
+    dir)
+  "The directory where Eshell control files should be kept."
+  :type 'directory
+  :group 'eshell)
+
+;;; Multi-shell
+(require 'multi-shell)
+(setq multi-shell-command "/bin/bash")
+
+;;; Multi-term
+(require 'multi-term)
+(setq multi-term-program "/bin/bash")
+
+;;; Shell-pop
+(require 'shell-pop)
+(shell-pop-set-internal-mode "ansi-term")
+(shell-pop-set-internal-mode-shell "/bin/bash")
+;; the number for the percentage of the selected window.
+;; if 100, shell-pop use the whole of selected window, not spliting.
+(shell-pop-set-window-height 60)
+;; shell-pop-up position. You can choose "top" or "bottom".
+(shell-pop-set-window-position "bottom")
+(define-key global-map (kbd "<f1> <f2>") 'shell-pop)
+
+
+;;; Provide
+(message "~~ lch-shell: done.")
+(provide 'lch-shell)
 ;;; Local Vars.
 ;; Local Variables:
 ;; mode: emacs-lisp

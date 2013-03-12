@@ -5,8 +5,8 @@
 # echo ""
 # echo -n "Today is "; date "+%m-%d-%Y %H:%M:%S"
 # echo ""
-echo -n "Uptime: "; uptime
-echo ""
+# echo -n "Uptime: "; uptime
+# echo ""
 
 #========== BASH ========#
 #---- Possible Variables ----#

@@ -10,23 +10,6 @@
 ;; This file is not part of GNU Emacs.
 
 ;;; Commentary:
-
-;; keybinding
-;; c: terminal;
-;; f: finder;
-;; r: wdired;
-;; s a: sort-show-all
-;; s t: sort-by-date
-;; s x: sort-by-extension
-;; s s: sort-by-size
-;; v: w3m-find-file;
-;; V: ywb-w3m-find-file;
-;; w: copy filename;
-;; z: compress file;
-;; * f: find-name-dired;
-;; * g: grep-find;
-
-
 ;;; License:
 
 ;; This program is free software; you can redistribute it and/or
@@ -45,23 +28,35 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code
+;; FIXME This file absorbed lots of code from lazycat need to be sorted.
 (message "=> lch-dired: loading...")
 
+;;; Require
 (require 'dired)
-(require 'dired-x)
-(require 'dired-aux)
-(require 'dired-single)
-(require 'wdired)         ;; Part of Emacs since 22, treat dired buffer as file, easy to rename
-(require 'ansi-color)
-(require 'xwl-util)       ;; To load xwl-shell-command-asynchronously etc.
-(require 'dircolors)
-(ignore-errors (require 'emms-player-mplayer))
-;; (require 'dired-sort-menu)
+(require 'dired-x)                     ;Dired增强
+(require 'dired-extension)             ;dired 的一些扩展
+(require 'dired-sort)                  ;排序 dired 文件
+(require 'dired-sort-menu)
+(require 'dired-isearch)
+(require 'dired-tar)                   ;在tar文件上按T打包或解包文件
+(require 'dired-details)               ;Dired详细信息
+(require 'dired-details+)              ;Dired详细消息切换
+(require 'dired-single)                ;在Dired模式下用单一的Buffer打开以便于Buffer之间的切换
+(require 'wdired)                      ;Dired 编辑模式
+(require 'wdired-extension)            ;wdired 的扩展
+(require 'xwl-util)                    ;To load xwl-shell-command-asynchronously etc.
+(require 'dired-view)                  ;Dired中的文件名跳转
 
-
-;; Allows recursive deletes
+;;; Setting
+(setq dired-recursive-copies t)                        ;可以递归的进行拷贝
+(setq dired-recursive-deletes t)                       ;可以递归的删除目录
+(setq dired-recursive-deletes 'always)                 ;删除东西时不提示
 ;; (setq dired-recursive-deletes 'top)
-(setq dired-recursive-deletes 'always)
+(setq dired-recursive-copies 'always)                  ;拷贝东西时不提示
+(setq dired-details-hidden-string "[...] ")            ;设置隐藏dired里面详细信息的字符串
+(setq dired-listing-switches "-aluh")                  ;传给 ls 的参数
+(setq directory-free-space-args "-Pkh")                ;目录空间选项
+(add-hook 'dired-after-readin-hook 'dired-sort-method) ;先显示目录, 然后显示文件
 
 ;; Reload dired after creating a directory
 (defadvice dired-create-directory (after revert-buffer-after-create activate)
@@ -71,14 +66,6 @@
 (defadvice wdired-abort-changes (after revert-buffer-after-abort activate)
   (revert-buffer))
 
-(setq dired-recursive-copies 'always)
-(define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
-(define-key dired-mode-map (kbd "* f") 'find-name-dired)
-(define-key dired-mode-map (kbd "* g") 'grep-find)
-(define-key dired-mode-map (kbd "w")
-  (lambda () (interactive) (dired-copy-filename-as-kill 0)))
-
-
 ;;; Util
 ;; Open current directory in Finder, Explorer, etc.
 (define-key dired-mode-map (kbd "f")
@@ -110,77 +97,38 @@ end tell" d)))
          ((x)
           (xwl-shell-command-asynchronously "gnome-terminal"))))))
 
-;;; Sort
-(setq dired-listing-switches "-lh")
 
-;; Sort methods that affect future sessions
-(defun dired-sort-by-default ()
-  (interactive)
-  (setq dired-listing-switches "-lh")
-  (dired-sort-other dired-listing-switches))
-
-(defun dired-sort-by-ctime ()
-  "Dired sort by create time."
-  (interactive)
-  (dired-sort-other (concat dired-listing-switches "ct")))
-
-(defun dired-sort-by-utime ()
-  "Dired sort by access time."
-  (interactive)
-  (dired-sort-other (concat dired-listing-switches "ut")))
-
-(defun dired-sort-by-time ()
-  "Dired sort by time."
-  (interactive)
-  (dired-sort-other (concat dired-listing-switches "t")))
-
-(defun dired-sort-by-name ()
-  "Dired sort by name."
-  (interactive)
-  (dired-sort-other (concat dired-listing-switches "")))
-
-(defun dired-sort-by-show-all ()
-  (interactive)
-  (setq dired-listing-switches "-lhA")
-  (dired-sort-other dired-listing-switches))
-
-;; Sort methods that affect current session only
-(defun dired-sort-by-date ()
-  (interactive)
-  (dired-sort-other
-   (concat dired-listing-switches "t")))
-
-;; FIXME: fix this for mac. like: ls | rev | sort | rev
-(defun dired-sort-by-extenstion ()
-  (interactive)
-  (dired-sort-other
-   (concat dired-listing-switches "X")))
-
-;; FIXME
-(defun dired-sort-by-invisible-only ()
-  (interactive)
-  (dired-sort-other
-   (concat dired-listing-switches "d .*")))
-
-(defun dired-sort-by-size ()
-  (interactive)
-  (dired-sort-other
-   (concat dired-listing-switches "S")))
-
-(define-key dired-mode-map (kbd "s") nil)
-(define-key dired-mode-map (kbd "s RET") 'dired-sort-by-default)
-(define-key dired-mode-map (kbd "s a") 'dired-sort-by-show-all)
-(define-key dired-mode-map (kbd "s t") 'dired-sort-by-date)
-(define-key dired-mode-map (kbd "s x") 'dired-sort-by-extenstion)
-(define-key dired-mode-map (kbd "s .") 'dired-sort-by-invisible-only)
-(define-key dired-mode-map (kbd "s s") 'dired-sort-by-size)
-
-(define-key dired-mode-map (kbd "<SPC>") 'dired-count-sizes)
-
-
-(provide 'lch-dired)
 (message "~~ lch-dired: done.")
 
+;;; Binding
+(lazy-set-key
+ '(
+   ("C-3" . copy-buffer-file-name-as-kill)     ;显示路径或名称
+   ("/" . copy-buffer-file-name-as-kill)       ;显示路径或名称
+   ("\\" . find-lisp-find-dired-pwd)           ;查找特定的lisp文件
+   ("?" . dired-get-size)                      ;得到文件的大小
+   ("," . dired-view-minor-mode-toggle)        ;字母输入导航模式
+   ("h" . dired-next-subdir)                   ;下一个子目录
+   ("i" . dired-details-toggle)
+   ("I" . image-dired)                         ;打开浏览模式
+   ("j" . dired-next-file-line)                ;下一行
+   ("J" . dired-goto-file)                     ;跳到某个文件
+   ("k" . dired-previous-file-line)            ;上一行
+   ("l" . dired-prev-subdir)                   ;上一个子目录
+   ("n" . dired-next-dirline)                  ;下一个目录
+   ("O" . dired-do-moccur)                     ;搜索dired
+   ("M-o" . dired-toggle-omit)                 ;切换忽略状态
+   ("p" . dired-prev-dirline)                  ;上一个目录
+   ("C-r" . dired-isearch-backward)            ;向前搜索
+   ("ESC C-r" . dired-isearch-backward-regexp) ;向后正则表达式搜索
+   ("s" . one-key-menu-dired-sort)             ;排序
+   ("C-s" . dired-isearch-forward)             ;向后搜索
+   ("ESC C-s" . dired-isearch-forward-regexp)  ;向前正则表达式搜索
+   ("w" . wdired-change-to-wdired-mode)        ;切换到dired编辑模式   
+   )
+ dired-mode-map)
+(provide 'lch-dired)
+
 ;;; Local Vars.
 ;; Local Variables:
 ;; mode: emacs-lisp

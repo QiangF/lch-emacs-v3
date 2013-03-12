@@ -122,9 +122,8 @@ nil forcibly."
 		  (looking-at "\211PNG\r\n"))))
 	 t)
 	(t
-	 (when w3m-imagick-convert-program
-	   (message "ImageMagick's `convert' program is not available")
-	   (sit-for 1))
+	 (message "ImageMagick's `convert' program is not available")
+	 (sit-for 1)
 	 (setq w3m-imagick-convert-program nil
 	       w3m-resize-images nil)
 	 (put 'w3m-imagick-convert-program 'available-p 'no)

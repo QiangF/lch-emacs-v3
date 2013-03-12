@@ -31,6 +31,14 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code
+;;;
+(defun find-file-root (file)
+  "Find file with root."
+  (interactive "fFind file as sudo: ")
+  (tramp-cleanup-all-connections)
+  (find-file (concat find-file-root-prefix file)))
+
+
 ;;; Automatically add execute permission to a script file.
 (defun lch-chmod-x ()
   (and (save-excursion
@@ -142,6 +150,13 @@ LIST defaults to all existing live buffers."
     (setq list (cdr list))))
 (define-key global-map (kbd "C-c n") 'nuke-some-buffers)
 
+;;; Zoom
+(defun text-scale-normal ()
+  "Set the height of the default face in the current buffer to its default value."
+  (interactive)
+  (text-scale-increase 0))
+
+(define-key global-map (kbd "C-0") 'text-scale-normal)
 ;;; Provide
 (message "~~ lch-util: done.")
 (provide 'lch-util)

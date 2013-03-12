@@ -1,0 +1,103 @@
+(require 'dired-aux)
+(require 'ansi-color)
+
+
+(require 'dired-open)                  ;在 dired 中打开不同文件
+;; (require 'dired+)                   ;增强dired, this one has color definition, better to load early
+
+(require 'dired-isearch)               ;dired增量搜索功能
+
+;; (require 'dired-lis)                ;TC-like search, TODO
+
+
+
+
+(define-key dired-mode-map (kbd "r") 'wdired-change-to-wdired-mode)
+(define-key dired-mode-map (kbd "* f") 'find-name-dired)
+(define-key dired-mode-map (kbd "* g") 'grep-find)
+
+
+;; (toggle-dired-find-file-reuse-dir 1)                ;使用单一模式浏览Dired, from dired+
+(setq dired-omit-size-limit nil)                       ;dired忽略的上限
+(setq dired-dwim-target t)                             ;Dired试着猜处默认的目标目录
+
+
+(setq dired-guess-shell-alist-user                     ;设置文件默认打开的模式
+      '(
+        ;; Reader
+        (list "\\.chm$" '(concat
+                          "firefox chm:"            ;执行特定的命令
+                          (replace-regexp-in-string ;替换空格为%20
+                           " " "%20" (w3m-expand-file-name-as-url (dired-get-filename))) ;用URL的模式解析文件名
+                          " -q"))
+        ;; (list "\\.pdf$" "wine /data/Backup/WindowsTools/FoxitReader/FoxitReader.exe")
+        ;; Multimedia
+        (list (format "\\(%s\\)$" (emms-player-get emms-player-mplayer 'regex)) "mplayer")
+        (list "\\.\\(jpe?g\\|png\\)$" "eog" " -q")
+        ;; Webpage
+        (list "\\.html?$" "firefox")
+        ;; Compressor
+        (list "\\.rar$" "unrar e -ad")
+        (list "\\.tar.bz2$" "tar jxvf")
+        (list "\\.gz$" "gzip -d")
+        ;; Misc
+        (list "\\.exe$" "wine")))
+
+
+
+;;; Binding
+(define-key dired-mode-map (kbd "<SPC>") 'dired-count-sizes)
+
+(lazy-set-key
+ '(
+
+   ("F" . dired-find-file+)                    ;打开当前文件或目录
+   ("C-m" . dired-find-file+)                  ;打开当前文件或目录
+   ("P" . dired-do-kill-lines)                 ;删除标记的行
+   ("4" . dired-serial-rename)                 ;批量重命名
+   ("5" . dired-translate-to-html)             ;转换到HTML格式
+   ("7" . dired-move-to-last-file)             ;移动到最后一个文件
+   ("8" . dired-move-to-first-file)            ;移动到第一个文件
+   ("E" . dired-touch-now)                     ;Touch命令
+   ("W" . dired-x-find-file)                   ;查找文件
+   ("C-o" . dired-open-file)                     ;用W3M打开各种文件
+   ("X" . traverse-cp-or-mv-extfiles-in-dir)   ;拷贝或移动目录下指定扩展名的文件
+   ("V" . traverse-dired-browse-archive)       ;浏览压缩文件
+   ("," . dired-diff)                          ;比较文件
+   ("'" . dired-up-directory-single)           ;返回上一级目录
+   ("SPC" . scroll-up)                         ;向下翻页
+   ("e" . scroll-down)                         ;向上翻页
+   ("c" . kill-this-buffer)                    ;关闭当前标签
+
+   ("[" . dired-rename-with-copy)              ;重命名函数
+
+   )
+ dired-mode-map
+ )
+
+(lazy-set-key
+ '(
+   ("C-c C-e" . wdired-format-filename) ;格式化文件名
+   )
+ wdired-mode-map
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

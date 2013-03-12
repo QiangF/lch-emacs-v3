@@ -31,6 +31,61 @@
 
 ;;; Code
 (message "=> lch-elisp: loading...")
+;;; Predictive
+(require 'predictive)
+(set-default 'predictive-auto-add-to-dict t) ;自动加入词典
+(setq predictive-add-to-dict-ask nil)        ;加入词典不询问
+(setq predictive-auto-learn t)               ;自动学习
+(setq predictive-completion-speed 0.1)       ;查找补全的速度(秒)
+(setq completion-auto-show-delay 0.5)        ;弹出补全tooltip的延迟(秒)
+(dolist (hook (list
+               'erc-mode-hook
+               'tex-mode-hook
+               'org-mode-hook
+               ))
+  (add-hook hook '(lambda () (predictive-mode 1))))
+;;; Revive
+;; Store windows configuration which won't be taken care of by session
+;; and desktop.
+(require 'revive)
+;;; Showtip
+(require 'showtip)
+(require 'show-help)
+;;; Lazycat-toolkit
+;; TODO: Move functions in this file to lch-util
+(require 'lazycat-toolkit)
+;;; Buffer-extension
+(require 'buffer-extension)
+;;; Thing-edit
+(require 'thing-edit)                   ;基于thingatpt的编辑扩展
+(require 'thing-edit-extension)         ;thing-edit 增强
+(global-set-key (kbd "C-<f2>") 'one-key-menu-thing-edit)
+;;; Linum
+(dolist (hook (list
+               'c-mode-hook
+               'emacs-lisp-mode-hook
+               'lisp-interaction-mode-hook
+               'lisp-mode-hook
+               'emms-playlist-mode-hook
+               'java-mode-hook
+               'asm-mode-hook
+               'haskell-mode-hook
+               'rcirc-mode-hook
+               'emms-lyrics-mode-hook
+               'erc-mode-hook
+               'sh-mode-hook
+               'makefile-gmake-mode-hook
+               'python-mode-hook
+               'js2-mode-hook
+               'js-mode-hook
+               'html-mode-hook
+               'css-mode-hook
+               'apt-utils-mode-hook
+               'tuareg-mode-hook
+               'go-mode-hook
+               'coffee-mode-hook
+               ))
+  (add-hook hook (lambda () (linum-mode 1))))
 
 ;;; Template
 (require 'template)
@@ -389,8 +444,11 @@
 
 ;;; Flyspell
 ;; By default, it's iSpell, but if aspell is installed:
+;; aspell is better than ispell
 (when (featurep 'aspell) (setq ispell-program-name "aspell"))
 (set-default 'ispell-skip-html t)
+
+;; Dictionary for English
 (setq ispell-local-dictionary "english")
 (setq ispell-extra-args '("--sug-mode=ultra"))
 ;; (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
@@ -418,8 +476,8 @@
 (add-hook 'tex-mode-hook (function (lambda () (setq ispell-parser 'tex))))
 
 ;; Personal dict and save personal dict w/o enquiry.
-;; (setq ispell-personal-dictionary (concat emacs-var-dir "/personal-dictionary"))
-;; (setq ispell-silently-savep t)
+(setq ispell-personal-dictionary (concat emacs-var-dir "/personal-dictionary"))
+(setq ispell-silently-savep t)
 
 ;;; BM
 ;; (setq bm-restore-repository-on-load t)
@@ -1156,12 +1214,6 @@
 (setq save-place-file (concat emacs-var-dir "/saveplace"))
 
 
-;;; Tabbar
-;; (setq EmacsPortable-global-tabbar nil) ;; If you want tabbar
-;; (setq EmacsPortable-global-ruler nil)  ;; if you want a global ruler
-;; (setq EmacsPortable-popup-menu t)      ;; If you want a popup menu.
-;; (setq EmacsPortable-popup-toolbar nil) ;; If you want a popup toolbar
-
 ;; Tabbar-ruler
 ;; (require 'tabbar-ruler)
 
@@ -1464,7 +1516,7 @@
 ;; (require 'sunrise-x-tree)
 
 
-;;;  Highlight-tail
+;;; Highlight-tail
 ;; (require 'highlight-tail)
 ;; (message "Highlight-tail loaded - now your Emacs will be even more sexy!")
 ;; (highlight-tail-mode)
@@ -1478,16 +1530,6 @@
 ;; Save a list of open files in ~/.emacs.d/session.
 (require 'session)
 (add-hook 'after-init-hook 'session-initialize)
-
-;;; Highlight Symbol
-;; Highlight occurrence of current word, and move cursor to next/prev occurrence
-;; see http://xahlee.org/emacs/modernization_isearch.html
-(require 'highlight-symbol)
-(define-key global-map (kbd "<f9> <f9>") 'highlight-symbol-at-point) ;; This is a toggle
-(define-key global-map (kbd "<f9> <f8>") 'highlight-symbol-prev)
-(define-key global-map (kbd "<f9> <f10>") 'highlight-symbol-next)
-(define-key global-map (kbd "M-<f9>") 'highlight-symbol-prev)
-(define-key global-map (kbd "C-<f9>") 'highlight-symbol-next)
 
 ;;; Bat Mode
 ;; For editing Windows's cmd.exe's script; batch, ".bat" file mode.

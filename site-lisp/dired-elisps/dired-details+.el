@@ -146,8 +146,6 @@ buffer created."
   "Last `dired-details-state' value.
 This is changed each time any Dired buffer's state changes.")
 
-
-
 ;;; REPLACE ORIGINAL in `dired-details.el'.
 ;;; Temporarily widen.
 ;;; Delete overlays to trim new lines from, e.g. `C'.

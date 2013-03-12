@@ -1,4 +1,22 @@
 ;; -*- coding:utf-8; mode: emacs-lisp -*-
+;;; lock-screen
+;; FIXME: works only under linux
+;; for xset only exist there.
+(defun lock-screen ()
+  "Lock screen using (zone) and xtrlock
+calls M-x zone on all frames and runs xtrlock.
+To use this extension, you need install xtrlock in your system."
+  (interactive)
+  (save-excursion
+    ;; Don't burn LCD power.
+    (shell-command "xset dpms force off && sleep 1")
+    ;; Lock screen.
+    (set-process-sentinel
+     (start-process "xtrlock" nil "xtrlock")
+     '(lambda (process event)
+        (zone-leave-me-alone)))
+    (zone)))
+
 ;;; Buffer count
 (defun count-buffer ()
   (interactive)
@@ -608,17 +626,6 @@ the frame title bar."
 
 (if (and (boundp 'w32-initialized) w32-initialized)
     (define-key global-map (kbd "M-<f4>") 'close-frame))
-
-;;; Zoom
-(defun text-scale-normal-size ()
-  "Set the height of the default face in the current buffer to its default value."
-  (interactive)
-  (text-scale-increase 0))
-
-(define-key global-map (kbd "C-0") 'text-scale-normal-size)
-(define-key global-map [C-down-mouse-2] 'text-scale-normal-size)
-(define-key global-map (kbd "C-=") 'text-scale-increase)
-(define-key global-map (kbd "C--") 'text-scale-decrease)
 
 ;;; Go-to-char
 ;; C-c a x goto x, then press x to go to next 'x'

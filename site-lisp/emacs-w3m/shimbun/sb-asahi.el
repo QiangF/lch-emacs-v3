@@ -1,6 +1,6 @@
 ;;; sb-asahi.el --- shimbun backend for asahi.com -*- coding: iso-2022-7bit; -*-
 
-;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+;; Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008
 ;; Yuuichi Teranishi <teranisi@gohome.org>
 
 ;; Author: TSUCHIYA Masatoshi <tsuchiya@namazu.org>,
@@ -142,7 +142,7 @@ Every `.' in NAME will be replaced with `/'."
 	       (concat
 		"<item" s1 "rdf:about=\""
 		;; 1. url
-		"\\(http://\\(?:book\\|www\\)\\.asahi\\.com//?"
+		"\\(http://\\(?:book\\|www\\)\\.asahi\\.com/"
 		;; 2. extra keyword (en)
 		"\\([^/]+\\)"
 		"\\(?:/update/"
@@ -294,27 +294,7 @@ Every `.' in NAME will be replaced with `/'."
 	 "\"")
        1 nil nil nil 2 3 4)
       ("travel" "トラベル" "%s/news/"
-       ,@(shimbun-asahi-make-regexp "travel.news"))
-      ("wakata" "若田さんきぼう滞在記" "%s/"
-       ,(concat
-	 "<a" s1 "href=\"/"
-	 ;; 1. url
-	 "\\(wakata\\(?:/[^\"/]+\\)*/"
-	 ;; 2. serial number
-	 "\\([a-z]*"
-	 ;; 3. year
-	 "\\(20[0-9][0-9]\\)"
-	 ;; 4. month
-	 "\\([01][0-9]\\)"
-	 ;; 5. day
-	 "\\([0-3][0-9]\\)"
-	 "[0-9]+\\)"
-	 "\\.html\\)"
-	 "\">" s0
-	 ;; 6. subject
-	 "\\([^\n<>]+\\)"
-	 s0 "\\(?:<img" s1 "[^>]+>" s0 "\\)*</a>")
-       1 nil 2 6 3 4 5)))
+       ,@(shimbun-asahi-make-regexp "travel.news"))))
   "Alist of group names, their Japanese translations, index pages,
 regexps and numbers.  Where index pages and regexps may contain the
 \"%s\" token which is replaced with group names, numbers point to the
@@ -933,8 +913,7 @@ Each table is the same as the `cdr' of the element of
 `shimbun-asahi-group-table'.")
 
 (defvar shimbun-asahi-content-start
-  "<div[\t\n ]+class=\"\
-\\(?:ThmbSet300Tb\\|ThmbSet256\\|Kansai-ThmbSet100\\|ThmbCol\\)\">\
+  "<div[\t\n ]+class=\"\\(?:ThmbSet256\\|Kansai-ThmbSet100\\|ThmbCol\\)\">\
 \\|<!--[\t\n ]*End of Headline[\t\n ]*-->\
 \\(?:[\t\n ]*<div[\t\n ]+[^<]+</div>[\t\n ]*\
 \\|[\t\n ]*<p[\t\n ]+[^<]+</p>[\t\n ]*\\)?\
@@ -944,7 +923,7 @@ Each table is the same as the `cdr' of the element of
 (defvar shimbun-asahi-content-end
   "<dl[\t\n ]+class=\"PrInfo\">\
 \\|<!--[\t\n ]*google_ad_section_end\
-\\|<!-[^>]+[^>★]ここまで[\t\n ]*-+>\
+\\|<!-[^>]+ここまで[\t\n ]*-+>\
 \\|\\(?:[\t\n ]*<[^>]+>\\)*[\t\n ]*<!--[\t\n ]*Start of hatenab[\t\n ]*-->\
 \\|<!--[\t\n ]*End of Kiji[\t\n ]*-->\
 \\|<!--[\t\n ]*End of related link[\t\n ]*-->\
@@ -1502,6 +1481,10 @@ that day if it failed."
 広告終わり\\(?:[\t\n ]*</p>[\t\n ]*\\|\\'\\)"
 				  nil t)
 	   (delete-region start (match-end 0)))))
+     ;; Remove any other useless things.
+     (shimbun-remove-tags "[\t\n ]*<form[\t\n ]+" "</form>[\t\n ]*")
+     (shimbun-remove-tags "[\t\n ]*<noscript>" "</noscript>[\t\n ]*")
+     (shimbun-remove-tags "[\t\n ]*<script[\t\n ]" "</script>[\t\n ]*")
      ;; Remove trailing garbage.
      (goto-char (point-min))
      (when (and (not (string-match "ゆるゆるフェミニン" from))
@@ -1575,8 +1558,7 @@ that day if it failed."
 	    "\\(<img[\t\n ]+[^>]+>\\(?:[\t\n ]*</[^>]+>\\)*\\)[\t\n ]*"
 	    nil t)
       (when (or (save-match-data
-		  (looking-at "\\(?:<[^\t\n >]+>[\t\n ]*\\)*<img[\t\n ]\
-\\|<small>[^<]+</small>"))
+		  (looking-at "\\(?:<[^\t\n >]+>[\t\n ]*\\)*<img[\t\n ]"))
 		(not (eq (char-after) ?<)))
 	(replace-match "\\1<br>\n")))
     ;; Add line breaks before images that follow captions.
@@ -1586,55 +1568,6 @@ that day if it failed."
 	    nil t)
       (unless (memq (char-before (match-beginning 0)) '(nil ?>))
 	(replace-match "<br>\n\\1")))
-    ;; Remove related topics.
-    (let (start)
-      (goto-char (point-min))
-      (while (and (re-search-forward "\\(\\(?:[\t\n ]*</div>\\)*[\t\n ]*\\)\
-<div[\t\n ]+[^>]+>\\(?:[\t\n ]*<h[0-9]+>\\)?[\t\n ]*関連トピックス[\t\n ]*<"
-				     nil t)
-		  (progn
-		    (setq start (match-beginning 0))
-		    (goto-char (match-end 1))
-		    (shimbun-end-of-tag "div" t)))
-	(delete-region start (match-end 0))
-	(insert "\n"))
-      (goto-char (point-min))
-      (while (re-search-forward
-	      "[\t\n ]*<h2>[\t ]*こんな記事も[\t ]*</h2>[\t\n ]*" nil t)
-	(setq start (match-beginning 0))
-	(while (and (looking-at "\
-\\(</div>[\t\n ]*\\)?<ul[\t\n ]+class=\"\\(?:Follow\\)*Lnk\"")
-		    (progn
-		      (when (match-end 1) (goto-char (match-end 1)))
-		      (shimbun-end-of-tag "ul" t))))
-	(delete-region start (point))))
-
-    ;; Remove blogs link.
-    (goto-char (point-min))
-    (while (re-search-forward "[\t\n ]*\\(?:<[^/][^>]+>[\t\n ]*\\)+\
-この記事を利用したブログ一覧\\(?:[\t\n ]*<[!/][^>]+>\\)+[\t\n ]*"
-			      nil t)
-      (delete-region (match-beginning 0) (match-end 0)))
-    ;; Remove form, noscript, and script tags.
-    (shimbun-remove-tags "form\\|noscript\\|script" t)
-    ;; Remove empty tables.
-    (goto-char (point-min))
-    (let (start end limit found)
-      (while (and (re-search-forward "<table[\t\n >]" nil t)
-		  (shimbun-end-of-tag "table" t))
-	(setq start (match-beginning 0)
-	      end (match-end 0)
-	      limit (match-end 3))
-	(goto-char (match-beginning 3))
-	(while (and (not found)
-		    (re-search-forward "<[\t\n ]*\\([^\t\n >]+\\)" limit t))
-	  (unless (string-match "\\`\\(?:!\\|/?t[dr]\\'\\)" (match-string 1))
-	    (setq found t)))
-	(if found
-	    (goto-char end)
-	  (delete-region start end)
-	  (insert "\n"))))
-
     ;; Remove any other useless things.
     (goto-char (point-min))
     (while (re-search-forward "[\t\n ]*\
@@ -1643,15 +1576,11 @@ that day if it failed."
 			      nil t)
       (delete-region (match-beginning 0) (match-end 0)))
     (goto-char (point-min))
-    (while (re-search-forward "[\t\n ]*\\(?:<[^/][^>]*>[\t\n ]*\\)+\
+    (while (re-search-forward "[\t\n ]*\\(?:<[^>]+>[\t\n ]*\\)+\
 \\(?:アサヒ・コム\\|ニュース\\)トップ[へヘ]\
 \\(?:\\(?:[\t\n ]*<[!/][^>]+>\\)+[\t\n ]*\\|[\t\n ]*\\'\\)"
 			      nil t)
-      (replace-match "\n")
-      (backward-char 1))
-
-    (shimbun-remove-orphaned-tag-strips "span\\|p")
-
+      (replace-match "\n"))
     (unless (shimbun-prefer-text-plain-internal shimbun)
       (shimbun-break-long-japanese-lines))
     t))

@@ -176,6 +176,8 @@
 (define-prefix-command 'Ctrl-z-map)
 (define-key global-map (kbd "C-z") 'Ctrl-z-map)
 
+(define-prefix-command 'Ctrl-/-map)
+(define-key global-map (kbd "C-/") 'Ctrl-/-map)
 
 ;;; PROVIDE
 (provide 'lch-env)

@@ -1,6 +1,6 @@
 ;;; w3m-bookmark.el --- Functions to operate bookmark file of w3m
 
-;; Copyright (C) 2001, 2002, 2003, 2005, 2006, 2007, 2008, 2009, 2010
+;; Copyright (C) 2001, 2002, 2003, 2005, 2006, 2007, 2008, 2009
 ;; TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 
 ;; Authors: Shun-ichi GOTO     <gotoh@taiyo.co.jp>,
@@ -176,11 +176,7 @@ file exists, otherwise nil."
 	       w3m-current-coding-system))
 	    (set-buffer-modified-p nil))
 	  (setq w3m-bookmark-buffer-file-name w3m-bookmark-file)
-	  (set-visited-file-modtime (or (w3m-bookmark-file-modtime)
-					;; No bookmark file.
-					(with-temp-buffer
-					  ;; 0 in Emacs; (0 . 0) in XEmacs
-					  (visited-file-modtime))))
+	  (set-visited-file-modtime (w3m-bookmark-file-modtime))
 	  (buffer-enable-undo))
 	(current-buffer)))))
 
@@ -202,7 +198,8 @@ file exists, otherwise nil."
 (defun w3m-bookmark-sections ()
   "Return collection of registered sections."
   (let (sections)
-    (with-current-buffer (w3m-bookmark-buffer)
+    (save-excursion
+      (set-buffer (w3m-bookmark-buffer))
       (goto-char (point-min))
       (while (search-forward "<h2>" nil t)
 	(push (cons (buffer-substring-no-properties
@@ -254,7 +251,8 @@ file exists, otherwise nil."
 
 (defun w3m-bookmark-write-file (url title section)
   "Make new bookmark with specified spec, and save it."
-  (with-current-buffer (w3m-bookmark-buffer)
+  (save-excursion
+    (set-buffer (w3m-bookmark-buffer))
     (setq title (w3m-bookmark-safe-string
 		 title
 		 "Specified title includes unsafe character(s): %s")
@@ -363,10 +361,7 @@ With prefix, ask for a new url instead of the present one."
   "Display the bookmark."
   (interactive "P")
   (if (file-exists-p w3m-bookmark-file)
-      (progn
-	;; Store the current position in the history structure.
-	(w3m-history-store-position)
-	(w3m-goto-url "about://bookmark/" reload))
+      (w3m-goto-url "about://bookmark/" reload)
     (message "No bookmark file is available")))
 
 ;;;###autoload
@@ -417,7 +412,8 @@ With prefix argument, kill that many entries from point."
       (w3m-bookmark-view t))))
 
 (defun w3m-bookmark-kill-entries (entries)
-  (with-current-buffer (w3m-bookmark-buffer t)
+  (save-excursion
+    (set-buffer (w3m-bookmark-buffer t))
     (w3m-bookmark-verify-modtime)
     (goto-char (point-min))
     (let ((i 0))
@@ -438,7 +434,8 @@ With prefix argument, kill that many entries from point."
   "Undo some previous changes on bookmark."
   (interactive "p")
   (condition-case nil
-      (with-current-buffer (w3m-bookmark-buffer t)
+      (save-excursion
+	(set-buffer (w3m-bookmark-buffer t))
 	(w3m-bookmark-verify-modtime)
 	(undo arg)
 	(w3m-bookmark-save-buffer))
@@ -518,7 +515,8 @@ The car is used if `w3m-bookmark-mode' is nil, otherwise the cdr is used.")
   "Iteration bookmark groups/entries.
 Format as (list (\"Group name\" . (\"Entry URL\" . \"Entry name\")* )* )."
   (let ((entries nil))
-    (with-current-buffer (w3m-bookmark-buffer)
+    (save-excursion
+      (set-buffer (w3m-bookmark-buffer))
       (goto-char (point-min))
       (let (group entry beg end)
 	(while (re-search-forward "<h2>\\([^<]+\\)</h2>" nil t)
@@ -553,7 +551,7 @@ Format as (list (\"Group name\" . (\"Entry URL\" . \"Entry name\")* )* )."
 (defvar w3m-bookmark-make-item-xmas
   (and (equal "Japanese" w3m-language) (featurep 'xemacs)))
 
-(defun w3m-bookmark-make-item (item)
+(defsubst w3m-bookmark-make-item (item)
   (if w3m-bookmark-make-item-xmas
       (concat item "%_ ")
     item))

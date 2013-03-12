@@ -1,6 +1,6 @@
 ;;; w3m-session.el --- Functions to operate session of w3m -*- coding: iso-2022-7bit; -*-
 
-;; Copyright (C) 2001, 2002, 2003, 2005, 2006, 2007, 2008, 2009, 2010
+;; Copyright (C) 2001, 2002, 2003, 2005, 2006, 2007, 2008, 2009
 ;; TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 
 ;; Author: Hideyuki SHIRAI <shirai@meadowy.org>
@@ -161,7 +161,7 @@
 ;; backward-compatibility alias
 (put 'w3m-session-selected-face 'face-alias 'w3m-session-selected)
 
-(defun w3m-session-history-to-save ()
+(defsubst w3m-session-history-to-save ()
   "Return a copy of `w3m-history-flat' without current page data."
   (let ((pos (cadar w3m-history)))
     (apply
@@ -211,7 +211,8 @@ Sorry, an error found in \"%s\"; may we remove it? "
 	     (setq titles (cons (cons (car x) (car x)) titles)))
 	   sessions)
      (setq title (or w3m-current-title
-		     (with-current-buffer (car bufs)
+		     (save-excursion
+		       (set-buffer (car bufs))
 		       w3m-current-title)))
      (setq titles (cons (cons title title) titles))
      (catch 'loop
@@ -224,7 +225,7 @@ Sorry, an error found in \"%s\"; may we remove it? "
 	     (setq prompt "Again New session title: ")
 	   (throw 'loop t))))
      (setq cbuf (current-buffer))
-     (save-current-buffer
+     (save-excursion
        (while (setq buf (car bufs))
 	 (setq bufs (cdr bufs))
 	 (set-buffer buf)
@@ -265,7 +266,7 @@ Sorry, an error found in \"%s\"; may we remove it? "
 	   tmp tmptitle tmptime tmpurls)
        (when bufs
 	 (setq cbuf (current-buffer))
-	 (save-current-buffer
+	 (save-excursion
 	   (while (setq buf (car bufs))
 	     (setq bufs (cdr bufs))
 	     (set-buffer buf)
@@ -312,7 +313,7 @@ Sorry, an error found in \"%s\"; may we remove it? "
 	   tmp tmptitle tmptime tmpurls)
        (when bufs
 	 (setq bufs (sort bufs 'w3m-buffer-name-lessp))
-	 (save-current-buffer
+	 (save-excursion
 	   (while (setq buf (car bufs))
 	     (setq bufs (cdr bufs))
 	     (set-buffer buf)
@@ -348,7 +349,7 @@ Sorry, an error found in \"%s\"; may we remove it? "
 	   (title w3m-session-crash-recovery-title)
 	   urls buf tmp)
        (when bufs
-	 (save-current-buffer
+	 (save-excursion
 	   (while (setq buf (car bufs))
 	     (setq bufs (cdr bufs))
 	     (set-buffer buf)
@@ -365,7 +366,6 @@ Sorry, an error found in \"%s\"; may we remove it? "
 	   (setq sessions (cons (list title (current-time) urls nil) sessions))
 	   (w3m-save-list w3m-session-file sessions)))))))
 
-;;;###autoload
 (defun w3m-session-crash-recovery-remove ()
   "Remove crash recovery session set."
   (when w3m-session-crash-recovery
@@ -435,11 +435,11 @@ Sorry, an error found in \"%s\"; may we remove it? "
 
 (defun w3m-session-select-list-all-sessions ()
   "List up all saved sessions."
-  (let ((sessions w3m-session-select-sessions)
-	(num 0)
-	(max 0)
-	(inhibit-read-only t)
-	title titles time times url urls wid pos)
+  (let* ((sessions w3m-session-select-sessions)
+	 (num 0)
+	 (max 0)
+	 (buffer-read-only nil)
+	 title titles time times url urls wid pos)
     (if (not sessions)
 	(progn
 	  (message "No saved session")
@@ -494,7 +494,7 @@ Sorry, an error found in \"%s\"; may we remove it? "
   (let ((session (nth 2 (nth arg w3m-session-select-sessions)))
 	(num 0)
 	(max 0)
-	(inhibit-read-only t)
+	(buffer-read-only nil)
 	title url wid
 	titles urls pos)
     (when session
@@ -541,7 +541,7 @@ Sorry, an error found in \"%s\"; may we remove it? "
   (interactive "p")
   (unless arg (setq arg 1))
   (let ((positive (< 0 arg))
-	(inhibit-read-only t))
+	(buffer-read-only nil))
     (beginning-of-line)
     (put-text-property (point)
 		       (next-single-property-change
@@ -831,7 +831,7 @@ file exists, otherwise nil."
 (defvar w3m-session-make-item-xmas
   (and (equal "Japanese" w3m-language) (featurep 'xemacs)))
 
-(defun w3m-session-make-item (item)
+(defsubst w3m-session-make-item (item)
   (if w3m-session-make-item-xmas
       (concat item "%_ ")
     item))

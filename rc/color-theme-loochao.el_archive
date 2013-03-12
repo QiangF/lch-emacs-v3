@@ -1,0 +1,6 @@
+     ;; FIXME: Seems does not work
+     (showtip-face
+      ((t
+        (:inherit tooltip :background "#730D0D" :foreground "White"
+                  :height 1.5 :family "DejaVu Sans YuanTi Mono"
+                  ))))

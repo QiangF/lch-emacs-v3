@@ -55,22 +55,27 @@
       delete-by-moving-to-trash nil
       confirm-nonexistent-file-or-buffer nil
       modeline-click-swaps-buffers t
-      undo-limit 100000
       blink-matching-paren-distance 32768
       tab-width 8
       read-file-name-completion-ignore-case t
       completion-ignore-case t
+      undo-outer-limit 5000000          ; undo-limit 100000
       message-log-max t                 ; Don't truncate the message log buffer when it becomes large
       indicate-buffer-boundaries t      ; ?? visually indicate buffer boundaries and scrolling
       inhibit-startup-message t         ; No splash screen please ... jeez
-      mark-ring-max 200                 ; # of marks kept in the mark ring.
+      mark-ring-max 1024                ; # of marks kept in the mark ring.
       enable-recursive-minibuffers t    ; Allow recursive minibuffer ops.
+                                        ; minibuffer 递归调用命令
       scroll-step 1                     ; Move down 1 line instead of multi.
       scroll-conservatively 10000
       scroll-preserve-screen-position 1
       next-line-add-newlines nil        ; Don't add newlines at the end.
       message-log-max 500               ; Show lots of *message*.
-      ;; kill-whole-line t                 ; Remove the newlines as well.
+      which-function-mode t             ; Display which func point is in
+                                        ; 在状态条上显示当前光标在哪个函数体内部
+      ;; kill-whole-line t              ; Remove the newlines as well.
+      x-stretch-cursor t                ; 光标在 TAB 字符上会显示为一个大方块
+      message-log-max t                 ; 设置message记录全部消息, 而不用截去      
                   )
 
 ;; Show me empty lines after buffer end
@@ -115,6 +120,7 @@
 (setq use-file-dialog t)
 (setq use-dialog-box nil)
 ;;; Transparently open compressed files
+;; 打开压缩文件时自动解压缩
 (auto-compression-mode t)
 ;;; Transient mark
 (when window-system (transient-mark-mode 1))
