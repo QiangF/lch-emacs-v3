@@ -33,6 +33,7 @@
 ;;; Code
 (message "=> lch-calendar: loading...")
 (require 'calendar)
+(require 'cal-china-x)                                                          
 (setq calendar-latitude 40.34)
 (setq calendar-longitude -74.65)
 (setq calendar-location-name "Princeton, NJ")

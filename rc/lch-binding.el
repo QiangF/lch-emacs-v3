@@ -49,7 +49,11 @@
    ))
 ;;; Meta (command-map)
 (define-key global-map (kbd "M-1") 'shell)
-
+(lazy-set-key
+ '(
+   ("M-1" . shell)
+   ("M-s" . lazy-search-menu)
+   ))
 ;; One-key-menu-meta
 (defvar one-key-menu-meta-alist nil "")
 (setq one-key-menu-meta-alist
@@ -187,11 +191,18 @@
 (define-key global-map (kbd "C-z m") 'one-key-menu-ctrl-z)
 
 ;;; C-/ (command-map)
+(lazy-set-key
+ '(
+   ("C-/ e" . edit-env)
+   ("C-/ l" . open-current-log-keyboard-command)
+   ))
 (defvar one-key-menu-ctrl-/-alist nil "")
 (setq one-key-menu-ctrl-/-alist
       '(
         (("C-/" . "anything") . anything)                                              ;; => lch-erc.el
         (("/" . "anything-source") . anything-call-source)                             ;; => lch-erc.el
+        (("e" . "edit-env") . edit-env)                                                ;; => lch-elisp.el
+        (("l" . "command-log") . open-current-log-keyboard-command)                    ;; => lch-binding.el
         ))
 
 (defun one-key-menu-ctrl-/ ()
@@ -245,6 +256,7 @@
    ("<f1> C" . list-colors-display)
    ("<f1> e" . erase-buffer)
    ("<f1> f" . fill-region)
+   ("<f1> k" . describe-unbound-keys)
    ("<f1> p" . list-packages)
    ))
 
@@ -270,7 +282,7 @@
   "The `one-key' menu for COMMAND."
   (interactive)
   (one-key-menu "COMMAND" one-key-menu-command-alist t))
-(define-key global-map (kbd "<f1> m") 'one-key-menu-f1)
+(define-key global-map (kbd "<f1> m") 'one-key-menu-command)
 
 ;;; F2: (mode-map)
 (lazy-set-key
@@ -280,6 +292,7 @@
    ("<f2> C" . calc)                        
    ("<f2> d" . dired)
    ("<f2> f" . auto-fill-mode)
+   ("<f2> h" . highlight-fixmes-mode)
    ("<f2> l" . lisp-mode)
    ("<f2> o" . org-mode)
    ("<f2> O" . outline-minor-mode)
@@ -300,6 +313,7 @@
         (("e" . "evil-mode") . evil-mode)                                       ;; => lch-elisp.el
         (("E" . "start-irc") . start-irc)                                       ;; => lch-erc.el
         (("f" . "auto-fill-mode") . auto-fill-mode)                             ;; => lch-binding.el
+        (("h" . "highlight-fixme-mode") . highlight-fixme-mode)                 ;; => lch-binding.el
         (("l" . "lisp-mode") . lisp-mode)                                       ;; => lch-binding.el
         (("o" . "org-mode") . org-mode)                                         ;; => lch-binding.el
         (("O" . "outline-minor-mode") . outline-minor-mode)                     ;; => lch-binding.el
@@ -319,6 +333,10 @@
 ;; evoke local applications
 (lazy-set-key
  '(
+   ("<f3> C-3" . copy-buffer-file-name-as-kill)
+   ("<f3> g" . moccur-grep)              ;搜索当前目录下的文件
+   ("<f3> G" . moccur-grep-find-pwd)     ;递归搜索当前目录下的文件   
+   ("<f3> R" . rename-file-and-buffer)
    ("<f3> r" . find-file-root)
    ))
 ;; One-key-menu-local
@@ -327,8 +345,12 @@
 
 (setq one-key-menu-local-alist
       '(
+        (("C-3" . "copy-buffer-name") . copy-buffer-file-name-as-kill)          ;; => basic-edit-toolkit.el        
         (("<f3>" . "lch-start-file-browser") . lch-start-file-browser)          ;; => lch-util.el
-        (("r" . "find-file-root") . find-file-root)                             ;; => lch-binding.el
+        (("g" . "moccur-grep") . moccur-grep)
+        (("G" . "moccur-grep-recursive") . moccur-grep-find-pwd)
+        (("r" . "find-file-root") . find-file-root)                             ;; => basic-edit-toolkit.el
+        (("R" . "rename-file-and-buffer") . rename-file-and-buffer)             ;; => buffer-extension.el
         ))
 
 (defun one-key-menu-local ()
@@ -506,6 +528,8 @@
    ("<f11> l" . setnu-mode)
    ("<f11> n" . narrow-to-region)
    ("<f11> M" . menu-bar-mode)
+   ("<f11> p" . eyedropper-foreground)                                          ;; => lch-elisp.el
+   ("<f11> P" . eyedropper-background)                                          ;; => lch-elisp.el
    ("<f11> r" . ruler-mode)
    ("<f11> t" . tool-bar-mode)
    ("<f11> T" . tabbar-mode)
@@ -526,8 +550,10 @@
         (("c" . "Scroll-Bar") . scroll-bar-mode)                                ;; => lch-binding.el
         (("h" . "hl-line-mode") . hl-line-mode)                                 ;; => lch-binding.el
         (("l" . "setnu-mode") . setnu-mode)                                     ;; => lch-binding.el
-        (("n" . "narrow-to-region") . narrow-to-region)                         ;; => lch-binding.el
         (("M" . "menu-bar-region") . men-bar-region)                            ;; => lch-binding.el
+        (("n" . "narrow-to-region") . narrow-to-region)                         ;; => lch-binding.el
+        (("p" . "eyedropper-foreground") . eyedropper-foreground)               ;; => lch-binding.el
+        (("P" . "eyedropper-background") . eyedropper-background)               ;; => lch-binding.el
         (("r" . "ruler-mode") . ruler-mode)                                     ;; => lch-binding.el
         (("t" . "tool-bar-mode") . tool-bar-mode)                               ;; => lch-binding.el
         (("T" . "tabbar-mode") . tabbar-mode)                                   ;; => lch-binding.el

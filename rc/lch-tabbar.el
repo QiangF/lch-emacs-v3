@@ -1,5 +1,6 @@
 ;;; Tabbar
 (require 'tabbar)
+(require 'tabbar-extension)
 (tabbar-mode 1)
 ;; (setq tabbar-cycling-scope (quote tabs))
 

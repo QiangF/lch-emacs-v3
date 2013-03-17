@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- sh-show-help
- see-you-again
- emacs-exit
- indent-region
- refresh-file
+ speedbar
+ eyedropper-foreground
+ eyedropper-background
+ whitespace-mode
+ show-ws-toggle-show-hard-spaces
  color-theme-loochao
- rainbow-mode
+ zone
 )
 
 ;; ----- smex-data -----
@@ -17,7 +17,7 @@
  (text-mode . 1)
  (lisp-mode . 3)
  (one-key-menu-directory . 3)
- (print-buffer . 2)
+ (print-buffer . 3)
  (byte-compile-file . 3)
  (yas-exit-all-snippets . 1)
  (yas-minor-mode . 2)
@@ -26,49 +26,45 @@
  (comment-region . 8)
  (eval-buffer . 3)
  (org-info . 1)
- (gf . 1)
+ (gf . 2)
  (lch-toggle-archive . 5)
  (flyspell-mode . 1)
  (flyspell-buffer . 1)
  (occur . 2)
- (rainbow-mode . 12)
- (color-theme-loochao . 85)
+ (rainbow-mode . 10)
+ (color-theme-loochao . 37)
  (color-theme-cyberpunk . 1)
  (color-theme-arjen . 1)
  (term . 2)
  (ansi-term . 1)
  (shell . 1)
  (recover-this-file . 1)
- (lch-visit-web-bmk . 5)
- (revert-buffer-with-coding-system . 7)
- (indent-region . 3)
- (tabbar-mode . 1)
- (w3m . 3)
- (linum-mode . 3)
- (erc . 1)
- (start-irc . 1)
- (info . 4)
+ (find-name-dired . 1)
+ (find-grep-dired . 1)
+ (list-processes . 1)
+ (pastebin . 1)
+ (emacswiki-recent-changes . 1)
+ (my-digital-clock . 1)
+ (customize-face . 9)
+ (indent-region . 1)
+ (revert-buffer-with-coding-system . 4)
+ (zone . 22)
+ (auto-fill-mode . 1)
+ (newsticker-start . 1)
+ (flymake-mode . 1)
+ (one-key-menu-one-key-template . 2)
+ (one-key-menu-one-key . 1)
+ (tooltip-mode . 2)
+ (wget . 2)
+ (show-ws-toggle-show-hard-spaces . 2)
+ (show-ws-toggle-show-tabs . 5)
+ (show-ws-toggle-show-trailing-whitespace . 1)
  (whitespace-mode . 1)
- (emms . 1)
- (fullscreen . 1)
- (anything . 16)
- (dired-sort-menu . 1)
- (dired-open-buffer . 2)
- (scroll-bar-mode . 1)
- (one-key-menu-boxquote . 1)
- (fullscreen-toggle . 1)
- (sh-show-help . 8)
- (one-key-menu-help . 1)
- (copy-buffer-file-name-as-kill . 1)
- (predictive-mode . 1)
- (emms-playlist-set-playlist-buffer . 1)
- (lch-remove-current-track . 3)
- (lch-emms-delete-file-from-disk . 7)
- (emms-jump-to-file . 1)
- (dired-details-hide . 2)
- (dired-details-show . 1)
- (dired-details-toggle . 1)
- (refresh-file . 1)
- (emacs-exit . 2)
- (see-you-again . 1)
+ (eyedropper-background . 1)
+ (eyedropper-foreground . 1)
+ (highlight-fixmes-mode . 1)
+ (multi-shell-new . 1)
+ (multi-shell-current-directory . 1)
+ (speedbar . 2)
+ (sr-speedbar-open . 1)
 )

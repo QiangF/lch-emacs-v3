@@ -48,5 +48,33 @@
 (define-key global-map (kbd "<f5> j") 'switch-to-bookmark)
 (setq bookmark-save-flag 1)
 
+;;; breadcrumb
+(require 'breadcrumb)
+(lazy-set-key
+ '(
+   ("s-7" . bc-local-next)              ;局部下一个
+   ("s-8" . bc-local-previous)          ;局部上一个
+   ("s-9" . bc-next)                    ;全局下一个
+   ("s-0" . bc-previous)                ;全局上一个
+   ("s-o" . bc-goto-current)            ;跳到当前
+   ("s-l" . bc-list)                    ;书签列表
+   ("s-'" . bc-set)                     ;书签设定
+   ))
+;; (lazy-set-key
+;;  '(
+;;    ("j" . next-line)                    ;下一行
+;;    ("k" . previous-line)                ;上一行
+;;    ("d" . bc-menu-mark-delete)          ;标记删除当前
+;;    ("D" . bc-menu-mark-all-delete)      ;标记删除所有
+;;    ("x" . bc-menu-commit-deletions)     ;确认删除
+;;    ("u" . bc-menu-unmark-delete)        ;去标记当前
+;;    ("U" . bc-menu-unmark-all-delete)    ;去标记所有
+;;    ("v" . bc-menu-visit-other)          ;在其他窗口中浏览
+;;    ("f" . bc-menu-jump)                 ;跳到书签处
+;;    )
+;;  *bc-menu-mode-map*
+;;  )
+
+
 (message "~~ lch-bmk: done.")
 (provide 'lch-bmk)

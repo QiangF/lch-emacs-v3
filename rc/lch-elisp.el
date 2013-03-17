@@ -31,6 +31,59 @@
 
 ;;; Code
 (message "=> lch-elisp: loading...")
+
+(require 'lazy-set-key)
+;;; Doc-view
+(require 'doc-view)
+(lazy-set-key
+ '(
+   ("N" . doc-view-next-page)                      ;下一页
+   ("P" . doc-view-previous-page)                  ;上一页
+   ("." . doc-view-first-page)                     ;第一页
+   ("," . doc-view-last-page)                      ;最后一页
+   ("g" . doc-view-goto-page)                      ;跳到第几页
+   ("e" . doc-view-scroll-down-or-previous-page)   ;向上滚动一屏
+   ("SPC" . doc-view-scroll-up-or-next-page)       ;向下滚动一屏
+   ("j" . doc-view-next-line-or-next-page)         ;下一行或下一屏
+   ("k" . doc-view-previous-line-or-previous-page) ;上一行或上一屏
+   ("t" . doc-view-show-tooltip)                   ;当前页提示
+   ("q" . bury-buffer)                             ;隐藏buffer
+   ("Q" . doc-view-kill-proc-and-buffer)           ;退出并结束进程
+   ("C-s" . doc-view-search)                       ;搜索
+   ("C-S-n" . doc-view-search-next-match)          ;下一个匹配
+   ("C-S-p" . doc-view-search-previous-match)      ;上一个匹配
+   ("+" . doc-view-enlarge)                        ;放大页面
+   ("-" . doc-view-shrink)                         ;缩小页面
+   ("C-c C-c" . doc-view-toggle-display)           ;在文本和图像间切换
+   ("C-c C-t" . doc-view-open-text)                ;打开文本
+   ("r" . revert-buffer)                           ;刷新
+   ("s" . auto-scroll-mode)                        ;自动滚屏
+   ("<" . auto-scroll-faster)                      ;加快滚屏速度
+   (">" . auto-scroll-slower)                      ;减慢滚屏速度
+   )
+ doc-view-mode-map
+ )
+
+;;; Multi-scratch
+(require 'multi-scratch)
+;;; Edit-env
+(require 'edit-env)
+;;; Lazy-search
+(require 'lazy-search)
+(require 'lazy-search-extension)
+;;; Unbound
+;; command: describe-unbound-keys
+;; Useful to find out unbound keys
+;; but calls with-output-to-temp-buffer
+;; which only exists in Emacs24
+;;(require 'unbound)
+;;; Eyedropper
+;; eyedropper-foreground, eyedropper-background are useful
+;; will prompt rgb in minibuffer
+(require 'eyedropper)
+
+;;; Show-wspace
+(require 'show-wspace)
 ;;; Predictive
 (require 'predictive)
 (set-default 'predictive-auto-add-to-dict t) ;自动加入词典
@@ -39,7 +92,6 @@
 (setq predictive-completion-speed 0.1)       ;查找补全的速度(秒)
 (setq completion-auto-show-delay 0.5)        ;弹出补全tooltip的延迟(秒)
 (dolist (hook (list
-               'erc-mode-hook
                'tex-mode-hook
                'org-mode-hook
                ))
@@ -53,6 +105,7 @@
 (require 'show-help)
 ;;; Lazycat-toolkit
 ;; TODO: Move functions in this file to lch-util
+(require 'basic-edit-toolkit)
 (require 'lazycat-toolkit)
 ;;; Buffer-extension
 (require 'buffer-extension)
@@ -1161,46 +1214,46 @@
 ;;; Weibo
 ;; (require 'weibo)
 ;;; Twittering-mode
-(require 'twittering-mode)
+;; (require 'twittering-mode)
 
-;; Need support of gnupg, to prevent inputting passwd every time.
-(setq twittering-use-master-password t)
+;; ;; Need support of gnupg, to prevent inputting passwd every time.
+;; (setq twittering-use-master-password t)
 
-;; Some site like sina doesn't like SSL.
-(setq twittering-allow-insecure-server-cert t)
-(setq twittering-oauth-use-ssl nil)
-(setq twittering-use-ssl nil)
+;; ;; Some site like sina doesn't like SSL.
+;; (setq twittering-allow-insecure-server-cert t)
+;; (setq twittering-oauth-use-ssl nil)
+;; (setq twittering-use-ssl nil)
 
-;; Display unread tweets and icon.
-(twittering-enable-unread-status-notifier)
-(setq-default twittering-icon-mode t)
+;; ;; Display unread tweets and icon.
+;; (twittering-enable-unread-status-notifier)
+;; (setq-default twittering-icon-mode t)
 
-;; Timeline open by default
-(setq twittering-initial-timeline-spec-string
-      `(":home@sina"
-        ;; ":home@douban"
-        ;; ":home@twitter"
-        ))
+;; ;; Timeline open by default
+;; (setq twittering-initial-timeline-spec-string
+;;       `(":home@sina"
+;;         ;; ":home@douban"
+;;         ;; ":home@twitter"
+;;         ))
 
-(set-face-background twittering-zebra-1-face "gray24")
-(set-face-background twittering-zebra-2-face "gray22")
+;; (set-face-background twittering-zebra-1-face "gray24")
+;; (set-face-background twittering-zebra-2-face "gray22")
 
-;; FIXME
-(define-key global-map (kbd "M-8 p")
-  'twittering-update-status-interactive)
-(define-key global-map (kbd "M-8 M-8")
-  'lch-twittering-update-status-interactive)
-(define-key global-map (kbd "M-9")
-  'lch-twittering-update-status-interactive)
-(define-key global-map (kbd "M-8 r")
-  'twittering-retweet)
+;; ;; FIXME
+;; (define-key global-map (kbd "M-8 p")
+;;   'twittering-update-status-interactive)
+;; (define-key global-map (kbd "M-8 M-8")
+;;   'lch-twittering-update-status-interactive)
+;; (define-key global-map (kbd "M-9")
+;;   'lch-twittering-update-status-interactive)
+;; (define-key global-map (kbd "M-8 r")
+;;   'twittering-retweet)
 
-(defun lch-twittering-update-status-interactive ()
-  (interactive)
-  (let ((spec (twittering-current-timeline-spec)))
-    (save-excursion
-      (funcall twittering-update-status-function
-               nil nil nil spec))))
+;; (defun lch-twittering-update-status-interactive ()
+;;   (interactive)
+;;   (let ((spec (twittering-current-timeline-spec)))
+;;     (save-excursion
+;;       (funcall twittering-update-status-function
+;;                nil nil nil spec))))
 
 
 ;;; Saveplace

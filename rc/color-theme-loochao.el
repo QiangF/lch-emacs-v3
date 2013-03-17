@@ -39,6 +39,10 @@
      (show-paren-match-face ((t (:background "#454545" :foreground "White"))))
      (show-paren-mismatch-face ((t (:background "Red" :foreground "White"))))
 
+     (isearch                              ;搜索关键字
+      ((t (:background "DarkSeaGreen" :foreground "white"))))
+     (isearch-fail                         ;搜索失败
+      ((t (:background "red4" :foreground "white"))))
      
      ;; Dired colors
      (dired-directory                      ;目录
@@ -319,7 +323,14 @@
      (mode-line-highlight              
        ((((class color) (min-colors 88))
          (:box (:line-width 1 :color "Green4" :style released-button)))))
-
+
+     ;; Comint
+     ;; input of the command line
+     (comint-highlight-input               
+      ((t (:background "black" :foreground "khaki3" :weight bold))))
+     ;; 命令行提示
+     (comint-highlight-prompt ((t ((:foreground "Green")))))
+     
      ;; Info
      (info-menu-header                  ; 菜单标题
       ((t (:inherit variable-pitch :foreground "khaki3" :weight bold))))

@@ -1,0 +1,529 @@
+
+color-theme-loochao.el,35
+(defun color-theme-loochao 13,356
+
+lch-alias.el,688
+(defalias 'ahk-mode ahk-mode61,2600
+(defalias 'cmd-mode cmd-mode62,2632
+(defalias 'spell-check spell-check63,2663
+(defalias 'gf gf66,2713
+(defalias 'fd fd67,2739
+(defalias 'sh sh68,2766
+(defalias 'qrr qrr70,2789
+(defalias 'lml lml71,2827
+(defalias 'dml dml72,2864
+(defalias 'rof rof73,2903
+(defalias 'sl sl74,2939
+(defalias 'hm hm77,2977
+(defalias 'tm tm78,3003
+(defalias 'elm elm79,3029
+(defalias 'vbm vbm80,3062
+(defalias 'vlm vlm81,3097
+(defalias 'wsm wsm82,3131
+(defalias 'ee ee85,3175
+(defalias 'eb eb86,3207
+(defalias 'er er87,3235
+(defalias 'ed ed88,3263
+(defalias 'ele ele89,3290
+(defalias 'eis eis90,3322
+(defalias 'ntr ntr92,3359
+
+lch-anything.el,0
+
+lch-aqua-custom.el,0
+
+lch-aquamacs.el,38
+(define-key osx-key-mode-map 40,1193
+
+lch-auto-mode.el,0
+
+lch-binding.el,3203
+(define-key global-map 51,1630
+(defvar one-key-menu-meta-alist 54,1695
+(defun one-key-menu-meta 71,2790
+(define-key global-map 75,2918
+(define-key global-map 78,2997
+(define-key global-map 79,3054
+(define-key global-map 81,3112
+(defun lch-dired-jump 82,3166
+(define-key global-map 86,3266
+(defvar one-key-menu-ctrl-alist 89,3340
+(defun one-key-menu-ctrl 99,3931
+(define-key global-map 103,4059
+(defvar one-key-menu-ctrl-x-alist 107,4162
+(defun one-key-menu-ctrl-x 115,4552
+(define-key global-map 119,4688
+(define-key global-map 122,4770
+(define-key global-map 123,4832
+(defun lch-eval-buffer 125,4887
+(define-key global-map 129,5002
+(define-key global-map 131,5058
+(define-key global-map 132,5107
+(defun lch-occur 133,5156
+(define-key global-map 139,5285
+(define-key global-map 140,5337
+(define-key global-map 141,5393
+(defvar one-key-menu-ctrl-c-alist 144,5512
+(defun one-key-menu-ctrl-c 164,7103
+(define-key global-map 168,7239
+(defvar one-key-menu-ctrl-z-alist 172,7344
+(defun one-key-menu-ctrl-z 183,8022
+(define-key global-map 187,8158
+(defvar one-key-menu-ctrl-/-alist 190,8240
+(defun one-key-menu-ctrl-/ 197,8543
+(define-key global-map 201,8679
+(defvar one-key-menu-fn-alist 203,8761
+(defun one-key-menu-fn 219,9805
+(define-key global-map 223,9925
+(define-key global-map 226,10006
+(define-key global-map 227,10064
+(defvar one-key-menu-C-fn-alist 228,10127
+(defun one-key-menu-C-fn 236,10519
+(define-key global-map 240,10647
+(defvar one-key-menu-command-alist 252,10940
+(defun one-key-menu-command 269,12230
+(define-key global-map 273,12370
+(defvar one-key-menu-mode-alist 293,12857
+(defun one-key-menu-mode 312,14357
+(define-key global-map 316,14485
+(defvar one-key-menu-local-alist 325,14669
+(defun one-key-menu-local 334,14999
+(define-key global-map 338,15131
+(defvar one-key-menu-edit-alist 357,16286
+(defun one-key-menu-edit 375,17716
+(define-key global-map 379,17844
+(defvar one-key-menu-web-alist 383,17941
+(defun one-key-menu-web 399,18945
+(define-key global-map 403,19069
+(define-key global-map 406,19145
+(define-key global-map 407,19235
+(define-key global-map 408,19328
+(define-key global-map 409,19420
+(define-key global-map 410,19514
+(defvar one-key-menu-erc-alist 413,19627
+(defun one-key-menu-erc 425,20157
+(define-key global-map 429,20281
+(defvar one-key-menu-skeleton-alist 432,20362
+(defun one-key-menu-skeleton 446,20905
+(define-key global-map 450,21045
+(define-key global-map 455,21250
+(defvar one-key-menu-file-alist 457,21358
+(defun one-key-menu-file 465,21565
+(define-key global-map 469,21693
+(define-key global-map 472,21776
+(define-key global-map 473,21874
+(define-key global-map 474,21960
+(define-key global-map 475,22061
+(define-key global-map 476,22180
+(define-key global-map 477,22297
+(define-key global-map 478,22412
+(defvar one-key-menu-conf-alist 481,22548
+(defun one-key-menu-conf 493,23171
+(define-key global-map 497,23299
+(defvar one-key-menu-ui-alist 516,23781
+(defun one-key-menu-ui 539,25646
+(define-key global-map 543,25766
+(defvar one-key-menu-emms-alist 547,25864
+(defun one-key-menu-emms 567,26645
+(define-key global-map 571,26773
+(defvar vi-move-key-alist 574,26849
+
+lch-bmk.el,163
+(defun switch-to-bookmark 37,1089
+(define-key global-map 44,1417
+(define-key global-map 46,1474
+(define-key global-map 47,1529
+(define-key global-map 48,1582
+
+lch-calendar.el,0
+
+lch-coding.el,269
+(define-key global-map 75,2266
+(define-key global-map 80,2419
+(define-key global-map 85,2577
+(define-key global-map 90,2750
+(defvar lch-keyword-highlight-modes 96,2937
+(defvar lch-highlight-special-keywords 97,2977
+(defun lch-highlight-special-keywords 108,3394
+
+lch-conf.el,0
+
+lch-custom.el,0
+
+lch-dict.el,32
+(define-key global-map 51,2167
+
+lch-dired.el,156
+(defadvice dired-create-directory 62,2747
+(defadvice wdired-abort-changes 66,2883
+(define-key dired-mode-map 71,3039
+(define-key dired-mode-map 84,3476
+
+lch-el-get.el,0
+
+lch-elisp.el,2115
+(define-key global-map 192,6685
+(define-key global-map 193,6738
+(define-key global-map 194,6800
+(define-key global-map 195,6860
+(defun lch-start-view 235,8191
+(define-key global-map 241,8478
+(define-key global-map 259,9036
+(define-key global-map 327,11376
+(define-key global-map 540,18689
+(define-key global-map 546,18892
+(define-key global-map 547,18951
+(define-key global-map 557,19302
+(define-key global-map 558,19344
+(define-key global-map 560,19418
+(define-key global-map 566,19616
+(defun lch-recentf-ido-find-file 592,20426
+(define-key global-map 600,20650
+(define-key global-map 601,20710
+(define-key global-map 602,20775
+(define-key global-map 608,20979
+(define-key global-map 609,21032
+(defalias 'ibuffer-list-buffers ibuffer-list-buffers673,23087
+(define-key global-map 680,23288
+(define-key global-map 739,25629
+(defvar live-symbol-names)750,25902
+(defvar live-name-and-pos)751,25929
+(defun live-ido-goto-symbol 753,25957
+(define-key global-map 833,28990
+(defun lch-reload-snippets 865,29939
+(defvar lch-yasnippet-dir 869,30028
+(defvar yas-snippet-dirs 870,30090
+(define-key ac-completing-map 903,31145
+(define-key ac-completing-map 904,31197
+(defun sanityinc/dabbrev-friend-buffer 935,32499
+(define-key global-map 1005,34598
+(define-key global-map 1006,34687
+(define-key global-map 1007,34752
+(defun desktop-settings-setup(1078,37655
+(define-key global-map 1138,40036
+(define-key global-map 1188,41672
+(define-key global-map 1190,41750
+(define-key global-map 1192,41834
+(define-key global-map 1194,41914
+(defun lch-twittering-update-status-interactive 1197,41975
+(defun lch-turn-on-flyspell 1276,44270
+(define-key global-map 1321,46050
+(define-key global-map 1325,46154
+(define-key global-map 1326,46213
+(define-key global-map 1336,46564
+(define-key global-map 1337,46606
+(define-key global-map 1345,46810
+(define-key global-map 1346,46863
+(define-key global-map 1347,46914
+(define-key global-map 1348,46960
+(define-key global-map 1349,47008
+(define-key global-map 1350,47058
+(define-key global-map 1431,49423
+(define-key global-map 1447,49960
+
+lch-emms.el,345
+(defvar emms-dir 43,1300
+(defun lch-emms-add-dir 90,2920
+(defun lch-emms-toggle-playing 95,3039
+(defun emms-jump-to-file 101,3156
+(defun lch-emms-init 110,3572
+(define-key emms-playlist-mode-map 146,4517
+(define-key emms-playlist-mode-map 147,4611
+(define-key emms-playlist-mode-map 148,4705
+(define-key emms-playlist-mode-map 149,4799
+
+lch-env.el,2328
+(defvar emacs-site-lisp 40,1130
+(defvar lch-emacs-conf 41,1187
+(defun my-add-subdirs-to-load-path 52,1499
+(defconst lch-cygwin-p 77,2418
+(defconst lch-mbp-win 78,2486
+(defconst lch-mbp-x61 79,2604
+(defconst lch-gnuemacs-p 80,2717
+(defconst lch-xemacs-p 81,2780
+(defconst lch-aquamacs-p 82,2825
+(defconst is-before-emacs-21 84,2894
+(defconst is-after-emacs-23 85,2977
+(defvar emacs-lib-dir 89,3072
+(defvar emacs-doc-dir 90,3125
+(defvar git-dir 91,3174
+(defvar org-dir 98,3499
+(defvar org-source-dir 99,3553
+(defvar pub-html-dir 100,3619
+(defvar org-mobile-dir 101,3691
+(defvar org-private-dir 102,3765
+(defvar prv-html-dir 103,3833
+(defvar worg-dir 104,3906
+(defvar worg-html-dir 105,3968
+(defvar emacs-info-dir 115,4270
+(define-prefix-command 'm-f1-map)m-f1-map125,4593
+(define-key global-map 126,4627
+(define-prefix-command 'm-f2-map)m-f2-map128,4677
+(define-key global-map 129,4711
+(define-prefix-command 'm-k-map)m-k-map131,4761
+(define-key global-map 132,4794
+(define-prefix-command 'm-8-map)m-8-map134,4840
+(define-key global-map 135,4873
+(define-prefix-command 'f1-map)f1-map137,4919
+(define-key global-map 138,4951
+(define-prefix-command 'f2-map)f2-map140,4997
+(define-key global-map 141,5029
+(define-prefix-command 'f3-map)f3-map143,5075
+(define-key global-map 144,5107
+(define-prefix-command 'f4-map)f4-map146,5153
+(define-key global-map 147,5185
+(define-prefix-command 'f5-map)f5-map149,5231
+(define-key global-map 150,5263
+(define-prefix-command 'f6-map)f6-map152,5309
+(define-key global-map 153,5341
+(define-prefix-command 'f7-map)f7-map155,5387
+(define-key global-map 156,5419
+(define-prefix-command 'f8-map)f8-map158,5465
+(define-key global-map 159,5497
+(define-prefix-command 'f9-map)f9-map161,5543
+(define-key global-map 162,5575
+(define-prefix-command 'f10-map)f10-map164,5621
+(define-key global-map 165,5654
+(define-prefix-command 'ctrl-f10-map)ctrl-f10-map167,5702
+(define-key global-map 168,5740
+(define-prefix-command 'f11-map)f11-map170,5795
+(define-key global-map 171,5828
+(define-prefix-command 'f12-map)f12-map173,5876
+(define-key global-map 174,5909
+(define-prefix-command 'Ctrl-z-map)Ctrl-z-map176,5957
+(define-key global-map 177,5993
+(define-prefix-command 'Ctrl-/-map)Ctrl-/-map179,6042
+(define-key global-map 180,6078
+
+lch-erc.el,215
+(defun start-irc 40,1166
+(define-key global-map 45,1335
+(define-key global-map 46,1385
+(defun lch-erc-emacs 48,1436
+(define-key global-map 51,1507
+(defun filter-server-buffers 62,1897
+(defun stop-irc 68,2038
+
+lch-hl-line.el,119
+(defun hl-line-toggle-when-idle 37,1095
+(defun hl-line-highlight-now 52,1762
+(defun hl-line-unhighlight-now 60,2015
+
+lch-inbox.el,83
+(defun google-file 5,75
+(defun google-file-ffx 14,393
+(defun insert-date 20,615
+
+lch-init.el,740
+(defadvice yank 40,1144
+(defadvice yank-pop 46,1441
+(define-key global-map 220,7475
+(define-key global-map 221,7531
+(defun lch-toggle-line-wrapping 305,10019
+(define-key global-map 316,10375
+(defun elisp-compile-hook 319,10467
+(defun byte-recompile-directory-all 324,10715
+(defun byte-recompile-special-directory 328,10910
+(defalias 'wku wku334,11071
+(defalias 'wkl wkl335,11107
+(defalias 'afm afm336,11146
+(define-key global-map 413,13410
+(define-key global-map 416,13550
+(define-key global-map 419,13658
+(define-key global-map 422,13872
+(define-key global-map 425,14012
+(define-key global-map 428,14120
+(defvar autosave-dir450,14864
+(defun auto-save-file-name-p 454,14983
+(defun make-auto-save-file-name 457,15085
+
+lch-lang.el,160
+(defun lch-lang-mode-common-hook 39,1212
+(defun lch-c-mode-common-hook 51,1559
+(defun lch-makefile-mode-hook 62,1917
+(defalias 'perl-mode perl-mode73,2145
+
+lch-mac.el,28
+(defun my-add-path 53,1622
+
+lch-mouse.el,167
+(define-key global-map 39,1308
+(define-key global-map 40,1366
+(define-key global-map 44,1543
+(defvar edit-popup-menu46,1602
+(defun ergoemacs-context-menu 81,2852
+
+lch-one-key.el,741
+(defmacro setup-one-key 5,50
+(defvar lch-home-directory 16,379
+(defvar lch-mldonkey-download-directory 17,410
+(defvar lch-default-download-directory 18,454
+(defvar lch-resource-backup-directory 19,497
+(defvar lch-book-directory 20,539
+(defvar lch-reading-directory 21,570
+(defvar lch-translate-png-directory 22,604
+(defvar lch-picture-directory 23,644
+(defvar lch-lyrics-directory 24,678
+(defvar lch-emacs-lisp-package-directory 25,711
+(defvar lch-notes-directory 26,756
+(defvar lch-emacs-backup-directory 27,788
+(defvar lch-screenshots-storage-directory 28,827
+(defvar lch-emlue-download-directory 29,873
+(defvar lch-elisp-directory 30,914
+(defvar one-key-menu-directory-alist 32,947
+(defun one-key-menu-directory 54,2632
+
+lch-org-agenda.el,30
+(define-key global-map 7,147
+
+lch-org-export.el,234
+(defun lch-org-publish-org(139,5620
+(defun lch-org-publish-prv(144,5735
+(defun lch-org-publish-worg(149,5851
+(defvar one-key-menu-org-export-alist 155,5981
+(defun one-key-menu-org-export 165,6330
+(define-key global-map 170,6479
+
+lch-org-latex.el,0
+
+lch-org.el,108
+(defun org-toggle-iimage-in-org 201,8676
+(defun lch-yas-in-org 242,9882
+(define-key global-map 255,10342
+
+lch-other-conf.el,0
+
+lch-outline.el,1093
+(defun body-p 48,1597
+(defun body-visible-p 56,1796
+(defun subheadings-p 62,1923
+(defun subheadings-visible-p 70,2141
+(defun outline-do-close 76,2259
+(defun outline-do-open 87,2598
+(define-key outline-mode-map 99,2948
+(define-key outline-mode-map 100,3011
+(define-key outline-minor-mode-map 101,3074
+(define-key outline-minor-mode-map 102,3143
+(define-key outline-minor-mode-map 104,3213
+(define-key outline-minor-mode-map 105,3277
+(define-key outline-minor-mode-map 106,3341
+(define-key outline-minor-mode-map 107,3418
+(define-key outline-minor-mode-map 108,3493
+(define-key outline-minor-mode-map 109,3564
+(define-key outline-minor-mode-map 110,3635
+(define-key outline-minor-mode-map 111,3722
+(define-key outline-mode-map 113,3808
+(define-key outline-mode-map 114,3866
+(define-key outline-mode-map 115,3924
+(define-key outline-mode-map 116,3995
+(define-key outline-mode-map 117,4064
+(define-key outline-mode-map 118,4129
+(define-key outline-mode-map 119,4194
+(define-key outline-mode-map 120,4275
+(defun org-cycle-global 128,4547
+(defun org-cycle-local 132,4608
+
+lch-shell.el,73
+(defcustom eshell-directory-name41,1245
+(define-key global-map 66,2002
+
+lch-skeleton.el,487
+(define-skeleton org-center-skeleton34,1036
+(define-skeleton org-example-skeleton41,1157
+(define-skeleton org-file-skeleton48,1282
+(define-skeleton org-head-skeleton53,1377
+(define-skeleton org-html-skeleton61,1623
+(define-skeleton org-image-skeleton68,1738
+(define-skeleton org-lib-image-skeleton73,1833
+(define-skeleton org-src-lisp-skeleton78,1934
+(define-key global-map 88,2153
+(define-key global-map 89,2215
+(define-key global-map 90,2277
+(define-key global-map 92,2402
+
+lch-startup.el,28
+(defun lch-startup 34,1038
+
+lch-tabbar.el,34
+(defun tabbar-buffer-groups 6,90
+
+lch-template.el,0
+
+lch-tex.el,36
+(defun lch-latex-mode-hook 41,1206
+
+lch-tramp.el,59
+(defun sudo-edit 96,3512
+(define-key global-map 101,3762
+
+lch-ui-theme.el,163
+(defvar emacs-theme-dir 36,1054
+(defun lch-modeline-font 50,1616
+(defun lch-modeline-color 56,1884
+(defun lch-modeline 61,2017
+(define-key global-map 65,2102
+
+lch-ui.el,932
+(defvar lch-read-only-color 56,1510
+(defvar lch-read-only-cursor-type 59,1672
+(defvar lch-overwrite-color 60,1713
+(defvar lch-overwrite-cursor-type 61,1754
+(defvar lch-normal-color 62,1794
+(defvar lch-normal-cursor-type 63,1839
+(defun lch-set-cursor-according-to-mode 65,1880
+(defun aquamacs-cursor 78,2317
+(defun lch-cycle-fg-color 131,3940
+(defun lch-cycle-fg-color-foward 146,4583
+(define-key global-map 151,4732
+(defun lch-cycle-fg-color-backward 153,4800
+(define-key global-map 158,4952
+(defun lch-cycle-bg-color 160,5022
+(defun lch-cycle-bg-color-foward 175,5631
+(define-key global-map 180,5780
+(defun lch-cycle-bg-color-backward 182,5848
+(define-key global-map 187,6000
+(defun cycle-font 190,6087
+(defun cycle-font-forward 221,7805
+(define-key global-map 226,7937
+(defun cycle-font-backward 228,7998
+(define-key global-map 233,8136
+(defun toggle-line-spacing 236,8221
+(define-key global-map 244,8503
+
+lch-util.el,509
+(defun find-file-root 35,999
+(defun lch-chmod-x 43,1238
+(defun lch-toggle-archive 56,1695
+(define-key global-map 68,2356
+(define-key global-map 72,2429
+(defun lch-start-file-browser 88,2919
+(define-key global-map 98,3254
+(defun lch-start-terminal 101,3341
+(define-key global-map 117,3749
+(defun lch-create-switch-scratch 120,3840
+(define-key global-map 126,4041
+(defun nuke-some-buffers 129,4124
+(define-key global-map 151,5038
+(defun text-scale-normal 154,5105
+(define-key global-map 159,5260
+
+lch-var.el,0
+
+lch-w32.el,78
+(defvar cygwin-root 35,1032
+(defvar cygwin-bin 36,1088
+(defun bash 99,3062
+
+lch-web.el,408
+(defvar w3m-buffer-name-prefix 55,1934
+(defvar w3m-buffer-name 56,2001
+(defvar w3m-bookmark-buffer-name 57,2083
+(defvar w3m-dir 60,2204
+(defun w3m-new-tab 85,3268
+(define-key w3m-mode-map 88,3341
+(defun lch-switch-to-w3m 103,3855
+(define-key global-map 112,4085
+(defun lch-switch-to-w3m-goto-url 114,4143
+(define-key global-map 124,4381
+(defun lch-google 126,4452
+(define-key global-map 135,4722
