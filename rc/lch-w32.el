@@ -61,32 +61,32 @@
 
 
 ;>---- Cygwin-mount ----<;
-(require 'cygwin-mount)
-(cygwin-mount-activate)
+;; (require 'cygwin-mount)
+;; (cygwin-mount-activate)
 
 
-(when (and (eq 'windows-nt system-type)
-           (file-readable-p cygwin-root))
-  (setq exec-path (cons cygwin-bin exec-path))
-  (setenv "PATH" (concat cygwin-bin ";" (getenv "PATH")))
+;; (when (and (eq 'windows-nt system-type)
+;;            (file-readable-p cygwin-root))
+;;   (setq exec-path (cons cygwin-bin exec-path))
+;;   (setenv "PATH" (concat cygwin-bin ";" (getenv "PATH")))
 
-  (setq Info-default-directory-list (append Info-default-directory-list (concat cygwin-root "/usr/info")))
+;;   (setq Info-default-directory-list (append Info-default-directory-list (concat cygwin-root "/usr/info")))
 
-  ;; By default use the Windows HOME.
-  ;; Otherwise, uncomment below to set a HOME
-  ;;      (setenv "HOME" (concat cygwin-root "/home/loochao"))
+;;   ;; By default use the Windows HOME.
+;;   ;; Otherwise, uncomment below to set a HOME
+;;   ;;      (setenv "HOME" (concat cygwin-root "/home/loochao"))
 
-  ;; NT-emacs assumes a Windows shell. Change to baash.
-  (setq shell-file-name "bash")
-  (setenv "SHELL" shell-file-name)
-  (setq explicit-shell-file-name shell-file-name)
-  (setq ediff-shell shell-file-name)
-  (setq explicit-shell-args '("--login" "-i"))
-  (setq w32-quote-process-args ?\")
+;;   ;; NT-emacs assumes a Windows shell. Change to baash.
+;;   (setq shell-file-name "bash")
+;;   (setenv "SHELL" shell-file-name)
+;;   (setq explicit-shell-file-name shell-file-name)
+;;   (setq ediff-shell shell-file-name)
+;;   (setq explicit-shell-args '("--login" "-i"))
+;;   (setq w32-quote-process-args ?\")
 
-  ;; This removes unsightly ^M characters that would otherwise
-  ;; appear in the output of java applications.
-  (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m))
+;;   ;; This removes unsightly ^M characters that would otherwise
+;;   ;; appear in the output of java applications.
+;;   (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m))
 
 ;;; Print for w32
 (if lch-win32-p
@@ -104,18 +104,18 @@
     (shell)))
 
 ;;; W32 max/restore frame
-(if lch-win32-p
-    (when (fboundp 'w32-send-sys-command)
-      (progn
-        (defun w32-restore-frame ()
-          "Restore a minimized frame"
-          (interactive)
-          (w32-send-sys-command 61728))
-        (defun w32-maximize-frame ()
-          "Maximize the current frame"
-          (interactive)
-          (w32-send-sys-command 61488))
-        (define-key global-map (kbd "<f11> m") 'w32-maximize-frame))))
+;; (if lch-win32-p
+;;     (when (fboundp 'w32-send-sys-command)
+;;       (progn
+;;         (defun w32-restore-frame ()
+;;           "Restore a minimized frame"
+;;           (interactive)
+;;           (w32-send-sys-command 61728))
+;;         (defun w32-maximize-frame ()
+;;           "Maximize the current frame"
+;;           (interactive)
+;;           (w32-send-sys-command 61488))
+;;         (define-key global-map (kbd "<f11> m") 'w32-maximize-frame))))
 
 (setq process-coding-system-alist
       (cons '("bash" . (raw-text-dos . raw-text-unix)) process-coding-system-alist))
