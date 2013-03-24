@@ -93,6 +93,40 @@
 ;;     )
 ;;   )
 
+;; Use Company Backends for Auto-Complete.
+;; (require 'ac-company)
+;; (ac-company-define-source ac-source-company-elisp company-elisp)
+;; (add-hook 'emacs-lisp-mode-hook
+;;        (lambda ()
+;;          (add-to-list 'ac-sources 'ac-source-company-elisp)))
+
+
+
+;;; Highlight-fill-column
+;; (require 'highlight-beyond-fill-column)
+;; (setq highlight-beyond-fill-column-in-modes
+;;       '("emacs-lisp-mode"))
+
+;; Less
+;; (require 'less)
+;; (eval-after-load 'less
+;;   '(progn
+;;      (setq auto-less-exclude-regexp
+;;            (concat auto-less-exclude-regexp
+;;                    "\\|"
+;;                    (regexp-opt '("todo.org"
+;;                                  "outgoing"
+;;                                  "*gud"
+;;                                  "*anything"
+;;                                  ))))
+;;      (setq auto-less-exclude-modes
+;;            (append auto-less-exclude-modes
+;;                    '(proced-mode dired-mode)))
+;;      ))
+;; (global-less-minor-mode 1)
+;; (global-set-key (kbd "C-c v") 'less-minor-mode)
+
+
 
 ;;; Flyspell
 ;; Resolve conflict between ispell and aspell

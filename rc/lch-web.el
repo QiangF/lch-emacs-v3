@@ -236,6 +236,7 @@
    ("<f5> s" . one-key-menu-w3m-search)       ;w3m 搜索菜单
    ))
 
+(message "~~ lch-web: done.")
 (provide 'lch-web)
 ;;; Local Vars.
 ;; Local Variables:

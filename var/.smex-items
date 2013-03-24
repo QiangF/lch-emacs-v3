@@ -1,70 +1,16 @@
 
 ;; ----- smex-history -----
 (
- speedbar
- eyedropper-foreground
- eyedropper-background
- whitespace-mode
- show-ws-toggle-show-hard-spaces
- color-theme-loochao
- zone
+ cd
+ lm
+ 5x5
+ afm
+ arp
+ dbx
+ dig
 )
 
 ;; ----- smex-data -----
 (
- (one-key-menu-emms . 4)
- (one-key-menu-cycle-buffer . 3)
- (text-mode . 1)
- (lisp-mode . 3)
- (one-key-menu-directory . 3)
- (print-buffer . 3)
- (byte-compile-file . 3)
- (yas-exit-all-snippets . 1)
- (yas-minor-mode . 2)
- (count-buffer . 1)
- (one-key-menu-erc . 2)
- (comment-region . 8)
- (eval-buffer . 3)
- (org-info . 1)
- (gf . 2)
- (lch-toggle-archive . 5)
- (flyspell-mode . 1)
- (flyspell-buffer . 1)
- (occur . 2)
- (rainbow-mode . 10)
- (color-theme-loochao . 37)
- (color-theme-cyberpunk . 1)
- (color-theme-arjen . 1)
- (term . 2)
- (ansi-term . 1)
- (shell . 1)
- (recover-this-file . 1)
- (find-name-dired . 1)
- (find-grep-dired . 1)
- (list-processes . 1)
- (pastebin . 1)
- (emacswiki-recent-changes . 1)
- (my-digital-clock . 1)
- (customize-face . 9)
- (indent-region . 1)
- (revert-buffer-with-coding-system . 4)
- (zone . 22)
- (auto-fill-mode . 1)
- (newsticker-start . 1)
- (flymake-mode . 1)
- (one-key-menu-one-key-template . 2)
- (one-key-menu-one-key . 1)
- (tooltip-mode . 2)
- (wget . 2)
- (show-ws-toggle-show-hard-spaces . 2)
- (show-ws-toggle-show-tabs . 5)
- (show-ws-toggle-show-trailing-whitespace . 1)
- (whitespace-mode . 1)
- (eyedropper-background . 1)
- (eyedropper-foreground . 1)
- (highlight-fixmes-mode . 1)
- (multi-shell-new . 1)
- (multi-shell-current-directory . 1)
- (speedbar . 2)
- (sr-speedbar-open . 1)
+ 
 )

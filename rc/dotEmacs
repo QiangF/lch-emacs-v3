@@ -150,10 +150,9 @@
 ;; (byte-recompile-directory (concat emacs-dir "/rc"))
 
 ;;; Configurations
-
 (load (concat emacs-dir "/rc/lch-env.el"))
 (require 'lch-conf)
-;; (require 'lch-startup)
+(require 'lch-startup)
 
 ;;; Scratch message
 (defvar lch-welcome-messages
@@ -194,9 +193,10 @@
 ;;                                           zone-pgm-martini-swan-dive
 ;;                                           zone-pgm-stress
 ;;                                           zone-pgm-stress-destress])
-;; 
+
+
 ;; CONF From Others
-;(require 'lch-other-conf)
+;; (require 'lch-other-conf)
 
 ;; Load CONF Files
 ;; This has to be put at the end of dotEmacs

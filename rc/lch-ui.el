@@ -1,20 +1,20 @@
 ;; -*- mode: emacs-lisp -*-
 
-;;; Frame parameters
-(setq default-frame-alist
-      (append
-       '((default-fringes-outside-margins . 1)
-         (default-left-fringe-width . 12)
-         (default-left-margin-width . 14)
-         (cursor-color . "sienna1")
-         (background-color . "Black")
-         (foreground-color . "MistyRose3")
-         ;; (top . 42)
-         ;; (left . 42)
-         ;; (height . 47)
-         ;; (width . 128)
-         ) default-frame-alist))
-
+;; ;;; Frame parameters
+;; (setq default-frame-alist
+;;       (append
+;;        '((default-fringes-outside-margins . 1)
+;;          (default-left-fringe-width . 12)
+;;          (default-left-margin-width . 14)
+;;          (cursor-color . "sienna1")
+;;          (background-color . "Black")
+;;          (foreground-color . "MistyRose3")
+;;          ;; (top . 42)
+;;          ;; (left . 42)
+;;          ;; (height . 47)
+;;          ;; (width . 128)
+;;          ) default-frame-alist))
+;; 
 ;;; Menu toolbar scroll-bar
 (if (not lch-mac-p)
     (when (fboundp 'menu-bar-mode)
@@ -29,6 +29,7 @@
 ;; (setq default-indicate-empty-lines t)
 (setq indicate-buffer-boundaries 'left)
 
+
 
 ;;; Menu
 ;; get rid of the Games in the Tools menu
@@ -93,6 +94,7 @@
 ;;; Menu-bar+
 ;; (eval-after-load "menu-bar" '(require 'menu-bar+))
 
+
 ;;; Pretty Control L
 (require 'pp-c-l)
 (setq pp^L-^L-string "----------------")
@@ -234,12 +236,12 @@ See `cycle-font'."
 
 ;;; Toggle line space
 (defun toggle-line-spacing ()
-"Toggle line spacing between no extra space to extra half line height."
-(interactive)
-(if (eq line-spacing nil)
-    (setq-default line-spacing 0.5) ; add 0.5 height between lines
-  (setq-default line-spacing nil)   ; no extra heigh between lines
-  ))
+  "Toggle line spacing between no extra space to extra half line height."
+  (interactive)
+  (if (eq line-spacing nil)
+      (setq-default line-spacing 0.5) ; add 0.5 height between lines
+    (setq-default line-spacing nil)   ; no extra heigh between lines
+    ))
 
 (define-key global-map (kbd "<f11> L") 'toggle-line-spacing)
 

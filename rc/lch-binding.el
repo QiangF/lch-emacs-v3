@@ -47,11 +47,14 @@
    ;; ("s-x s-x" . multi-term-dedicated-toggle) ;切换专注终端
    ;; ("s-x s-z" . multi-term-dedicated-select) ;选择专注终端
    ))
-;;; Meta (command-map)
+;;;u Meta (command-map)
 (define-key global-map (kbd "M-1") 'shell)
 (lazy-set-key
  '(
    ("M-1" . shell)
+   ("M-2" . multi-shell-new)
+   ("M-3" . multi-shell-prev)
+   ("M-4" . multi-shell-next)
    ("M-s" . lazy-search-menu)
    ))
 ;; One-key-menu-meta
@@ -59,6 +62,9 @@
 (setq one-key-menu-meta-alist
       '(
         (("1" . "dumb-shell") . shell)                                          ;; => lch-binding.el
+        (("2" . "multi-shell-new") . multi-shell-new)                           ;; => lch-binding.el
+        (("3" . "multi-shell-prev") . multi-shell-prev)                         ;; => lch-binding.el
+        (("4" . "multi-shell-next") . multi-shell-next)                         ;; => lch-binding.el
         (("<left>" . "hide-body") . hide-body)                                  ;; => lch-outline.el
         (("<right>" . "show-all") . show-all)                                   ;; => lch-outline.el
         (("<up>" . "outline-previous-heading") . outline-previous-heading)      ;; => lch-outline.el
@@ -490,14 +496,114 @@
   (one-key-menu "FILE" one-key-menu-file-alist t))
 (define-key global-map (kbd "<f9> m") 'one-key-menu-file)
 
+;; FIXME
+(define-key global-map (kbd "<f9> 2") (lambda() (interactive) (dired org-private-dir)))
+(define-key global-map (kbd "<f9> 3") (lambda() (interactive) (dired (concat org-source-dir "/public_html"))))
+(if (boundp 'dropbox-path)
+    (define-key global-map (kbd "<f9> 4") (lambda() (interactive) (dired dropbox-path))))
+(define-key global-map (kbd "<f9> 5") (lambda() (interactive) (dired emacs-doc-dir)))
+
+(define-key global-map (kbd "<f9> a") (lambda() (interactive) (find-file (concat org-source-dir "/Art-Ent.org"))))
+(define-key global-map (kbd "<f9> b") (lambda() (interactive) (find-file (concat org-source-dir "/Bib-Edu.org"))))
+(define-key global-map (kbd "<f9> C") (lambda() (interactive) (find-file (concat org-source-dir "/Culture.org"))))
+(define-key global-map (kbd "<f9> C-c") (lambda() (interactive) (find-file (concat org-source-dir "/ComputerSE.org"))))
+(define-key global-map (kbd "<f9> d") (lambda() (interactive) (find-file (concat emacs-doc-dir "/loochao-cheat-sheet.tex"))))
+(define-key global-map (kbd "<f9> e") (lambda() (interactive) (find-file (concat org-source-dir "/Emacs.org"))))
+(define-key global-map (kbd "<f9> E") (lambda() (interactive) (find-file (concat org-source-dir "/English.org"))))
+(define-key global-map (kbd "<f9> C-e") (lambda() (interactive) (find-file (concat org-source-dir "/Economy.org"))))
+(define-key global-map (kbd "<f9> g") (lambda() (interactive) (find-file (concat org-source-dir "/generality.org"))))
+(define-key global-map (kbd "<f9> h") (lambda() (interactive) (find-file (concat org-source-dir "/Humor.org"))))
+(define-key global-map (kbd "<f9> H") (lambda() (interactive) (find-file (concat org-source-dir "/Html.org"))))
+(define-key global-map (kbd "<f9> C-h") (lambda() (interactive) (find-file (concat org-source-dir "/History.org"))))
+
+(define-key global-map (kbd "<f9> i c") (lambda() (interactive) (find-file (concat org-private-dir "/iCount.org"))))
+(define-key global-map (kbd "<f9> i d") (lambda() (interactive) (find-file (concat org-private-dir "/iDea.org"))))
+(define-key global-map (kbd "<f9> i l") (lambda() (interactive) (find-file (concat org-private-dir "/iLog.org"))))
+(define-key global-map (kbd "<f9> i n") (lambda() (interactive) (find-file (concat org-private-dir "/index.org"))))
+(define-key global-map (kbd "<f9> i r") (lambda() (interactive) (find-file (concat org-private-dir "/iRsch.org"))))
+(define-key global-map (kbd "<f9> i s") (lambda() (interactive) (find-file (concat org-private-dir "/iStuff.org"))))
+(define-key global-map (kbd "<f9> i p") (lambda() (interactive) (find-file (concat org-private-dir "/iPrv.org"))))
+
+(define-key global-map (kbd "<f9> l") (lambda() (interactive) (find-file (concat dropbox-path "/Library/Library.bib"))))
+(define-key global-map (kbd "<f9> L") (lambda() (interactive) (find-file (concat org-source-dir "/Life.org"))))
+(define-key global-map (kbd "<f9> C-l") (lambda() (interactive) (find-file (concat org-source-dir "/Library.org"))))
+(define-key global-map (kbd "<f9> m") (lambda() (interactive) (find-file (concat org-source-dir "/Mathematics.org"))))
+(define-key global-map (kbd "<f9> M") (lambda() (interactive) (find-file (concat org-source-dir "/Miscellaneous.org"))))
+(define-key global-map (kbd "<f9> C-m") (lambda() (interactive) (find-file (concat org-source-dir "/Methodology.org"))))
+(define-key global-map (kbd "<f9> O") (lambda() (interactive) (find-file (concat org-source-dir "/Opera.org"))))
+(define-key global-map (kbd "<f9> p") (lambda() (interactive) (find-file (concat org-source-dir "/Pearl.org"))))
+(define-key global-map (kbd "<f9> P") (lambda() (interactive) (find-file (concat org-source-dir "/Programming.org"))))
+(define-key global-map (kbd "<f9> C-p") (lambda() (interactive) (find-file (concat org-source-dir "/iPU.org"))))
+(define-key global-map (kbd "<f9> M-p") (lambda() (interactive) (find-file (concat org-source-dir "/Physics.org"))))
+(define-key global-map (kbd "<f9> r") (lambda() (interactive) (find-file (concat dropbox-path "/Research/Research.bib"))))
+(define-key global-map (kbd "<f9> R") (lambda() (interactive) (find-file (concat org-source-dir "/Refile.org"))))
+(define-key global-map (kbd "<f9> s") (lambda() (interactive) (find-file (concat org-source-dir "/Softip.org"))))
+(define-key global-map (kbd "<f9> S") (lambda() (interactive) (find-file (concat org-source-dir "/Sitemap.org"))))
+(define-key global-map (kbd "<f9> u") (lambda() (interactive) (find-file (concat org-source-dir "/Unix.org"))))
+(define-key global-map (kbd "<f9> W") (lambda() (interactive) (dired (concat dropbox-path "/GIT/Worg"))))
+(if lch-win32-p
+    (progn
+      (define-key global-map (kbd "<f9> r") (lambda() (interactive) (find-file "e:/EDU/RSCH/Org/RSCH.org")))
+      (define-key global-map (kbd "<f9> w a") (lambda() (interactive) (find-file "d:/SYS/WINMNGR/AHK/AutoHotKey.ini")))
+      (define-key global-map (kbd "<f9> w e") (lambda() (interactive) (dired "e:/")))
+      (define-key global-map (kbd "<f9> w g") (lambda() (interactive) (dired "e:/Var/URoot/git/")))
+      (define-key global-map (kbd "<f9> w t") (lambda() (interactive) (dired "e:/Tmp/")))
+      (define-key global-map (kbd "<f9> w s") (lambda() (interactive) (dired "e:/Tmp/SPgm")))
+      (define-key global-map (kbd "<f9> w t") (lambda() (interactive) (find-file "e:/TMP/DOC/TEX/Untitled1.tex")))))
+
 ;;; F10 (conf-file-map)
+;; FIXME
 (define-key global-map (kbd "<f10> 1") (lambda() (interactive) (dired (concat emacs-dir "/rc"))))
 (define-key global-map (kbd "<f10> 2") (lambda() (interactive) (dired dropbox-path)))
+(define-key global-map (kbd "<f10> 3") (lambda() (interactive) (dired emacs-site-lisp)))
+(define-key global-map (kbd "<f10> 4") (lambda() (interactive) (dired emacs-lib-dir)))
+(define-key global-map (kbd "<f10> 5") (lambda() (interactive) (dired (concat dropbox-path "/Repository/git/Worg"))))
+(define-key global-map (kbd "<f10> 6") (lambda() (interactive) (dired "~/Downloads")))
+(define-key global-map (kbd "<f10> 7") (lambda() (interactive) (dired (concat emacs-lib-dir "/snippets/text-mode/latex-mode"))))
 (define-key global-map (kbd "<f10> 9") (lambda() (interactive) (find-file "/sudo::/Users/LooChao")))
 (define-key global-map (kbd "<f10> 0") (lambda() (interactive) (find-file "/ssh:chaol@nobel.princeton.edu:/u/chaol")))
+
+(if lch-win32-p (define-key global-map (kbd "<f10> a")
+                  (lambda() (interactive) (find-file "d:/SYS/WINMNGR/AHK/AutoHotKey.ini"))))
 (define-key global-map (kbd "<f10> b") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-binding.el"))))
+(define-key global-map (kbd "<f10> B") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-bmk.el"))))
+(define-key global-map (kbd "<f10> c") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-conf.el"))))
+(define-key global-map (kbd "<f10> d") (lambda() (interactive) (find-file "~/.emacs")))
+(define-key global-map (kbd "<f10> D") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-dired.el"))))
 (define-key global-map (kbd "<f10> e") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-elisp.el"))))
+(define-key global-map (kbd "<f10> E") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-env.el"))))
+(define-key global-map (kbd "<f10> C-e") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-emms.el"))))
+(define-key global-map (kbd "<f10> M-e") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-elisp-el-get.el"))))
+(define-key global-map (kbd "<f10> g") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-gnus.el"))))
+(define-key global-map (kbd "<f10> i") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-init.el"))))
+(define-key global-map (kbd "<f10> l") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-lang.el"))))
+(define-key global-map (kbd "<f10> o o") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-org.el"))))
+(define-key global-map (kbd "<f10> o a") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-org-agenda.el"))))
+(define-key global-map (kbd "<f10> o l") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-org-latex.el"))))
+(define-key global-map (kbd "<f10> o p") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-org-publish.el"))))
+
+(define-key global-map (kbd "<f10> O") (lambda() (interactive) (find-file "~/org/public_html/theme/org.css")))
+(define-key global-map (kbd "<f10> s") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-skeleton.el"))))
+(define-key global-map (kbd "<f10> t") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-ui-theme.el"))))
+(if (eq system-type 'windows-nt)
+    (define-key global-map (kbd "<f10> t") (lambda() (interactive) (find-file "d:/TCMD/wincmd.ini"))))
+
 (define-key global-map (kbd "<f10> u") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-util.el"))))
+(define-key global-map (kbd "<f10> U") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-ui.el"))))
+
+(defvar vimp-dir "~/vimperator")
+(define-key global-map (kbd "<f10> v 1") (lambda() (interactive) (dired vimp-dir)))
+(define-key global-map (kbd "<f10> v 2") (lambda() (interactive) (dired (concat vimp-dir "/colors"))))
+(define-key global-map (kbd "<f10> v 3") (lambda() (interactive) (dired (concat vimp-dir "/plugin"))))
+(define-key global-map (kbd "<f10> v 4") (lambda() (interactive) (dired (concat vimp-dir "/info"))))
+(define-key global-map (kbd "<f10> v d") (lambda() (interactive) (find-file "~/.vimperatorrc")))
+(define-key global-map (kbd "<f10> v i") (lambda() (interactive) (find-file (concat vimp-dir "/lch-init.vimp"))))
+(define-key global-map (kbd "<f10> v k") (lambda() (interactive) (find-file (concat vimp-dir "/lch-key.vimp"))))
+(define-key global-map (kbd "<f10> v p") (lambda() (interactive) (find-file (concat vimp-dir "/lch-plugin.vimp"))))
+(define-key global-map (kbd "<f10> v u") (lambda() (interactive) (find-file (concat vimp-dir "/lch-ui.vimp"))))
+(define-key global-map (kbd "<f10> v U") (lambda() (interactive) (find-file (concat vimp-dir "/lch-util.vimp"))))
+
+(define-key global-map (kbd "<f10> w") (lambda() (interactive) (find-file (concat emacs-dir "/rc/lch-web.el"))))
 
 ;; One-key-menu-conf
 (defvar one-key-menu-conf-alist nil

@@ -19,14 +19,17 @@
       (border-color . "Black")
       (cursor-color . "Sienna1")
       (foreground-color . "MistyRose")
+      ;; (foreground-color . "LightSalmon")
       (mouse-color . "MistyRose"))
      (fringe ((t (:background "Black"))))
 
      (region ((t (:background "#454545"))))     
      ;; (region ((t (:background "#5b3338"))))
      (font-lock-builtin-face ((t (:foreground "#3ac70a"))))
+     ;; (font-lock-comment-delimiter-face ((t (:foreground "Orange"))))
+     ;; (font-lock-comment-face ((t (:foreground "Orange"))))
+     (font-lock-comment-face ((t (:foreground "#999988"))))
      (font-lock-comment-delimiter-face ((t (:foreground "#999988"))))
-     (font-lock-comment-face ((t (:foreground "#999988"))))     
      (font-lock-function-name-face ((t (:foreground "YellowGreen"))))     
      (font-lock-keyword-face ((t (:foreground "SlateBlue"))))     
      (font-lock-string-face ((t (:foreground "Orange"))))     
@@ -274,10 +277,10 @@
      (org-special-keyword                  ;关键字
       ((((class color) (min-colors 16) (background dark))
         (:foreground "rosybrown1"))))
-     (org-level-3                          
-      ((t (
-           :inherit outline-3
-                    :foreground "#5b3338"))))
+     ;; (org-level-3                          
+     ;;  ((t (
+     ;;       :inherit outline-3
+     ;;                :foreground "LightGoldenrod"))))
      (org-level-5                          
       ((t (
            :inherit outline-5

@@ -27,8 +27,8 @@
           ))
         ("1" "ACTIVE TODO-#A"
          (
-                                        ;	  (tags "PLAN/ACTIVE" ((org-agenda-overriding-header
-                                        ;		 ";>--------PLAN--------<;")))
+          ;; (tags "PLAN/ACTIVE" ((org-agenda-overriding-header
+          ;; ";>--------PLAN--------<;")))
 	  (tags "#A/ACTIVE|WAITING" ((org-agenda-overriding-header
                                       ";>--------ACTIVE & #A TASKs--------<;")))
 	  (agenda "Week Agenda" ((org-agenda-ndays 12)
@@ -48,15 +48,18 @@
            (tags "#C/ACTIVE")
 	   )
 	  )
- 	 ("3" "RECUR BLOCKS"
+ 	 ("3" "RECUR ACTIVE"
 	  (
 	   (tags "DAILY/ACTIVE")
-	   ;(tags "DUALLY/TOFNSH")
 	   (tags "DUALLY/ACTIVE")
 	   (tags "WEEKLY/ACTIVE")
-	   ;(tags "RECUR/ACTIVE")
+	   ;; (tags "RECUR/ACTIVE")
 	   ))
-	 ("4" "FUN ITEMS" tags "FUN")
+         ("4" "RECUR TOFNSH"
+          (
+           (tags "DAILY|DUALLY|WEEKLY/TOFNSH")
+           ))
+	 ("5" "FUN ITEMS" tags "FUN")
          ("0" .  "MISCITEMS")
 	 ("01" "TODO-#A QUEUE" tags "#A-ACTIVE")
 	 ("02" "TODO-#B/#C/OBT QUEUE" tags "#B|OBTAIN|#C/QUEUE")

@@ -40,7 +40,7 @@
 (require 'lch-elisp)
 (require 'lch-coding)
 (require 'lch-binding)
-(require 'lch-anything)
+;; (require 'lch-anything)
 ;; (require 'lch-one-key)
 ;; (require 'lch-mouse)
 (require 'lch-skeleton)
@@ -64,12 +64,10 @@
 (require 'lch-org-agenda)
 (require 'lch-erc)
 (require 'lch-outline)
-(require 'lch-startup)
 (require 'lch-tramp)
 (if lch-win32-p (require 'lch-w32))
 (if lch-mac-p (require 'lch-mac))
 (if (and lch-mac-p lch-aquamacs-p) (require 'lch-aquamacs))
-
 
 (provide 'lch-conf)
 (message "~~ lch-conf: done.")
